@@ -1,0 +1,17 @@
+# Node Modules
+frontend/node_modules/
+express-backend/node_modules/
+node_modules/
+
+# Environment Files (API keys, etc.)
+frontend/.env
+express-backend/.env
+.env
+
+# Build Folders
+frontend/dist/
+
+# IDE and OS Files
+.DS_Store
+.vscode/
+.idea/
