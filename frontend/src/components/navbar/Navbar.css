@@ -1,0 +1,176 @@
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: #ffffff;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-container {
+  max-width: 1300px;
+  margin: auto;
+  padding: 0 2rem;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ===========================
+   LOGO
+=========================== */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  color: #2563eb;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-main {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.brand-sub {
+  font-size: 0.72rem;
+  color: #64748b;
+  letter-spacing: 0.8px;
+}
+
+/* ===========================
+   MENU
+=========================== */
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-menu a {
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.96rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  color: #2563eb;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.desktop-buttons,
+.mobile-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile-buttons {
+  display: none;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.btn-outline {
+  border: 1.5px solid #2563eb;
+  color: #2563eb;
+}
+
+.btn-outline:hover {
+  background: #2563eb;
+  color: #ffffff !important;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #ffffff !important;
+  border: 1px solid #2563eb;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+.mobile-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #0f172a;
+}
+
+@media (max-width: 900px) {
+  .desktop-buttons {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 78px;
+    left: -100%;
+    width: 100%;
+    background: #ffffff;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.4rem;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .mobile-buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
