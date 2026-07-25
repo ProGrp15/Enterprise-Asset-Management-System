@@ -1,157 +1,91 @@
--- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
---
--- Host: 127.0.0.1    Database: p15_assetflow
--- ------------------------------------------------------
--- Server version	8.0.46
+-- AssetFlow Database Version 1.0 - Sample Data Population (Indian Context - Updated)
+-- Auto-generated script for assetflow_db
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+USE assetflow_db;
 
---
--- Dumping data for table `asset`
---
+-- Insert Roles
+INSERT INTO roles (role_name, description) VALUES
+('SUPER_ADMIN', 'Platform owner who manages multiple companies'),
+('COMPANY_ADMIN', 'Administrator for a specific company'),
+('EMPLOYEE', 'Standard user who requests and uses assets');
 
-LOCK TABLES `asset` WRITE;
-/*!40000 ALTER TABLE `asset` DISABLE KEYS */;
-INSERT INTO `asset` VALUES (1,1,1,1,1,'Dell Latitude 5440','AST-TN-1001','DL5440-SN001','2024-02-15',78500.00,'ALLOCATED'),(2,1,1,1,1,'Dell Latitude 5440','AST-TN-1002','DL5440-SN002','2024-02-15',78500.00,'AVAILABLE'),(3,1,2,1,2,'Dell 24-inch Monitor','AST-TN-1003','DLM24-SN010','2024-03-10',12500.00,'ALLOCATED'),(4,1,3,2,1,'Cisco Catalyst Switch 24-Port','AST-TN-1004','CSC24-SN055','2023-11-20',145000.00,'MAINTENANCE'),(5,2,4,3,3,'Mahindra 575 DI Tractor','AST-GF-2001','MH575-SN021','2023-06-05',650000.00,'ALLOCATED'),(6,2,5,4,3,'Jain Drip Irrigation Kit','AST-GF-2002','JDI-SN044','2024-01-18',45000.00,'AVAILABLE'),(7,3,6,5,5,'Caterpillar 320 Excavator','AST-BR-3001','CAT320-SN012','2022-09-01',4500000.00,'ALLOCATED'),(8,3,7,6,5,'3M Safety Helmet Set (Box of 20)','AST-BR-3002','3MSH-SN099','2024-04-25',18000.00,'AVAILABLE'),(9,3,6,5,6,'Caterpillar Backhoe Loader','AST-BR-3003','CATBH-SN033','2023-03-14',3200000.00,'SCRAPPED');
-/*!40000 ALTER TABLE `asset` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Insert Companies
+INSERT INTO companies (company_name, company_email, company_phone, industry, organization_size, address, city, state, country, postal_code) VALUES
+('TechNova Solutions', 'admin@technova.com', '9876543210', 'IT Services', '100-500', 'Phase 1, Hinjewadi Rajiv Gandhi Infotech Park', 'Pune', 'Maharashtra', 'India', '411057'),
+('Global Logistics', 'contact@globallogistics.com', '9123456780', 'Logistics', '50-100', 'Andheri East, MIDC', 'Mumbai', 'Maharashtra', 'India', '400093');
 
---
--- Dumping data for table `asset_allocation`
---
+-- Insert Departments (Standardized across companies as requested)
+INSERT INTO departments (company_id, department_name, description) VALUES
+(1, 'Engineering', 'Software Development and Testing'),
+(1, 'Human Resources', 'HR and Talent Acquisition'),
+(1, 'IT Support', 'Internal IT and Infrastructure'),
+(2, 'Engineering', 'Software Development and Testing'),
+(2, 'Human Resources', 'HR and Talent Acquisition'),
+(2, 'IT Support', 'Internal IT and Infrastructure');
 
-LOCK TABLES `asset_allocation` WRITE;
-/*!40000 ALTER TABLE `asset_allocation` DISABLE KEYS */;
-INSERT INTO `asset_allocation` VALUES (1,1,3,'2026-01-10',NULL,NULL,'ALLOCATED'),(2,3,4,'2026-02-05',NULL,NULL,'ALLOCATED'),(3,5,6,'2025-07-01',NULL,NULL,'ALLOCATED'),(4,7,8,'2024-09-15',NULL,NULL,'ALLOCATED'),(5,4,5,'2025-12-01','2026-06-01','2026-05-28','RETURNED');
-/*!40000 ALTER TABLE `asset_allocation` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Insert Users (Passwords should be hashed in reality, using dummy strings here)
+-- Super Admin (company_id = NULL, department_id = NULL)
+INSERT INTO users (company_id, department_id, role_id, first_name, last_name, email, password, phone) VALUES
+(NULL, NULL, 1, 'System', 'Admin', 'superadmin@assetflow.in', 'hashed_pw_1', '9999999999');
 
---
--- Dumping data for table `asset_category`
---
+-- Company 1 Admins & Employees
+-- Company Admin (department_id = NULL)
+INSERT INTO users (company_id, department_id, role_id, first_name, last_name, email, password, phone) VALUES
+(1, NULL, 2, 'Aditi', 'Sharma', 'aditi.sharma@technova.com', 'hashed_pw_2', '9876511111');
+-- Employees (department_id required)
+INSERT INTO users (company_id, department_id, role_id, first_name, last_name, email, password, phone) VALUES
+(1, 1, 3, 'Rahul', 'Verma', 'rahul.verma@technova.com', 'hashed_pw_3', '9876522222'),
+(1, 2, 3, 'Priya', 'Patel', 'priya.patel@technova.com', 'hashed_pw_4', '9876533333');
 
-LOCK TABLES `asset_category` WRITE;
-/*!40000 ALTER TABLE `asset_category` DISABLE KEYS */;
-INSERT INTO `asset_category` VALUES (1,1,'Laptops'),(2,1,'Monitors'),(3,1,'Networking Equipment'),(4,2,'Tractors & Machinery'),(5,2,'Irrigation Equipment'),(6,3,'Heavy Machinery'),(7,3,'Safety Equipment');
-/*!40000 ALTER TABLE `asset_category` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Company 2 Admins & Employees
+-- Company Admin (department_id = NULL)
+INSERT INTO users (company_id, department_id, role_id, first_name, last_name, email, password, phone) VALUES
+(2, NULL, 2, 'Vikram', 'Singh', 'vikram.singh@globallogistics.com', 'hashed_pw_5', '9123411111');
+-- Employees (department_id required)
+INSERT INTO users (company_id, department_id, role_id, first_name, last_name, email, password, phone) VALUES
+(2, 4, 3, 'Neha', 'Gupta', 'neha.gupta@globallogistics.com', 'hashed_pw_6', '9123422222'),
+(2, 6, 3, 'Rohan', 'Deshmukh', 'rohan.deshmukh@globallogistics.com', 'hashed_pw_7', '9123433333');
 
---
--- Dumping data for table `asset_request`
---
+-- Insert Vendors
+INSERT INTO vendors (company_id, vendor_name, contact_person, email, phone, address) VALUES
+(1, 'Dell India Pvt Ltd', 'Rajesh Kumar', 'sales.india@dell.com', '1800-425-4026', 'Koramangala, Bengaluru'),
+(1, 'Apple India', 'Sanjay Joshi', 'business.in@apple.com', '1800-425-4646', 'UB City, Bengaluru'),
+(2, 'Lenovo India', 'Amit Desai', 'contact.in@lenovo.com', '1800-419-7555', 'Bandra Kurla Complex, Mumbai');
 
-LOCK TABLES `asset_request` WRITE;
-/*!40000 ALTER TABLE `asset_request` DISABLE KEYS */;
-INSERT INTO `asset_request` VALUES (1,2,3,'2026-06-01','Need a laptop for new project onboarding','APPROVED'),(2,6,7,'2026-06-10','Irrigation kit required for new farm plot','PENDING'),(3,8,9,'2026-06-15','Additional safety helmets needed for new hires','APPROVED'),(4,3,4,'2026-06-18','Monitor required for dual-screen setup','REJECTED');
-/*!40000 ALTER TABLE `asset_request` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Insert Asset Categories
+INSERT INTO asset_categories (company_id, category_name, description) VALUES
+(1, 'Laptops', 'Company issued laptops'),
+(1, 'Monitors', 'External display monitors'),
+(1, 'Mobile Phones', 'Corporate mobile devices'),
+(2, 'Laptops', 'Field agent laptops'),
+(2, 'Tablets', 'Warehouse tracking tablets');
 
---
--- Dumping data for table `audit_log`
---
+-- Insert Assets
+INSERT INTO assets (company_id, category_id, vendor_id, asset_name, asset_tag, serial_number, manufacturer, model, purchase_date, purchase_cost, warranty_expiry, status, remarks) VALUES
+(1, 1, 1, 'Dell XPS 15', 'TN-LAP-001', 'SN-DELL-12345', 'Dell', 'XPS 15 9500', '2023-01-15', 125000.00, '2026-01-15', 'ALLOCATED', 'High performance laptop for engineering'),
+(1, 1, 2, 'MacBook Pro 16', 'TN-LAP-002', 'SN-APP-98765', 'Apple', 'MacBook Pro M2', '2023-06-10', 215000.00, '2026-06-10', 'AVAILABLE', 'Design and iOS dev laptop'),
+(1, 2, 1, 'Dell UltraSharp 27', 'TN-MON-001', 'SN-DELL-MON-111', 'Dell', 'U2720Q', '2023-02-20', 45000.00, '2026-02-20', 'ALLOCATED', '4K Monitor'),
+(2, 5, 3, 'Lenovo Tab P11', 'GL-TAB-001', 'SN-LEN-TAB-001', 'Lenovo', 'Tab P11 Pro', '2024-01-05', 28000.00, '2025-01-05', 'UNDER_REPAIR', 'Used in Bhiwandi warehouse');
 
-LOCK TABLES `audit_log` WRITE;
-/*!40000 ALTER TABLE `audit_log` DISABLE KEYS */;
-INSERT INTO `audit_log` VALUES (1,1,NULL,'LOGIN','Authentication','Super admin Pushkar Chaudhari logged into the system','192.168.1.10','2026-07-03 11:54:51'),(2,2,1,'ASSET_ALLOCATED','Asset Management','Allocated Dell Latitude 5440 to Rohit Verma','192.168.1.22','2026-07-03 11:54:51'),(3,6,5,'ASSET_CREATED','Asset Management','Added new Mahindra 575 DI Tractor to inventory','192.168.2.15','2026-07-03 11:54:51'),(4,8,9,'ASSET_SCRAPPED','Asset Management','Marked Caterpillar Backhoe Loader as scrapped','192.168.3.30','2026-07-03 11:54:51'),(5,1,NULL,'COMPANY_CREATED','Company Management','Onboarded new company BuildRight Constructions','192.168.1.10','2026-07-03 11:54:51');
-/*!40000 ALTER TABLE `audit_log` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Insert Asset Allocations (Allocating TN-LAP-001 to Rahul)
+INSERT INTO asset_allocations (company_id, asset_id, employee_id, allocated_by, allocated_date, allocation_status, remarks) VALUES
+(1, 1, 3, 2, '2023-02-01', 'ACTIVE', 'Initial allocation for Rahul');
 
---
--- Dumping data for table `company`
---
+-- Insert Asset Requests
+INSERT INTO asset_requests (company_id, employee_id, category_id, asset_id, approved_by, request_type, reason, status) VALUES
+(1, 4, 1, NULL, NULL, 'NEW_ASSET', 'Need a laptop for HR onboarding tasks', 'PENDING'),
+(2, 6, NULL, 4, 5, 'REPLACEMENT', 'Tablet screen is cracked, need a replacement', 'APPROVED');
 
-LOCK TABLES `company` WRITE;
-/*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'TechNova Solutions','Information Technology','201-500','contact@technova.com','9876543210'),(2,'GreenField Agro Pvt Ltd','Agriculture','51-200','info@greenfieldagro.com','9123456780'),(3,'BuildRight Constructions','Construction','501-1000','admin@buildright.com','9988776655');
-/*!40000 ALTER TABLE `company` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Insert Service Tickets
+INSERT INTO service_tickets (company_id, asset_id, employee_id, issue_description, priority, status) VALUES
+(2, 4, 6, 'Screen cracked during inventory check', 'HIGH', 'IN_PROGRESS');
 
---
--- Dumping data for table `department`
---
+-- Insert Notifications
+INSERT INTO notifications (company_id, user_id, title, message) VALUES
+(1, 4, 'Asset Request Submitted', 'Your request for a new laptop has been submitted and is pending approval.'),
+(2, 6, 'Ticket Updated', 'Your service ticket for Lenovo Tab P11 has been moved to IN_PROGRESS.');
 
-LOCK TABLES `department` WRITE;
-/*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,1,'Information Technology'),(2,1,'Human Resources'),(3,1,'Finance'),(4,2,'Field Operations'),(5,2,'Sales & Marketing'),(6,3,'Site Engineering'),(7,3,'Procurement');
-/*!40000 ALTER TABLE `department` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `location`
---
-
-LOCK TABLES `location` WRITE;
-/*!40000 ALTER TABLE `location` DISABLE KEYS */;
-INSERT INTO `location` VALUES (1,1,'Pune Head Office'),(2,1,'Bangalore Branch'),(3,2,'Nashik Farm Unit'),(4,2,'Nagpur Warehouse'),(5,3,'Mumbai Site A'),(6,3,'Pune Site B');
-/*!40000 ALTER TABLE `location` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `maintenance`
---
-
-LOCK TABLES `maintenance` WRITE;
-/*!40000 ALTER TABLE `maintenance` DISABLE KEYS */;
-INSERT INTO `maintenance` VALUES (1,4,2,'2026-06-20',3500.00,'Firmware upgrade and port diagnostics','IN_PROGRESS'),(2,7,5,'2026-05-10',25000.00,'Hydraulic system routine service','COMPLETED'),(3,9,5,'2025-11-01',12000.00,'Engine inspection before decommission','COMPLETED'),(4,1,1,'2026-07-01',0.00,'Warranty checkup and battery health scan','SCHEDULED');
-/*!40000 ALTER TABLE `maintenance` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `notification`
---
-
-LOCK TABLES `notification` WRITE;
-/*!40000 ALTER TABLE `notification` DISABLE KEYS */;
-INSERT INTO `notification` VALUES (1,1,NULL,'Welcome to AssetFlow','Hello Pushkar, your SUPER_ADMIN account has been set up successfully.',1,'2026-07-03 11:54:51'),(2,3,1,'Asset Allocated','Dell Latitude 5440 (AST-TN-1001) has been allocated to you.',1,'2026-07-03 11:54:51'),(3,7,6,'Request Pending','Your request for Jain Drip Irrigation Kit is pending approval.',0,'2026-07-03 11:54:51'),(4,9,8,'Request Approved','Your request for additional safety helmets has been approved.',0,'2026-07-03 11:54:51'),(5,4,4,'Maintenance Scheduled','Cisco Catalyst Switch is currently under maintenance.',0,'2026-07-03 11:54:51');
-/*!40000 ALTER TABLE `notification` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `purchase_order`
---
-
-LOCK TABLES `purchase_order` WRITE;
-/*!40000 ALTER TABLE `purchase_order` DISABLE KEYS */;
-INSERT INTO `purchase_order` VALUES (1,1,1,'2024-02-01',157000.00,'DELIVERED'),(2,1,2,'2023-11-05',145000.00,'DELIVERED'),(3,2,3,'2023-05-20',650000.00,'DELIVERED'),(4,2,4,'2026-06-25',45000.00,'PENDING'),(5,3,5,'2026-06-28',4500000.00,'APPROVED');
-/*!40000 ALTER TABLE `purchase_order` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,NULL,NULL,'Pushkar Chaudhari','pushkar.chaudhari@assetflow.com','hashed_password_superadmin','SUPER_ADMIN'),(2,1,1,'Ananya Sharma','ananya.sharma@technova.com','hashed_password_001','COMPANY_ADMIN'),(3,1,1,'Rohit Verma','rohit.verma@technova.com','hashed_password_002','EMPLOYEE'),(4,1,2,'Priya Iyer','priya.iyer@technova.com','hashed_password_003','EMPLOYEE'),(5,1,3,'Karan Mehta','karan.mehta@technova.com','hashed_password_004','EMPLOYEE'),(6,2,4,'Suresh Patil','suresh.patil@greenfieldagro.com','hashed_password_005','COMPANY_ADMIN'),(7,2,5,'Neha Deshmukh','neha.deshmukh@greenfieldagro.com','hashed_password_006','EMPLOYEE'),(8,3,6,'Vikram Singh','vikram.singh@buildright.com','hashed_password_007','COMPANY_ADMIN'),(9,3,7,'Arjun Nair','arjun.nair@buildright.com','hashed_password_008','EMPLOYEE');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `vendor`
---
-
-LOCK TABLES `vendor` WRITE;
-/*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
-INSERT INTO `vendor` VALUES (1,1,'Dell Technologies','sales@dell.com','18002024260'),(2,1,'Cisco Systems India','support@cisco.com','18004257788'),(3,2,'Mahindra Agri Equipment','sales@mahindraagri.com','18001021555'),(4,2,'Jain Irrigation Systems','contact@jains.com','18002333444'),(5,3,'Caterpillar India','info@caterpillar.com','18003094567'),(6,3,'3M Safety India','safety@3m.com','18002099887');
-/*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2026-07-03 17:25:24
+-- Insert Audit Logs
+INSERT INTO audit_logs (company_id, user_id, module, action, entity_id, description, ip_address) VALUES
+(1, 2, 'Assets', 'CREATE_ASSET', 1, 'Added Dell XPS 15 to inventory', '192.168.1.100'),
+(2, 5, 'Service_Tickets', 'UPDATE_TICKET', 1, 'Changed ticket status to IN_PROGRESS', '192.168.1.101');
