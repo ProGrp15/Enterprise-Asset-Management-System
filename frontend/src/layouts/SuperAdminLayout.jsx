@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import SuperAdminSidebar from "../components/sidebar/SuperAdminSidebar";
+import AppShell from '../components/layout/AppShell';
 import { logout } from "../store/authSlice";
 
 const SuperAdminLayout = ({ children }) => {
@@ -14,23 +14,7 @@ const SuperAdminLayout = ({ children }) => {
     navigate("/login", { replace: true });
   };
 
-  return (
-    <div className="app-layout bg-light">
-      <SuperAdminSidebar />
-      <main className="app-main">
-        <header className="app-topbar bg-white border-bottom">
-          <div>
-            <div className="fw-semibold">{user?.fullName || "Super Admin"}</div>
-            <small className="text-secondary">{user?.email}</small>
-          </div>
-          <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
-            Logout
-          </button>
-        </header>
-        <div className="app-content">{children}</div>
-      </main>
-    </div>
-  );
+  return <AppShell role="super">{children}</AppShell>;
 };
 
 export default SuperAdminLayout;

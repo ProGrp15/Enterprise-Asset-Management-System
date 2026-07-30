@@ -1,104 +1,58 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaBuilding, FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaBuilding, FaMoon, FaSun, FaTimes } from "react-icons/fa";
+import { useThemeContext } from "../../context/ThemeContext";
 
-const Navbar = () => {
+const navItems = [
+  { label: "Home", to: "/" },
+  { label: "Features", to: "/#features" },
+  { label: "About", to: "/about" },
+  { label: "Contact", to: "/contact" },
+];
+
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme } = useThemeContext();
 
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3"
-      style={{ zIndex: "1000" }}
-    >
+    <nav className="navbar navbar-expand-lg sticky-top marketing-nav">
       <div className="container">
-
-        {/* Logo */}
-        <NavLink
-          className="navbar-brand d-flex align-items-center"
-          to="/"
-        >
-          <FaBuilding
-            className="me-2"
-            style={{ color: "#0d6efd", fontSize: "28px" }}
-          />
-          <div>
-            <div
-              style={{
-                fontWeight: "700",
-                fontSize: "22px",
-                color: "#1e293b",
-                lineHeight: "20px",
-              }}
-            >
-              AssetFlow
-            </div>
-            <small
-              style={{
-                color: "#64748b",
-                fontSize: "11px",
-                letterSpacing: "1px",
-              }}
-            >
-              ENTERPRISE SAAS
-            </small>
-          </div>
+        <NavLink className="navbar-brand d-flex align-items-center gap-2" to="/">
+          <span className="brand-mark">
+            <FaBuilding />
+          </span>
+          <span className="brand-name">AssetFlow</span>
         </NavLink>
 
-        {/* Mobile Toggle */}
         <button
           className="navbar-toggler border-0 shadow-none"
           type="button"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen((value) => !value)}
+          aria-label="Toggle navigation"
         >
           {isOpen ? <FaTimes /> : <FaBars />}
         </button>
 
-        {/* Navbar Menu */}
-        <div
-          className={`collapse navbar-collapse ${
-            isOpen ? "show" : ""
-          }`}
-        >
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-
-            <li className="nav-item mx-2">
-              <NavLink className="nav-link fw-semibold" to="/">
-                Home
-              </NavLink>
-            </li>
-
-            <li className="nav-item mx-2">
-              <NavLink className="nav-link fw-semibold" to="/about">
-                About
-              </NavLink>
-            </li>
-
-            <li className="nav-item mx-2">
-              <NavLink className="nav-link fw-semibold" to="/pricing">
-                Pricing
-              </NavLink>
-            </li>
-
-            <li className="nav-item mx-2">
-              <NavLink className="nav-link fw-semibold" to="/contact">
-                Contact
-              </NavLink>
-            </li>
+        <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}>
+          <ul className="navbar-nav mx-auto mb-3 mb-lg-0 align-items-lg-center gap-lg-1">
+            {navItems.map((item) => (
+              <li className="nav-item" key={item.label}>
+                <NavLink className="nav-link" to={item.to} onClick={() => setIsOpen(false)}>
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
           </ul>
 
-          {/* Right Buttons */}
-          <div className="d-flex gap-2">
-            <NavLink
-              to="/login"
-              className="btn btn-outline-primary px-4"
-            >
+          <div className="d-flex flex-column flex-lg-row gap-2 align-items-stretch align-items-lg-center">
+            <button className="btn btn-ghost" onClick={toggleTheme} type="button" aria-label="Toggle theme">
+              {theme === "dark" ? <FaSun className="me-2" /> : <FaMoon className="me-2" />}
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </button>
+            <NavLink to="/login" className="btn btn-outline-primary">
               Login
             </NavLink>
-
-            <NavLink
-              to="/register-company"
-              className="btn btn-primary px-4"
-            >
+            <NavLink to="/register-company" className="btn btn-primary">
               Register Company
             </NavLink>
           </div>
@@ -106,6 +60,4 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}
