@@ -1,67 +1,74 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { FaArrowLeft, FaKey } from "react-icons/fa";
+import { getApiErrorMessage, resetPassword } from "../../services/authService";
 
-const ResetPassword = () => {
+export default function ResetPassword() {
+  const [p, setP] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [error, setError] = useState("");
+  const [done, setDone] = useState(false);
+  const [params] = useSearchParams();
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (p !== confirm) {
+      setError("Passwords do not match.");
+      return;
+    }
+    setError("");
+    try {
+      await resetPassword({ token: params.get("token"), password: p });
+      setDone(true);
+    } catch (err) {
+      setError(getApiErrorMessage(err));
+    }
+  };
+
   return (
-    <div className="container-fluid bg-light min-vh-100 d-flex align-items-center">
-      <div className="container">
-        <div className="row justify-content-center">
-
-          <div className="col-lg-5">
-            <div className="card shadow border-0">
-              <div className="card-body p-5">
-
-                <h2 className="fw-bold text-center mb-3">
-                  Reset Password
-                </h2>
-
-                <p className="text-center text-secondary mb-4">
-                  Create a new password for your account.
-                </p>
-
-                <form>
-
-                  <div className="mb-3">
-                    <label className="form-label">
-                      New Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      placeholder="Enter new password"
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label">
-                      Confirm Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      placeholder="Confirm new password"
-                    />
-                  </div>
-
-                  <button className="btn btn-primary w-100">
-                    Reset Password
-                  </button>
-
-                </form>
-
-                <div className="text-center mt-4">
-                  <Link to="/login">
-                    Back to Login
-                  </Link>
-                </div>
-
-              </div>
+    <div className="auth-shell">
+      <div className="auth-card p-4 p-md-5" style={{ maxWidth: 540 }}>
+        <div className="text-center mx-auto" style={{ maxWidth: 380 }}>
+          <span className="empty-icon">
+            <FaKey />
+          </span>
+          <div className="eyebrow mt-4">Secure account</div>
+          <h2>Create a new password</h2>
+          <p className="muted">Use a strong password with at least 8 characters.</p>
+          {error && <div className="alert alert-danger text-start">{error}</div>}
+          {done ? (
+            <div className="alert alert-success text-start">
+              Your password has been updated. You can now log in again.
             </div>
-          </div>
-
+          ) : (
+            <form className="text-start" onSubmit={submit}>
+              <label className="form-label fw-semibold">New password</label>
+              <input
+                className="form-control mb-3"
+                type="password"
+                required
+                minLength="8"
+                value={p}
+                onChange={(e) => setP(e.target.value)}
+              />
+              <label className="form-label fw-semibold">Confirm password</label>
+              <input
+                className="form-control mb-3"
+                type="password"
+                required
+                minLength="8"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+              />
+              <button className="btn btn-primary w-100">Reset password</button>
+            </form>
+          )}
+          <Link className="d-inline-block mt-4 text-primary fw-bold" to="/login">
+            <FaArrowLeft className="me-2" />
+            Back to Login
+          </Link>
         </div>
       </div>
     </div>
   );
-};
-
-export default ResetPassword;
+}
