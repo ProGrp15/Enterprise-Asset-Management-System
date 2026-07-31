@@ -575,6 +575,48 @@ CREATE TABLE notifications (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS purchase_orders (
+    purchase_order_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    company_id BIGINT NOT NULL,
+    vendor_id BIGINT NOT NULL,
+    order_number VARCHAR(80) NOT NULL UNIQUE,
+    order_date DATE NOT NULL,
+    expected_delivery_date DATE NULL,
+    total_amount DECIMAL(12,2) NOT NULL DEFAULT 0,
+    status VARCHAR(30) NOT NULL,
+    remarks TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_purchase_orders_company FOREIGN KEY (company_id) REFERENCES companies(company_id) ON DELETE CASCADE,
+    CONSTRAINT fk_purchase_orders_vendor FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id)
+);
+
+CREATE TABLE IF NOT EXISTS locations (
+    location_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    company_id BIGINT NOT NULL,
+    location_name VARCHAR(120) NOT NULL,
+    address TEXT NULL,
+    city VARCHAR(100) NULL,
+    state VARCHAR(100) NULL,
+    country VARCHAR(100) NULL,
+    postal_code VARCHAR(15) NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_locations_company FOREIGN KEY (company_id) REFERENCES companies(company_id) ON DELETE CASCADE,
+    CONSTRAINT uq_location_company_name UNIQUE (company_id, location_name)
+);
+
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    token_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    token_hash VARCHAR(255) NOT NULL UNIQUE,
+    expires_at TIMESTAMP NOT NULL,
+    consumed_at TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_password_reset_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
 -- 12. audit_logs
 CREATE TABLE audit_logs (
     audit_id BIGINT AUTO_INCREMENT PRIMARY KEY,
