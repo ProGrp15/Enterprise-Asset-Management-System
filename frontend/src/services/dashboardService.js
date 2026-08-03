@@ -1,17 +1,18 @@
 import { employees, departments } from "./companyService";
 import { assets, requests, maintenance, purchaseOrders } from "./assetService";
+import { getNotificationDashboard } from "./notificationService";
 
 const safe = (promise) => promise.catch(() => []);
 const list = (value) => Array.isArray(value) ? value : (value?.content || value?.items || []);
 
 export const getCompanyAdminDashboard = async () => {
-  const [assetData, employeeData, departmentData, requestData, maintenanceData, purchaseData] = await Promise.all([
+  const [assetData, employeeData, departmentData, requestData, maintenanceData, purchaseData, notificationData] = await Promise.all([
     safe(assets.list()), safe(employees.list()), safe(departments.list()), safe(requests.list()),
-    safe(maintenance.list()), safe(purchaseOrders.list()),
+    safe(maintenance.list()), safe(purchaseOrders.list()), safe(getNotificationDashboard()),
   ]);
   return {
     assets: list(assetData), employees: list(employeeData), departments: list(departmentData),
-    requests: list(requestData), maintenance: list(maintenanceData), purchaseOrders: list(purchaseData),
+    requests: list(requestData), maintenance: list(maintenanceData), purchaseOrders: list(purchaseData), notifications: notificationData || {},
   };
 };
 

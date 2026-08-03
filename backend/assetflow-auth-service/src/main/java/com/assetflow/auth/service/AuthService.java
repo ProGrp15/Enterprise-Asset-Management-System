@@ -126,6 +126,15 @@ public class AuthService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found")));
 	}
 
+	@Transactional
+	public void changePassword(String email, ChangePassword request) {
+		User user = users.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+		if (!encoder.matches(request.currentPassword(), user.getPassword()))
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Current password is incorrect");
+		user.setPassword(encoder.encode(request.newPassword()));
+		users.save(user);
+	}
+
 	private AuthView view(User u) {
 		Company c = u.getCompany();
 		String role = u.getRole().getName();

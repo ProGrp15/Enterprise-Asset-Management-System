@@ -70,6 +70,13 @@ export const resetPassword = async (payload) => {
   return response.data;
 };
 
+export const refreshToken = async (token) => {
+  const response = await API.post('/auth/refresh-token', { refreshToken: token });
+  return normalizeAuthResponse(response.data);
+};
+export const changePassword = async (payload) => (await API.post('/auth/change-password', payload)).data;
+export const logout = async () => (await API.post('/auth/logout')).data;
+
 export const getApiErrorMessage = (error) => {
   if (!error) return "Something went wrong.";
   if (error.code === "ECONNABORTED") return "The request timed out. Please try again.";

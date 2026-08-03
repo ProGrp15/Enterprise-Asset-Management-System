@@ -35,6 +35,10 @@ public class CompanyController {
 			Authentication a) {
 		return ApiResponse.ok(service.create(type, company(a), b));
 	}
+	@PutMapping("/api/{type:department|employee|admin|location}/{id}")
+	public ApiResponse<Map<String,Object>> update(@PathVariable String type, @PathVariable Long id, @RequestBody Map<String,Object> b, Authentication a) {
+		return ApiResponse.ok(service.update(type, company(a), id, b));
+	}
 
 	@DeleteMapping("/api/{type:department|employee|admin|location}/{id}")
 	public ApiResponse<Void> remove(@PathVariable String type, @PathVariable Long id, Authentication a) {
