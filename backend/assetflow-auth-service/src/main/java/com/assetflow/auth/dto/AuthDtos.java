@@ -24,6 +24,8 @@ public final class AuthDtos {
 
 	public record Refresh(@NotBlank String refreshToken) {
 	}
+	public record ChangePassword(@NotBlank String currentPassword, @Size(min = 8) String newPassword) {
+	}
 
 	public record UserView(Long id, String name, String email, String role, String department) {
 	}

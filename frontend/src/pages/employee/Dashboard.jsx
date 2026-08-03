@@ -38,26 +38,26 @@ const Dashboard = () => {
 
       <div className="row g-3 mb-4">
         <div className="col-md-4">
-          <div className="bg-white border rounded p-4">
+          <div className="surface p-4">
             <div className="text-secondary">Assigned Assets</div>
             <div className="display-6 fw-bold">{stats.assignedAssets ?? 0}</div>
           </div>
         </div>
         <div className="col-md-4">
-          <div className="bg-white border rounded p-4">
+          <div className="surface p-4">
             <div className="text-secondary">Open Requests</div>
             <div className="display-6 fw-bold">{stats.openRequests ?? 0}</div>
           </div>
         </div>
         <div className="col-md-4">
-          <div className="bg-white border rounded p-4">
+          <div className="surface p-4">
             <div className="text-secondary">Notifications</div>
             <div className="display-6 fw-bold">{stats.notifications ?? 0}</div>
           </div>
         </div>
       </div>
 
-      <section className="bg-white border rounded p-4">
+      <section className="surface p-4">
         <h2 className="h5 fw-semibold mb-3">My Login Details</h2>
         <div className="row g-3">
           <div className="col-md-6">

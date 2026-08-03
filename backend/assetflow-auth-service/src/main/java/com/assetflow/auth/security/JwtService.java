@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Collection;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,11 +30,16 @@ public class JwtService {
 	}
 
 	public String issue(Long userId, Long companyId, String role, String email, boolean refresh) {
+		return issue(userId, companyId, role, email, refresh, java.util.List.of());
+	}
+
+	public String issue(Long userId, Long companyId, String role, String email, boolean refresh, Collection<String> permissions) {
 		Map<String, Object> claims = new LinkedHashMap<>();
 		claims.put("sub", String.valueOf(userId));
 		claims.put("companyId", companyId);
 		claims.put("role", role);
 		claims.put("email", email);
+		claims.put("permissions", permissions == null ? java.util.List.of() : permissions);
 		claims.put("type", refresh ? "refresh" : "access");
 		claims.put("iat", Instant.now().getEpochSecond());
 		claims.put("exp", Instant.now().plusSeconds((refresh ? refreshDays * 24 * 60 : accessMinutes) * 60).getEpochSecond());

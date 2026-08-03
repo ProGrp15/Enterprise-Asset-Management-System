@@ -34,32 +34,32 @@ const Dashboard = () => {
 
       <div className="row g-3 mb-4">
         <div className="col-md-3">
-          <div className="bg-white border rounded p-4">
+          <div className="surface p-4">
             <div className="text-secondary">Companies</div>
             <div className="display-6 fw-bold">{stats.companies ?? 0}</div>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="bg-white border rounded p-4">
+          <div className="surface p-4">
             <div className="text-secondary">Users</div>
             <div className="display-6 fw-bold">{stats.users ?? 0}</div>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="bg-white border rounded p-4">
+          <div className="surface p-4">
             <div className="text-secondary">Assets</div>
             <div className="display-6 fw-bold">{stats.assets ?? 0}</div>
           </div>
         </div>
         <div className="col-md-3">
-          <div className="bg-white border rounded p-4">
+          <div className="surface p-4">
             <div className="text-secondary">Subscriptions</div>
             <div className="display-6 fw-bold">{stats.subscriptions ?? 0}</div>
           </div>
         </div>
       </div>
 
-      <section className="bg-white border rounded p-4">
+      <section className="surface p-4">
         <h2 className="h5 fw-semibold mb-3">Recent Companies</h2>
         <div className="table-responsive">
           <table className="table table-hover align-middle">
@@ -74,10 +74,10 @@ const Dashboard = () => {
             </thead>
             <tbody>
               {(dashboard?.companies || []).map((company) => (
-                <tr key={company.company_id}>
-                  <td>{company.company_id}</td>
-                  <td>{company.company_name}</td>
-                  <td>{company.official_email}</td>
+                <tr key={company.id || company.company_id}>
+                  <td>{company.id || company.company_id}</td>
+                  <td>{company.name || company.company_name}</td>
+                  <td>{company.email || company.official_email}</td>
                   <td>{company.industry || "-"}</td>
                   <td>{company.company_size || "-"}</td>
                 </tr>

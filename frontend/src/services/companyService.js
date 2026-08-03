@@ -8,11 +8,15 @@ const resource = (name) => ({
   update: async (id, body) => unwrap(await COMPANY_API.put(`/api/${name}/${id}`, body)),
   remove: async (id) => unwrap(await COMPANY_API.delete(`/api/${name}/${id}`)),
 });
+const employeeImport = async (rows) => unwrap(await COMPANY_API.post('/api/employee/import', rows));
 
 export const departments = resource("department");
-export const employees = resource("employee");
+export const employees = {...resource("employee"), importRows: employeeImport};
 export const admins = resource("admin");
 export const locations = resource("location");
+export const buildings = resource("building");
+export const floors = resource("floor");
+export const rooms = resource("room");
 export const getDepartments = (params) => departments.list(params);
 export const createDepartment = departments.create;
 export const getEmployees = (params) => employees.list(params);

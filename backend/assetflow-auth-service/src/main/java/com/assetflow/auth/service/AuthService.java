@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @Service
 public class AuthService {
@@ -26,16 +27,20 @@ public class AuthService {
 	private final AuthenticationManager authenticationManager;
 	private final PasswordEncoder encoder;
 	private final JwtService jwt;
+	private final JdbcTemplate db;
+	private final PasswordEmailService passwordEmail;
 
 	public AuthService(CompanyRepository c, UserRepository u, PasswordResetTokenRepository resetTokens,
-			RoleRepository roles, AuthenticationManager authenticationManager, PasswordEncoder e, JwtService j) {
+			RoleRepository roles, AuthenticationManager authenticationManager, PasswordEncoder e, JwtService j, JdbcTemplate db, PasswordEmailService passwordEmail) {
 		companies = c;
 		users = u;
 		this.roles = roles;
 		this.resetTokens = resetTokens;
 		this.authenticationManager = authenticationManager;
 		encoder = e;
-		jwt = j;
+			jwt = j;
+			this.db = db;
+			this.passwordEmail = passwordEmail;
 	}
 
 	@Transactional
@@ -77,7 +82,7 @@ public class AuthService {
 		}
 		User u = users.findByEmail(r.email())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password"));
-		if (!Boolean.TRUE.equals(u.getActive()))
+		if (!Boolean.TRUE.equals(u.getActive()) || (u.getCompany() != null && !Boolean.TRUE.equals(u.getCompany().getActive())))
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
 		return view(u);
 	}
@@ -91,6 +96,7 @@ public class AuthService {
 			token.setTokenHash(hash(raw));
 			token.setExpiresAt(Instant.now().plus(15, ChronoUnit.MINUTES));
 			resetTokens.save(token);
+			passwordEmail.send(u.getEmail(), raw);
 			return raw;
 		}).orElse(null);
 	}
@@ -126,11 +132,21 @@ public class AuthService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found")));
 	}
 
+	@Transactional
+	public void changePassword(String email, ChangePassword request) {
+		User user = users.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+		if (!encoder.matches(request.currentPassword(), user.getPassword()))
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Current password is incorrect");
+		user.setPassword(encoder.encode(request.newPassword()));
+		users.save(user);
+	}
+
 	private AuthView view(User u) {
 		Company c = u.getCompany();
 		String role = u.getRole().getName();
-		return new AuthView(jwt.issue(u.getId(), c.getId(), role, u.getEmail(), false),
-				jwt.issue(u.getId(), c.getId(), role, u.getEmail(), true),
+		List<String> permissions = db.queryForList("select p.permission_key from permissions p join role_permissions rp on rp.permission_id=p.permission_id where rp.role_id=? order by p.permission_key", String.class, u.getRole().getId());
+		return new AuthView(jwt.issue(u.getId(), c.getId(), role, u.getEmail(), false, permissions),
+				jwt.issue(u.getId(), c.getId(), role, u.getEmail(), true, permissions),
 				new UserView(u.getId(), u.getFirstName() + " " + u.getLastName(), u.getEmail(), role,
 						u.getDepartment() != null ? u.getDepartment().getName() : null),
 				new CompanyView(c.getId(), c.getName(), c.getEmail()), List.of("workspace:read"));

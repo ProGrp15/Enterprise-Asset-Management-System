@@ -47,4 +47,15 @@ public class AuthController {
 	public ApiResponse<AuthView> profile(Authentication auth) {
 		return ApiResponse.ok(service.profile(auth.getName()));
 	}
+
+	@PostMapping("/change-password")
+	public ApiResponse<Void> changePassword(@Valid @RequestBody ChangePassword body, Authentication auth) {
+		service.changePassword(auth.getName(), body);
+		return ApiResponse.message("Password changed successfully.");
+	}
+
+	@PostMapping("/logout")
+	public ApiResponse<Void> logout() {
+		return ApiResponse.message("Signed out successfully.");
+	}
 }

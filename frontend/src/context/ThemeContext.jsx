@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const ThemeContext = createContext(null);
@@ -7,6 +8,7 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    document.documentElement.setAttribute('data-bs-theme', theme);
     document.body.dataset.theme = theme;
     document.body.classList.toggle("theme-dark", theme === "dark");
     document.body.classList.toggle("theme-light", theme === "light");

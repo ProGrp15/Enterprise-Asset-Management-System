@@ -39,7 +39,7 @@ const plans = [
 
 const Pricing = () => {
   return (
-    <section className="py-5 bg-light">
+    <section className="section bg-surface">
       <div className="container">
 
         <div className="text-center mb-5">

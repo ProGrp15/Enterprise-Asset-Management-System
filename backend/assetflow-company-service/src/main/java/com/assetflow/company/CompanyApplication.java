@@ -1,0 +1,11 @@
+package com.assetflow.company;
+
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+
+@SpringBootApplication
+public class CompanyApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(CompanyApplication.class, args);
+	}
+}

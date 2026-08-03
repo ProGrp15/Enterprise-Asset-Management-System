@@ -1,7 +1,7 @@
-const DashboardCard = ({ title, children }) => {
+const DashboardCard = ({ title, children, className = "" }) => {
   return (
-    <section className="bg-white border rounded p-4 h-100">
-      {title && <h2 className="h5 fw-semibold mb-3">{title}</h2>}
+    <section className={`surface h-100 ${className}`}>
+      {title && <h2 className="h5 fw-bold mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>{title}</h2>}
       {children}
     </section>
   );

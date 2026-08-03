@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   FaEnvelope,
   FaPhoneAlt,
@@ -5,8 +6,21 @@ import {
 } from "react-icons/fa";
 
 const Contact = () => {
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const submit = (event) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    if (!form.get("name") || !form.get("email") || !form.get("message")) {
+      setError("Please complete your name, email, and message.");
+      return;
+    }
+    setError("");
+    setSent(true);
+    event.currentTarget.reset();
+  };
   return (
-    <section className="py-5 bg-light">
+    <section className="section bg-surface">
       <div className="container">
 
         <div className="text-center mb-5">
@@ -25,12 +39,16 @@ const Contact = () => {
 
                 <h3 className="mb-4">Send Us a Message</h3>
 
-                <form>
+                {error && <div className="alert alert-danger">{error}</div>}
+                {sent && <div className="alert alert-success">Thanks — your message has been queued for the AssetFlow team.</div>}
+                <form onSubmit={submit}>
                   <div className="row">
                     <div className="col-md-6 mb-3">
                       <label className="form-label">Full Name</label>
                       <input
                         type="text"
+                        name="name"
+                        required
                         className="form-control"
                         placeholder="Enter your name"
                       />
@@ -40,6 +58,8 @@ const Contact = () => {
                       <label className="form-label">Email</label>
                       <input
                         type="email"
+                        name="email"
+                        required
                         className="form-control"
                         placeholder="Enter your email"
                       />
@@ -50,6 +70,7 @@ const Contact = () => {
                     <label className="form-label">Subject</label>
                     <input
                       type="text"
+                      name="subject"
                       className="form-control"
                       placeholder="Enter subject"
                     />
@@ -59,12 +80,14 @@ const Contact = () => {
                     <label className="form-label">Message</label>
                     <textarea
                       rows="5"
+                      name="message"
+                      required
                       className="form-control"
                       placeholder="Write your message..."
                     ></textarea>
                   </div>
 
-                  <button className="btn btn-primary px-4">
+                  <button type="submit" className="btn btn-primary px-4">
                     Send Message
                   </button>
                 </form>

@@ -1,0 +1,5 @@
+com\assetflow\gateway\GatewayApplication.class
+com\assetflow\gateway\security\JwtAuthenticationFilter.class
+com\assetflow\gateway\config\GatewayRoutes.class
+com\assetflow\gateway\security\GatewaySecurityConfig.class
+com\assetflow\gateway\config\CorsConfig.class
