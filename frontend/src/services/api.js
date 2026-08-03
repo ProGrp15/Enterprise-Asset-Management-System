@@ -37,6 +37,8 @@ API.interceptors.response.use(
       original._retry = true;
       try {
         const refreshed = await axios.post(`${import.meta.env.VITE_AUTH_API_BASE_URL || 'http://localhost:8080/api'}/auth/refresh-token`, { refreshToken: localStorage.getItem('refreshToken') });
+=======
+        const refreshed = await axios.post(`${import.meta.env.VITE_AUTH_API_BASE_URL || 'http://localhost:8081/api'}/auth/refresh-token`, { refreshToken: localStorage.getItem('refreshToken') });
         const data = refreshed.data?.data || refreshed.data;
         localStorage.setItem('token', data.accessToken || data.token);
         if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
@@ -72,6 +74,8 @@ const attachInterceptors = (client) => {
       original._retry = true;
       try {
         const refreshed = await axios.post(`${import.meta.env.VITE_AUTH_API_BASE_URL || 'http://localhost:8080/api'}/auth/refresh-token`, { refreshToken: localStorage.getItem('refreshToken') });
+=======
+        const refreshed = await axios.post(`${import.meta.env.VITE_AUTH_API_BASE_URL || 'http://localhost:8081/api'}/auth/refresh-token`, { refreshToken: localStorage.getItem('refreshToken') });
         const data = refreshed.data?.data || refreshed.data;
         localStorage.setItem('token', data.accessToken || data.token);
         if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
@@ -97,6 +101,9 @@ export const ASSET_API = attachInterceptors(createServiceClient(
 ));
 export const NOTIFICATION_API = attachInterceptors(createServiceClient(
   "VITE_NOTIFICATION_API_BASE_URL", "http://localhost:8080"
+));
+export const NOTIFICATION_API = attachInterceptors(createServiceClient(
+  "VITE_NOTIFICATION_API_BASE_URL", "http://localhost:8084"
 ));
 
 export default API;
