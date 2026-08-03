@@ -31,10 +31,22 @@ API.interceptors.request.use((config) => {
 
 API.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    const original = error.config || {};
+    if (error.response?.status === 401 && !original._retry && !original.url?.includes('/auth/refresh-token') && localStorage.getItem('refreshToken')) {
+      original._retry = true;
+      try {
+        const refreshed = await axios.post(`${import.meta.env.VITE_AUTH_API_BASE_URL || 'http://localhost:8081/api'}/auth/refresh-token`, { refreshToken: localStorage.getItem('refreshToken') });
+        const data = refreshed.data?.data || refreshed.data;
+        localStorage.setItem('token', data.accessToken || data.token);
+        if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
+        original.headers.Authorization = `Bearer ${data.accessToken || data.token}`;
+        return API(original);
+      } catch { /* fall through to session expiry */ }
+    }
     if (
       error.response?.status === 401 &&
-      !error.config?.url?.includes("/auth/login")
+      !original.url?.includes("/auth/login")
     ) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
@@ -54,7 +66,19 @@ const attachInterceptors = (client) => {
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   });
-  client.interceptors.response.use((response) => response, (error) => {
+  client.interceptors.response.use((response) => response, async (error) => {
+    const original = error.config || {};
+    if (error.response?.status === 401 && !original._retry && localStorage.getItem('refreshToken')) {
+      original._retry = true;
+      try {
+        const refreshed = await axios.post(`${import.meta.env.VITE_AUTH_API_BASE_URL || 'http://localhost:8081/api'}/auth/refresh-token`, { refreshToken: localStorage.getItem('refreshToken') });
+        const data = refreshed.data?.data || refreshed.data;
+        localStorage.setItem('token', data.accessToken || data.token);
+        if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
+        original.headers.Authorization = `Bearer ${data.accessToken || data.token}`;
+        return client(original);
+      } catch { /* expire session below */ }
+    }
     if (error.response?.status === 401 && window.location.pathname !== "/login") {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
@@ -70,6 +94,9 @@ export const COMPANY_API = attachInterceptors(createServiceClient(
 ));
 export const ASSET_API = attachInterceptors(createServiceClient(
   "VITE_ASSET_API_BASE_URL", "http://localhost:8083"
+));
+export const NOTIFICATION_API = attachInterceptors(createServiceClient(
+  "VITE_NOTIFICATION_API_BASE_URL", "http://localhost:8084"
 ));
 
 export default API;
