@@ -1,11 +1,4 @@
-const ChangePassword = () => (
-  <div>
-    <h1 className="h3 fw-bold mb-3">Change Password</h1>
-    <section className="bg-white border rounded p-4 text-secondary">
-      Password change support can be connected once a password update API is
-      available.
-    </section>
-  </div>
-);
-
-export default ChangePassword;
+import { useState } from 'react';
+import { FaLock } from 'react-icons/fa';
+import { changePassword, getApiErrorMessage } from '../../services/authService';
+export default function ChangePassword(){const [form,setForm]=useState({currentPassword:'',newPassword:'',confirmPassword:''});const [state,setState]=useState({busy:false,error:'',success:''});const submit=async e=>{e.preventDefault();if(form.newPassword!==form.confirmPassword)return setState({busy:false,error:'New passwords do not match.',success:''});setState({busy:true,error:'',success:''});try{await changePassword({currentPassword:form.currentPassword,newPassword:form.newPassword});setForm({currentPassword:'',newPassword:'',confirmPassword:''});setState({busy:false,error:'',success:'Password changed successfully.'})}catch(err){setState({busy:false,error:getApiErrorMessage(err),success:''})}};return <div className="page-content"><div className="page-header"><div><div className="eyebrow">Security</div><h1 className="page-title">Change password</h1><p className="muted">Use a strong password you do not reuse elsewhere.</p></div></div><section className="surface p-4" style={{maxWidth:620}}>{state.error&&<div className="alert alert-danger">{state.error}</div>}{state.success&&<div className="alert alert-success">{state.success}</div>}<form onSubmit={submit}><label className="form-label">Current password</label><div className="input-group mb-3"><span className="input-group-text"><FaLock/></span><input className="form-control" type="password" required value={form.currentPassword} onChange={e=>setForm({...form,currentPassword:e.target.value})}/></div><label className="form-label">New password</label><input className="form-control mb-3" type="password" minLength="8" required value={form.newPassword} onChange={e=>setForm({...form,newPassword:e.target.value})}/><label className="form-label">Confirm new password</label><input className="form-control" type="password" minLength="8" required value={form.confirmPassword} onChange={e=>setForm({...form,confirmPassword:e.target.value})}/><button className="btn btn-primary mt-4" disabled={state.busy}>{state.busy?'Updating…':'Update password'}</button></form></section></div>}
