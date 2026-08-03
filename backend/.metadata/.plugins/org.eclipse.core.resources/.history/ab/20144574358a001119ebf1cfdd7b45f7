@@ -1,0 +1,90 @@
+package com.assetflow.company.service;
+
+import java.util.*;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+
+@Service
+public class CompanyDataService {
+	private final JdbcTemplate db;
+
+	public CompanyDataService(JdbcTemplate db) {
+		this.db = db;
+	}
+
+	private void owned(String table, String key, Long id, Long companyId) {
+		Integer n = db.queryForObject("select count(*) from " + table + " where " + key + "=? and company_id=?",
+				Integer.class, id, companyId);
+		if (n == null || n == 0)
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found");
+	}
+
+	public List<Map<String, Object>> list(String type, Long company, String q) {
+		String table = table(type), sql = "select * from " + table + " where company_id=? and is_active=true";
+		List<Object> a = new ArrayList<>();
+		a.add(company);
+		if (q != null && !q.isBlank()) {
+			String col = type.equals("employee") ? "email"
+					: type.equals("department") ? "department_name"
+							: type.equals("location") ? "location_name" : "company_name";
+			sql += " and " + col + " like ?";
+			a.add("%" + q + "%");
+		}
+		return db.queryForList(sql, a.toArray());
+	}
+
+	public Map<String, Object> one(String type, Long company, Long id) {
+		String table = table(type), key = key(type);
+		owned(table, key, id, company);
+		return db.queryForMap("select * from " + table + " where " + key + "=?", id);
+	}
+
+	@Transactional
+	public Map<String, Object> create(String type, Long company, Map<String, Object> b) {
+		switch (type) {
+		case "department" -> db.update("insert into departments(company_id,department_name,description) values(?,?,?)",
+				company, b.get("name"), b.get("description"));
+		case "location" -> db.update(
+				"insert into locations(company_id,location_name,address,city,state,country,postal_code) values(?,?,?,?,?,?,?)",
+				company, b.get("name"), b.get("address"), b.get("city"), b.get("state"), b.get("country"),
+				b.get("postalCode"));
+		case "employee", "admin" -> {
+			Long role = db.queryForObject("select role_id from roles where role_name=?", Long.class,
+					type.equals("admin") ? "COMPANY_ADMIN" : "EMPLOYEE");
+			db.update(
+					"insert into users(company_id,department_id,role_id,first_name,last_name,email,password,phone) values(?,?,?,?,?,?,?,?)",
+					company, b.get("departmentId"), role, b.get("firstName"), b.get("lastName"), b.get("email"),
+					b.get("password"), b.get("phone"));
+		}
+		default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported resource");
+		}
+		return b;
+	}
+
+	public void delete(String type, Long company, Long id) {
+		String table = table(type), key = key(type);
+		owned(table, key, id, company);
+		db.update("update " + table + " set is_active=false where " + key + "=?", id);
+	}
+
+	private String table(String t) {
+		return switch (t) {
+		case "department" -> "departments";
+		case "location" -> "locations";
+		case "employee", "admin" -> "users";
+		default -> "companies";
+		};
+	}
+
+	private String key(String t) {
+		return switch (t) {
+		case "department" -> "department_id";
+		case "location" -> "location_id";
+		case "employee", "admin" -> "user_id";
+		default -> "company_id";
+		};
+	}
+}

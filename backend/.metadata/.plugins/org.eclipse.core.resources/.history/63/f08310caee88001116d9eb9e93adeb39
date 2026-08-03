@@ -1,0 +1,64 @@
+package com.assetflow.auth.config;
+
+import com.assetflow.auth.entity.*;
+import com.assetflow.auth.repository.*;
+import java.util.List;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
+
+@Configuration
+public class DataSeeder {
+
+	@Bean
+	@Transactional
+	CommandLineRunner seed(RoleRepository roles, CompanyRepository companies, UserRepository users,
+			PasswordEncoder encoder) {
+		return args -> {
+			Role superAdminRole = roles.findByName("SUPER_ADMIN").orElseGet(() -> {
+				Role role = new Role();
+				role.setName("SUPER_ADMIN");
+				return roles.save(role);
+			});
+			Role companyAdminRole = roles.findByName("COMPANY_ADMIN").orElseGet(() -> {
+				Role role = new Role();
+				role.setName("COMPANY_ADMIN");
+				return roles.save(role);
+			});
+			roles.findByName("EMPLOYEE").orElseGet(() -> {
+				Role role = new Role();
+				role.setName("EMPLOYEE");
+				return roles.save(role);
+			});
+
+			Company platform = companies.findByEmail("superadmin@assetflow.in").orElseGet(() -> {
+				Company company = new Company();
+				company.setName("AssetFlow Platform");
+				company.setEmail("superadmin@assetflow.in");
+				company.setPhone("+91-0000000000");
+				company.setIndustry("Technology");
+				company.setOrganizationSize("Enterprise");
+				company.setAddress("AssetFlow HQ");
+				company.setCity("Mumbai");
+				company.setState("Maharashtra");
+				company.setCountry("India");
+				company.setPostalCode("400001");
+				return companies.save(company);
+			});
+
+			users.findByEmail("superadmin@assetflow.in").orElseGet(() -> {
+				User superAdmin = new User();
+				superAdmin.setCompany(platform);
+				superAdmin.setRole(superAdminRole);
+				superAdmin.setFirstName("Super");
+				superAdmin.setLastName("Admin");
+				superAdmin.setEmail("superadmin@assetflow.in");
+				superAdmin.setPhone("+91-0000000000");
+				superAdmin.setPassword(encoder.encode("admin123"));
+				return users.save(superAdmin);
+			});
+		};
+	}
+}

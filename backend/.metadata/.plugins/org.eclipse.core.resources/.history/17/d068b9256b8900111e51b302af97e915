@@ -1,0 +1,5 @@
+package com.assetflow.company;
+
+public @interface SpringBootTest {
+
+}
