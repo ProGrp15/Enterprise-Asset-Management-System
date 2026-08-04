@@ -1,1 +1,16 @@
+# Eclipse and backend workspace metadata
 /.metadata/
+**/.metadata/
+
+# Generated backend artifacts (also covered by the repository root rules)
+**/target/
+**/build/
+**/*.class
+**/*.jar
+**/*.log
+
+# Local runtime/configuration files
+runtime-logs/
+*.env
+*.env.*
+!**/.env.example
