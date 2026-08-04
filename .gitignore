@@ -1,16 +1,41 @@
-# Dependencies
-node_modules/
-**/node_modules/
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.idea/
+**/.idea/
+.vscode/
+**/.vscode/
+*.iml
+*.ipr
+*.iws
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.classpath
+.project
+.settings/
+.metadata/
 
-# Local configuration and secrets
+# Environment files and local secrets
 .env
 .env.*
 !.env.example
 !.env.*.example
+*.local
+*.secret
+*.secrets
 *.pem
 *.key
 
-# Java/Maven/Gradle build output
+# Logs and local runtime output
+*.log
+logs/
+runtime-logs/
+*.pid
+*.pid.lock
+
+# Java / Maven / Gradle build output
 **/target/
 **/build/
 **/out/
@@ -18,46 +43,33 @@ node_modules/
 *.jar
 *.war
 *.ear
-*.log
+**/.mvn/wrapper/maven-wrapper.jar
 
-# Frontend/build and test output
-dist/
+# .NET build output
+**/bin/
+**/obj/
+
+# JavaScript dependencies and build output
+**/node_modules/
 **/dist/
-dist-ssr/
-coverage/
+**/dist-ssr/
 **/coverage/
 playwright-report/
 test-results/
-*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Runtime output and local exports
-runtime-logs/
-logs/
+# Local exports and databases
 reports/generated/
 *.har
 *.dump
 *.sqlite
 *.sqlite3
 
-# IDE and operating-system files
-.idea/
-**/.idea/
-.vscode/
-**/.vscode/
-.DS_Store
-Thumbs.db
-*.iml
-*.iws
-*.ipr
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-target/
-**/target/
-
-# Temporary/editor files
+# Temporary files
 *.tmp
 *.temp
 *.swp

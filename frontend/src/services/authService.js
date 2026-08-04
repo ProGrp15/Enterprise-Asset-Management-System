@@ -76,10 +76,6 @@ export const refreshToken = async (token) => {
 };
 export const changePassword = async (payload) => (await API.post('/auth/change-password', payload)).data;
 export const logout = async () => (await API.post('/auth/logout')).data;
-export const getPermissions = async () => (await API.get('/auth/permissions')).data?.data || [];
-export const assignRolePermissions = async (roleId, permissionIds) => (await API.put(`/auth/permissions/role/${roleId}`, { permissionIds })).data;
-export const getPlatformCompanies = async () => (await API.get('/platform/companies')).data?.data || [];
-export const updatePlatformCompanyStatus = async (id, active) => (await API.put(`/platform/companies/${id}/status`, { active })).data;
 
 export const getApiErrorMessage = (error) => {
   if (!error) return "Something went wrong.";

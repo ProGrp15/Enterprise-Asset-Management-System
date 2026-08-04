@@ -1,16 +1,17 @@
-# Eclipse and backend workspace metadata
-/.metadata/
-**/.metadata/
+# Backend modules inherit the repository-wide rules from the root .gitignore.
+# Keep this file for tools that use the backend directory as their project root.
 
-# Generated backend artifacts (also covered by the repository root rules)
 **/target/
 **/build/
+**/out/
 **/*.class
 **/*.jar
 **/*.log
-
-# Local runtime/configuration files
-runtime-logs/
-*.env
-*.env.*
+**/*.env
 !**/.env.example
+.metadata/
+.classpath
+.project
+.settings/
+.idea/
+*.iml

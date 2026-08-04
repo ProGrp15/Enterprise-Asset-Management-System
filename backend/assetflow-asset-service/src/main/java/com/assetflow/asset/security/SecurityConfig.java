@@ -18,7 +18,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -27,8 +26,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Configuration
 public class SecurityConfig {
-	/** Asset operations use the shared JWT filter; disable Spring's generated in-memory credentials. */
-	@Bean AuthenticationManager authenticationManager() { return authentication -> { throw new org.springframework.security.authentication.BadCredentialsException("Bearer JWT authentication is required"); }; }
 	@Bean
 	JwtFilter jwtFilter(@Value("${app.jwt.secret}") String secret) {
 		return new JwtFilter(secret);
