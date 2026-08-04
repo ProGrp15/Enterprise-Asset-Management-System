@@ -20,12 +20,12 @@ const EmployeeTable = ({ employees }) => {
         </thead>
         <tbody>
           {employees.map((employee) => (
-            <tr key={employee.user_id}>
+            <tr key={employee.user_id || employee.id}>
               <td>{employee.user_id}</td>
-              <td>{employee.full_name}</td>
+              <td>{employee.full_name || [employee.first_name, employee.last_name].filter(Boolean).join(" ")}</td>
               <td>{employee.email}</td>
               <td>
-                <span className="badge text-bg-success">{employee.role}</span>
+                <span className="badge text-bg-success">{employee.role || "EMPLOYEE"}</span>
               </td>
             </tr>
           ))}

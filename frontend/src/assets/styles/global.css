@@ -171,7 +171,9 @@ button:focus-visible {
   z-index: 40;
   border-right: 1px solid rgba(255,255,255,0.05);
   box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+  overflow: hidden;
 }
+.sidebar-nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 4px; scrollbar-width: thin; scrollbar-color: rgba(148,163,184,.55) transparent; }
 .sidebar-top { padding:0 10px 26px; }
 .sidebar-brand {
   color: white;
@@ -508,7 +510,17 @@ button:focus-visible {
   padding: 7rem 0 6rem;
   overflow: hidden;
   background: radial-gradient(circle at 80% 25%, rgba(99,102,241,0.1) 0, transparent 28%), linear-gradient(180deg, var(--surface) 0, var(--canvas) 100%);
+  position: relative;
+  isolation: isolate;
+  animation: hero-breathe 12s ease-in-out infinite alternate;
 }
+.hero::before { content: ''; position: absolute; width: 420px; height: 420px; right: -120px; top: -150px; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,.20), transparent 68%); filter: blur(4px); z-index: -1; animation: hero-orbit 16s ease-in-out infinite alternate; }
+.hero > .container { position: relative; z-index: 1; }
+.hero-panel { animation: panel-float 6s ease-in-out infinite; }
+.feature-card, .surface { transition: background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease; }
+@keyframes hero-breathe { from { background-position: 0 0, 0 0; } to { background-position: 30px -20px, 0 18px; } }
+@keyframes hero-orbit { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(-80px,70px,0) scale(1.15); } }
+@keyframes panel-float { 0%,100% { transform: rotate(1.6deg) translateY(0); } 50% { transform: rotate(0deg) translateY(-8px); } }
 .eyebrow {
   color: var(--brand);
   font-size: 0.8rem;
@@ -621,6 +633,7 @@ button:focus-visible {
   .cta-panel { padding: 2.5rem 1.5rem; }
   .auth-card { flex-direction: column; }
 }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
 @media(max-width:700px){
   .service-status,.user-meta,.user-chevron{display:none}
   .topbar-search{width:auto;flex:1}

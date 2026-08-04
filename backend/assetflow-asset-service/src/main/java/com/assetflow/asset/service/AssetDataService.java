@@ -21,10 +21,11 @@ public class AssetDataService {
 	public List<Map<String, Object>> list(String type, Long companyId, Long userId, String role, String search, int page, int size) {
 		page=Math.max(0,page);size=Math.min(Math.max(1,size),100);String sql="select * from "+table(type)+" where company_id=?";List<Object> args=new ArrayList<>();args.add(companyId);
 		if ("EMPLOYEE".equals(role)) {
-			if (!("asset".equals(type) || "asset-request".equals(type) || "asset-return".equals(type) || "maintenance".equals(type)))
+			if (!("asset".equals(type) || "category".equals(type) || "asset-request".equals(type) || "asset-return".equals(type) || "maintenance".equals(type)))
 				throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Employee access is limited to assigned assets and employee requests");
 			String scoped = switch (type) {
 			case "asset" -> "asset_id in (select asset_id from asset_allocations where company_id=? and employee_id=? and allocation_status='ACTIVE')";
+			case "category" -> null;
 			case "asset-request" -> "employee_id=?";
 			case "asset-return" -> "employee_id=?";
 			case "maintenance" -> "employee_id=?";

@@ -16,7 +16,7 @@ const Employees = () => {
     setPageLoading(true);
     try {
       const response = await getEmployees();
-      setEmployees(response.employees || []);
+      setEmployees(Array.isArray(response) ? response : response?.employees || response?.items || []);
     } catch (err) {
       setError(err?.response?.data?.message || "Failed to load employees.");
     } finally {
@@ -37,7 +37,7 @@ const Employees = () => {
       const response = await createEmployee(formData);
       setMessage(response.message || "Employee created successfully.");
       setEmployees((currentEmployees) => [
-        response.employee,
+        response.employee || response,
         ...currentEmployees,
       ]);
     } catch (err) {
