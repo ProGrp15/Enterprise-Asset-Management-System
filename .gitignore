@@ -54,6 +54,9 @@ Thumbs.db
 *.userosscache
 *.sln.docstates
 
+target/
+**/target/
+
 # Temporary/editor files
 *.tmp
 *.temp
