@@ -1,3 +1,0 @@
-package com.assetflow.gateway.security;
-import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.security.config.web.server.ServerHttpSecurity;import org.springframework.security.web.server.SecurityWebFilterChain;
-@Configuration public class GatewaySecurityConfig { @Bean SecurityWebFilterChain security(ServerHttpSecurity http){return http.csrf(ServerHttpSecurity.CsrfSpec::disable).cors(c->{}).authorizeExchange(e->e.pathMatchers("/api/auth/login","/api/auth/register-company","/api/auth/forgot-password","/api/auth/reset-password","/api/auth/refresh-token","/actuator/health","/eureka/**").permitAll().anyExchange().permitAll()).build();} }
