@@ -10,7 +10,6 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,8 +23,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	/** Downstream services authenticate bearer JWTs only; never create Spring's default in-memory user store. */
-	@Bean AuthenticationManager authenticationManager() { return authentication -> { throw new org.springframework.security.authentication.BadCredentialsException("Bearer JWT authentication is required"); }; }
 	@Bean
 	JwtFilter jwtFilter(@Value("${app.jwt.secret}") String secret) {
 		return new JwtFilter(secret);

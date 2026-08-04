@@ -37,6 +37,10 @@ runtime-logs/
 **/build/
 **/out/
 
+# .NET build output
+**/bin/
+**/obj/
+
 # JavaScript dependencies and build output
 **/node_modules/
 **/dist/
