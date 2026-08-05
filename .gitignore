@@ -1,0 +1,81 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.idea/
+**/.idea/
+.vscode/
+**/.vscode/
+*.iml
+*.ipr
+*.iws
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.classpath
+.project
+.settings/
+.metadata/
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+*.secret
+*.secrets
+*.pem
+*.key
+
+# Logs and local runtime output
+*.log
+logs/
+runtime-logs/
+.qa-runtime-logs/
+*.out.log
+*.err.log
+*.pid
+*.pid.lock
+
+# Java / Maven / Gradle build output
+**/target/
+**/.metadata/
+**/build/
+**/out/
+*.class
+*.jar
+*.war
+*.ear
+**/.mvn/wrapper/maven-wrapper.jar
+
+# .NET build output
+**/bin/
+**/obj/
+
+# JavaScript dependencies and build output
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/coverage/
+playwright-report/
+test-results/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local exports and databases
+reports/generated/
+*.har
+*.dump
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~

@@ -1,0 +1,58 @@
+package com.assetflow.gateway.security;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
+
+@Component
+public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
+	private final SecretKey key;
+
+	public JwtAuthenticationFilter(@Value("${app.jwt.secret}") String secret) {
+		try { key = Keys.hmacShaKeyFor(MessageDigest.getInstance("SHA-256").digest(secret.getBytes(StandardCharsets.UTF_8))); } catch (Exception e) { throw new IllegalStateException("Unable to initialize JWT key", e); }
+	}
+
+	private boolean publicPath(String p) {
+		return p.startsWith("/api/auth/login") || p.startsWith("/api/auth/register-company")
+				|| p.startsWith("/api/auth/forgot-password") || p.startsWith("/api/auth/reset-password")
+				|| p.startsWith("/api/auth/refresh-token") || p.startsWith("/actuator/health")
+				|| p.startsWith("/eureka/");
+	}
+
+	public Mono<Void> filter(ServerWebExchange e, GatewayFilterChain c) {
+		if (publicPath(e.getRequest().getPath().value()))
+			return c.filter(e);
+		String h = e.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+		if (h == null || !h.startsWith("Bearer "))
+			return reject(e, HttpStatus.UNAUTHORIZED);
+		try {
+			Claims claims = Jwts.parser().verifyWith(key).build().parseSignedClaims(h.substring(7)).getPayload();
+			if (!"access".equals(claims.get("type")))
+				return reject(e, HttpStatus.UNAUTHORIZED);
+			return c.filter(e);
+		} catch (Exception ex) {
+			return reject(e, HttpStatus.UNAUTHORIZED);
+		}
+	}
+
+	private Mono<Void> reject(ServerWebExchange e, HttpStatus s) {
+		e.getResponse().setStatusCode(s);
+		return e.getResponse().setComplete();
+	}
+
+	public int getOrder() {
+		return -100;
+	}
+}
