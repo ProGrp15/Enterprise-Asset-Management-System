@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaCodeBranch, FaDatabase, FaFileExport, FaPlus, FaSearch } from 'react-icons/fa';
+import { FaCodeBranch, FaDatabase, FaFileExport, FaPlus, FaSearch } from 'react-icons/fa';
 
 const WorkspacePage = ({ title, description, action = 'Create', columns = [] }) => {
   return (

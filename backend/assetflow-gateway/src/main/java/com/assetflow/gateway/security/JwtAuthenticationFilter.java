@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -20,7 +21,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 	private final SecretKey key;
 
 	public JwtAuthenticationFilter(@Value("${app.jwt.secret}") String secret) {
-		key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+		try { key = Keys.hmacShaKeyFor(MessageDigest.getInstance("SHA-256").digest(secret.getBytes(StandardCharsets.UTF_8))); } catch (Exception e) { throw new IllegalStateException("Unable to initialize JWT key", e); }
 	}
 
 	private boolean publicPath(String p) {

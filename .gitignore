@@ -2,8 +2,9 @@
 .DS_Store
 Thumbs.db
 .idea/
+**/.idea/
 .vscode/
-**/.vs/
+**/.vscode/
 *.iml
 *.ipr
 *.iws
@@ -20,6 +21,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+!.env.*.example
 *.local
 *.secret
 *.secrets
@@ -30,18 +32,23 @@ Thumbs.db
 *.log
 logs/
 runtime-logs/
+.qa-runtime-logs/
+*.out.log
+*.err.log
 *.pid
 *.pid.lock
 
-# Java / Maven build output
+# Java / Maven / Gradle build output
 **/target/
+**/.metadata/
 **/build/
 **/out/
-**/.gradle/
 *.class
 *.jar
 *.war
 *.ear
+**/.mvn/wrapper/maven-wrapper.jar
+**/.gradle/
 
 # .NET build output
 **/bin/
@@ -64,12 +71,16 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Local exports and databases
+reports/generated/
+*.har
+*.dump
+*.sqlite
+*.sqlite3
+
 # Temporary files
 *.tmp
 *.temp
 *.swp
 *.swo
-
-# Keep the Maven wrapper scripts and wrapper properties tracked; only the
-# downloaded wrapper binary is ignored.
-**/.mvn/wrapper/maven-wrapper.jar
+*~

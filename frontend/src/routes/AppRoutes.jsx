@@ -1,26 +1,30 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import CompanyAdminLayout from '../layouts/CompanyAdminLayout';
 import EmployeeLayout from '../layouts/EmployeeLayout';
 import SuperAdminLayout from '../layouts/SuperAdminLayout';
-import Home from '../pages/landing/Home'; import About from '../pages/landing/About'; import Contact from '../pages/landing/Contact';
+import Home from '../pages/landing/Home'; import About from '../pages/landing/About'; import Contact from '../pages/landing/Contact'; import Pricing from '../pages/landing/Pricing';
 import Login from '../pages/auth/Login'; import RegisterCompany from '../pages/auth/RegisterCompany'; import ForgotPassword from '../pages/auth/ForgotPassword'; import ResetPassword from '../pages/auth/ResetPassword';
-import CompanyDashboard from '../pages/company-admin/Dashboard'; import Employees from '../pages/company-admin/Employees'; import SuperDashboard from '../pages/super-admin/Dashboard'; import EmployeeDashboard from '../pages/employee/Dashboard';
+import CompanyDashboard from '../pages/company-admin/Dashboard'; import SuperDashboard from '../pages/super-admin/Dashboard'; import EmployeeDashboard from '../pages/employee/Dashboard';
 import RoleBasedRoute from './RoleBasedRoute'; import Unauthorized from '../pages/error/Unauthorized'; import NotFound from '../pages/error/NotFound'; import LiveResourcePage from '../components/common/LiveResourcePage';
 import AIAssistant from '../pages/shared/AIAssistant';
 import ChangePassword from '../pages/shared/ChangePassword';
+import PlatformCompanies from '../pages/super-admin/Companies';
+import Reports from '../pages/company-admin/Reports';
+import SharedProfile from '../pages/shared/Profile';
+import CompanySettings from '../pages/company-admin/Settings';
+import SuperSettings from '../pages/super-admin/Settings';
+import { MyAssets, RequestAsset } from '../pages/employee/EmployeeAssetPages';
 
-const title=s=>s.replaceAll('-',' ').replace(/\b\w/g,c=>c.toUpperCase());
-const fields={departments:['Department','Lead','Employees','Status'],assets:['Asset','Tag','Category','Status'],locations:['Location','Address','Assets','Status'],vendors:['Vendor','Contact','Category','Status'],'purchase-orders':['Purchase order','Vendor','Amount','Status'],maintenance:['Asset','Scheduled date','Owner','Status'],'asset-requests':['Requested by','Asset','Submitted','Status'],'asset-allocation':['Asset','Assigned to','Assigned date','Status'],companies:['Company','Industry','Plan','Status'],users:['User','Email','Role','Status'],subscriptions:['Company','Plan','Renewal','Status'],'my-assets':['Asset','Asset tag','Assigned date','Status'],'request-history':['Request','Submitted','Status'],notifications:['Notification','Date','Status'],'audit-logs':['Action','Actor','Date','Status']};
-function Generic({name}){return <LiveResourcePage name={name}/>}
+function Generic({name}){const location=useLocation(); if(name==='reports')return <Reports/>; if(name==='profile')return <SharedProfile/>; if(name==='settings')return location.pathname.startsWith('/super-admin')?<SuperSettings/>:<CompanySettings/>; return <LiveResourcePage name={name}/>}
 function PublicInfo({heading,copy}){return <section className="section"><div className="container" style={{maxWidth:800}}><div className="surface p-5"><div className="eyebrow mb-2">AssetFlow</div><h1>{heading}</h1><p className="muted fs-5 mt-3">{copy}</p><hr className="my-4"/><h5>Our commitment</h5><p className="muted mb-0">We build secure, transparent tools for enterprise operations. For account or privacy questions, contact your company administrator.</p></div></div></section>}
 const wrap=(role,child)=>{const L=role==='company'?CompanyAdminLayout:role==='super'?SuperAdminLayout:EmployeeLayout; const allowed=role==='company'?['COMPANY_ADMIN','ADMIN']:role==='super'?['SUPER_ADMIN','SUPERADMIN']:['EMPLOYEE','EMPLOYEES'];return <RoleBasedRoute allowedRoles={allowed}><L>{child}</L></RoleBasedRoute>};
-const company=['company-admins','departments','asset-categories','assets','locations','vendors','purchase-orders','maintenance','asset-requests','asset-allocation','notifications','reports','audit-logs','settings','profile','ai-assistant'];
-const superPages=['companies','users','subscriptions','analytics','reports','notifications','audit-logs','settings','profile']; const employee=['my-assets','request-asset','request-history','notifications','profile','settings','ai-assistant'];
+const company=['employees','departments','asset-categories','assets','locations','vendors','purchase-orders','maintenance','asset-requests','asset-allocation','asset-transfers','asset-returns','repair-history','notifications','reports','audit-logs','settings','profile','ai-assistant'];
+const superPages=['notifications','audit-logs','settings','profile']; const employee=['my-assets','request-asset','notifications','profile','ai-assistant'];
 export default function AppRoutes(){return <Routes>
- <Route path="/" element={<MainLayout><Home/></MainLayout>}/><Route path="/about" element={<MainLayout><About/></MainLayout>}/><Route path="/contact" element={<MainLayout><Contact/></MainLayout>}/>
+ <Route path="/" element={<MainLayout><Home/></MainLayout>}/><Route path="/about" element={<MainLayout><About/></MainLayout>}/><Route path="/contact" element={<MainLayout><Contact/></MainLayout>}/><Route path="/pricing" element={<MainLayout><Pricing/></MainLayout>}/>
  <Route path="/login" element={<Login/>}/><Route path="/register-company" element={<RegisterCompany/>}/><Route path="/forgot-password" element={<ForgotPassword/>}/><Route path="/reset-password" element={<ResetPassword/>}/><Route path="/unauthorized" element={<Unauthorized/>}/><Route path="/privacy" element={<MainLayout><PublicInfo heading="Privacy policy" copy="How AssetFlow handles workspace and account data."/></MainLayout>}/><Route path="/terms" element={<MainLayout><PublicInfo heading="Terms of service" copy="The terms governing use of the AssetFlow platform."/></MainLayout>}/><Route path="/server-error" element={<MainLayout><PublicInfo heading="Something went wrong" copy="Our team has been notified. Please try again shortly."/></MainLayout>}/>
  <Route path="/company-admin" element={<Navigate to="/company-admin/dashboard" replace/>}/><Route path="/company-admin/change-password" element={wrap('company',<ChangePassword/>)}/><Route path="/company-admin/dashboard" element={wrap('company',<CompanyDashboard/>)}/>{company.map(p=><Route key={p} path={'/company-admin/'+p} element={wrap('company', p === 'ai-assistant' ? <AIAssistant /> : <Generic name={p}/>)}/>)}
  <Route path="/super-admin" element={<Navigate to="/super-admin/dashboard" replace/>}/><Route path="/super-admin/dashboard" element={wrap('super',<SuperDashboard/>)}/>{superPages.map(p=><Route key={p} path={'/super-admin/'+p} element={wrap('super', p === 'ai-assistant' ? <AIAssistant /> : <Generic name={p}/>)}/>)}
- <Route path="/employee" element={<Navigate to="/employee/dashboard" replace/>}/><Route path="/employee/dashboard" element={wrap('employee',<EmployeeDashboard/>)}/>{employee.map(p=><Route key={p} path={'/employee/'+p} element={wrap('employee', p === 'ai-assistant' ? <AIAssistant /> : <Generic name={p}/>)}/>)}
- <Route path="*" element={<MainLayout><NotFound/></MainLayout>}/></Routes>}
+ <Route path="/employee" element={<Navigate to="/employee/dashboard" replace/>}/><Route path="/employee/dashboard" element={wrap('employee',<EmployeeDashboard/>)}/><Route path="/employee/my-assets" element={wrap('employee',<MyAssets/>)}/><Route path="/employee/request-asset" element={wrap('employee',<RequestAsset/>)}/>{employee.filter(p=>!['my-assets','request-asset'].includes(p)).map(p=><Route key={p} path={'/employee/'+p} element={wrap('employee', p === 'ai-assistant' ? <AIAssistant /> : <Generic name={p}/>)}/>)}
+ <Route path="/super-admin/companies" element={wrap('super',<PlatformCompanies/>)}/><Route path="*" element={<MainLayout><NotFound/></MainLayout>}/></Routes>}

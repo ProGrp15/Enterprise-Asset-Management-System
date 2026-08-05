@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { FaRobot, FaUser, FaPaperPlane, FaMagic, FaChartLine, FaBoxOpen, FaClipboardCheck, FaStopCircle } from 'react-icons/fa';
 import './AIAssistant.css';
+import { askAssistant } from '../../services/notificationService';
 
 const SUGGESTED_PROMPTS = [
   { icon: FaBoxOpen, text: "Show all Dell laptops in IT department" },
@@ -9,19 +10,19 @@ const SUGGESTED_PROMPTS = [
   { icon: FaMagic, text: "How many licenses expire this quarter?" }
 ];
 
-const MOCK_RESPONSES = {
-  "show all dell laptops in it department": "I found 42 Dell laptops assigned to the IT department. \n\n* **Active:** 38\n* **In Maintenance:** 4\n* **Average Age:** 1.2 years\n\nWould you like me to export this list as a CSV or create a maintenance ticket for the 4 inactive ones?",
-  "generate monthly asset utilization report": "Here is the summary for the **October Asset Utilization Report**:\n\n* **Total Managed Assets:** 1,245 (+$42k in value)\n* **Overall Utilization Rate:** 91% (+2.4% vs last month)\n* **Underutilized Categories:** Printers (34% idle), Projectors (41% idle)\n* **High Maintenance Costs:** Dell XPS 15 fleet has incurred $1,200 in repairs.\n\nI have saved the full 12-page PDF report to your Documents.",
-  "which assets require maintenance next month?": "There are **14 assets** scheduled for preventative maintenance next month:\n\n1. **HVAC System A** (Building 1) - Due Nov 12\n2. **Forklift #4** (Warehouse) - Due Nov 15\n3. **12 Apple MacBook Pros** (Design Team) - Battery diagnostics due Nov 20\n\nShould I automatically draft vendor quotation requests for these?",
-  "how many licenses expire this quarter?": "You have **3 software licenses** expiring this quarter:\n\n* **Adobe Creative Cloud (50 seats)** - Expires Nov 30\n* **AutoCAD (5 seats)** - Expires Dec 15\n* **AWS Enterprise Support** - Expires Dec 31\n\nTotal estimated renewal cost is **$14,500**. Shall I notify the Finance department?",
-  "default": "I'm your AssetFlow AI Assistant. I can analyze asset data, generate reports, schedule maintenance, and answer questions about your organization's inventory. How can I help you today?"
-};
+function renderLine(line) {
+  const parts = line.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => part.startsWith('**') && part.endsWith('**')
+    ? <strong key={index}>{part.slice(2, -2)}</strong>
+    : <span key={index}>{part}</span>);
+}
 
 export default function AIAssistant() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef(null);
+  const messageId = useRef(0);
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -31,28 +32,23 @@ export default function AIAssistant() {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSend = (text) => {
+  const handleSend = async (text) => {
     const query = text || input;
     if (!query.trim()) return;
 
     // Add user message
-    const userMsg = { id: Date.now(), role: 'user', text: query };
+    const userMsg = { id: ++messageId.current, role: 'user', text: query };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const lowerQuery = query.toLowerCase().trim();
-      // Simple mock matching
-      const matchedKey = Object.keys(MOCK_RESPONSES).find(k => k !== 'default' && lowerQuery.includes(k.replace('?', '')));
-
-      const responseText = matchedKey ? MOCK_RESPONSES[matchedKey] : MOCK_RESPONSES['default'];
-
-      const aiMsg = { id: Date.now() + 1, role: 'ai', text: responseText };
+    try {
+      const result = await askAssistant(query);
+      const aiMsg = { id: ++messageId.current, role: 'ai', text: result?.reply || 'The assistant did not return a response.' };
       setMessages(prev => [...prev, aiMsg]);
-      setIsTyping(false);
-    }, 1500 + Math.random() * 1000); // 1.5 - 2.5s delay
+    } catch {
+      setMessages(prev => [...prev, { id: ++messageId.current, role: 'ai', text: 'The AI service is currently unavailable. Please try again shortly.' }]);
+    } finally { setIsTyping(false); }
   };
 
   const handleKeyDown = (e) => {
@@ -72,7 +68,7 @@ export default function AIAssistant() {
             <p className="text-muted small mb-0">Intelligent Enterprise Asset Assistant</p>
           </div>
         </div>
-        <button className="btn btn-ghost btn-sm">Clear Chat</button>
+        <button className="btn btn-ghost btn-sm" onClick={() => setMessages([])}>Clear Chat</button>
       </div>
 
       <div className="ai-chat-area">
@@ -113,10 +109,10 @@ export default function AIAssistant() {
                   {/* Simple markdown parsing for bold and lists */}
                   {msg.text.split('\n').map((line, i) => {
                     if (line.startsWith('* ')) {
-                      return <li key={i} dangerouslySetInnerHTML={{ __html: line.substring(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />;
+                      return <li key={i}>{renderLine(line.substring(2))}</li>;
                     }
                     if (line.trim() === '') return <br key={i} />;
-                    return <span key={i} dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />;
+                    return <span key={i}>{renderLine(line)}</span>;
                   })}
                 </div>
               </div>

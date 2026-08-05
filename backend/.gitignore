@@ -1,13 +1,1 @@
-# Backend modules inherit the repository-wide rules from the root .gitignore.
-# Keep this file for tools that use the backend directory as their project root.
-
-**/target/
-**/build/
-**/out/
-**/*.log
-.metadata/
-.classpath
-.project
-.settings/
-.idea/
-*.iml
+/.metadata/

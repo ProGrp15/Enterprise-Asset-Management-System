@@ -6,10 +6,12 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -23,6 +25,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	/** Downstream services authenticate bearer JWTs only; never create Spring's default in-memory user store. */
+	@Bean AuthenticationManager authenticationManager() { return authentication -> { throw new org.springframework.security.authentication.BadCredentialsException("Bearer JWT authentication is required"); }; }
 	@Bean
 	JwtFilter jwtFilter(@Value("${app.jwt.secret}") String secret) {
 		return new JwtFilter(secret);
@@ -32,7 +36,7 @@ public class SecurityConfig {
 	SecurityFilterChain chain(HttpSecurity h, JwtFilter f) throws Exception {
 		return h.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
 				.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(a -> a.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/actuator/health")
+				.authorizeHttpRequests(a -> a.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/actuator/health/**")
 						.permitAll().anyRequest().authenticated())
 				.addFilterBefore(f, UsernamePasswordAuthenticationFilter.class).build();
 	}
@@ -41,7 +45,7 @@ public class SecurityConfig {
 		final SecretKey key;
 
 		JwtFilter(String s) {
-			key = Keys.hmacShaKeyFor(s.getBytes(StandardCharsets.UTF_8));
+			try { key = Keys.hmacShaKeyFor(MessageDigest.getInstance("SHA-256").digest(s.getBytes(StandardCharsets.UTF_8))); } catch (Exception e) { throw new IllegalStateException("Unable to initialize JWT key", e); }
 		}
 
 		protected void doFilterInternal(HttpServletRequest r, HttpServletResponse p, FilterChain c)

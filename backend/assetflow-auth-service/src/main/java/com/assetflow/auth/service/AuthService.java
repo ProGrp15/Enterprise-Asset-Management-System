@@ -144,12 +144,13 @@ public class AuthService {
 	private AuthView view(User u) {
 		Company c = u.getCompany();
 		String role = u.getRole().getName();
-		List<String> permissions = db.queryForList("select p.permission_key from permissions p join role_permissions rp on rp.permission_id=p.permission_id where rp.role_id=? order by p.permission_key", String.class, u.getRole().getId());
-		return new AuthView(jwt.issue(u.getId(), c.getId(), role, u.getEmail(), false, permissions),
-				jwt.issue(u.getId(), c.getId(), role, u.getEmail(), true, permissions),
+		List<String> permissions = List.of();
+		Long companyId = c == null ? null : c.getId();
+		return new AuthView(jwt.issue(u.getId(), companyId, role, u.getEmail(), false, permissions),
+				jwt.issue(u.getId(), companyId, role, u.getEmail(), true, permissions),
 				new UserView(u.getId(), u.getFirstName() + " " + u.getLastName(), u.getEmail(), role,
 						u.getDepartment() != null ? u.getDepartment().getName() : null),
-				new CompanyView(c.getId(), c.getName(), c.getEmail()), List.of("workspace:read"));
+				c == null ? null : new CompanyView(c.getId(), c.getName(), c.getEmail()), List.of("workspace:read"));
 	}
 
 	private String hash(String token) {

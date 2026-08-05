@@ -1,8 +1,6 @@
 package com.assetflow.asset.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -11,136 +9,79 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AssetDataService {
-	private final JdbcTemplate db;
+  private final JdbcTemplate db;
+  public AssetDataService(JdbcTemplate db) { this.db = db; }
 
-	public AssetDataService(JdbcTemplate db) {
-		this.db = db;
-	}
+  public List<Map<String,Object>> list(String type, Long company, Long user, String role, String search, int page, int size) {
+    page=Math.max(0,page); size=Math.min(Math.max(1,size),100);
+    String sql="select * from "+table(type)+" where company_id=?"; List<Object> args=new ArrayList<>(List.of(company));
+    if ("EMPLOYEE".equals(role)) {
+      if ("asset".equals(type)) { sql += " and asset_id in (select asset_id from asset_allocations where company_id=? and employee_id=? and allocation_status='ACTIVE')"; args.add(company); args.add(user); }
+      else if ("asset-request".equals(type) || "asset-return".equals(type) || "maintenance".equals(type)) { sql += " and employee_id=?"; args.add(user); }
+      else throw forbidden();
+    }
+    if(search!=null&&!search.isBlank()) { String f=switch(type){case "asset"->"asset_name like ? or asset_tag like ? or serial_number like ? or status like ?"; case "category"->"category_name like ? or description like ?"; case "vendor"->"vendor_name like ? or contact_person like ?"; case "purchase-order"->"order_number like ? or status like ?"; default->"cast("+key(type)+" as char) like ?";}; sql+=" and ("+f+")"; for(int i=0;i<f.length()-f.replace("?","").length();i++)args.add("%"+search+"%"); }
+    sql += " order by "+key(type)+" desc limit ? offset ?"; args.add(size); args.add(page*size);
+    return db.queryForList(sql,args.toArray());
+  }
 
-	public List<Map<String, Object>> list(String type, Long companyId) {
-		return db.queryForList("select * from " + table(type) + " where company_id=? order by 1 desc", companyId);
-	}
+  public Map<String,Object> one(String type, Long company, Long user, String role, Long id) {
+    ensureOwned(type,company,id);
+    if("EMPLOYEE".equals(role)) { if("asset".equals(type)) ensureAssigned(company,user,id); else if(!Set.of("asset-request","asset-return","maintenance").contains(type)) throw forbidden(); else ensureEmployeeRecord(type,company,user,id); }
+    return db.queryForMap("select * from "+table(type)+" where "+key(type)+"=? and company_id=?",id,company);
+  }
 
-	public Map<String, Object> one(String type, Long companyId, Long id) {
-		ensureOwned(type, companyId, id);
-		return db.queryForMap("select * from " + table(type) + " where " + key(type) + "=?", id);
-	}
+  public void ensureEmployeeAsset(Long company, Long employee, Object asset) { if(asset==null) throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"An assigned asset is required"); ensureAssigned(company,employee,Long.valueOf(String.valueOf(asset))); }
+  private void ensureAssigned(Long company,Long employee,Long asset) { Integer n=db.queryForObject("select count(*) from asset_allocations where company_id=? and asset_id=? and employee_id=? and allocation_status='ACTIVE'",Integer.class,company,asset,employee); if(n==null||n==0) throw forbidden(); }
+  private void ensureEmployeeRecord(String type,Long company,Long employee,Long id) { Integer n=db.queryForObject("select count(*) from "+table(type)+" where "+key(type)+"=? and company_id=? and employee_id=?",Integer.class,id,company,employee); if(n==null||n==0) throw forbidden(); }
 
-	@Transactional
-	public Map<String, Object> create(String type, Long companyId, Map<String, Object> body) {
-		switch (type) {
-		case "asset" -> db.update(
-				"insert into assets(company_id,category_id,vendor_id,asset_name,asset_tag,serial_number,manufacturer,model,purchase_date,purchase_cost,warranty_expiry,status,remarks) values(?,?,?,?,?,?,?,?,?,?,?,?,?)",
-				companyId, body.get("categoryId"), body.get("vendorId"), body.get("assetName"), body.get("assetTag"),
-				body.get("serialNumber"), body.get("manufacturer"), body.get("model"), body.get("purchaseDate"),
-				body.get("purchaseCost"), body.get("warrantyExpiry"), body.getOrDefault("status", "AVAILABLE"),
-				body.get("remarks"));
-		case "category" -> db.update(
-				"insert into asset_categories(company_id,category_name,description) values(?,?,?)",
-				companyId, body.get("categoryName"), body.get("description"));
-		case "vendor" -> db.update(
-				"insert into vendors(company_id,vendor_name,contact_person,email,phone,address) values(?,?,?,?,?,?)",
-				companyId, body.get("vendorName"), body.get("contactPerson"), body.get("email"), body.get("phone"),
-				body.get("address"));
-		case "purchase-order" -> db.update(
-				"insert into purchase_orders(company_id,vendor_id,order_number,order_date,expected_delivery_date,total_amount,status,remarks) values(?,?,?,?,?,?,?,?)",
-				companyId, body.get("vendorId"), body.get("orderNumber"), body.get("orderDate"),
-				body.get("expectedDeliveryDate"), body.get("totalAmount"), body.getOrDefault("status", "DRAFT"),
-				body.get("remarks"));
-		case "maintenance" -> db.update(
-				"insert into service_tickets(company_id,asset_id,employee_id,issue_description,priority,status) values(?,?,?,?,?,?)",
-				companyId, body.get("assetId"), body.get("employeeId"), body.get("issueDescription"),
-				body.getOrDefault("priority", "MEDIUM"), body.getOrDefault("status", "OPEN"));
-		case "asset-allocation" -> db.update(
-				"insert into asset_allocations(company_id,asset_id,employee_id,allocated_by,allocated_date,expected_return_date,allocation_status,remarks) values(?,?,?,?,?,?,?,?)",
-				companyId, body.get("assetId"), body.get("employeeId"), body.get("allocatedBy"),
-				body.get("allocatedDate"), body.get("expectedReturnDate"), body.getOrDefault("allocationStatus", "ACTIVE"),
-				body.get("remarks"));
-		case "asset-request" -> db.update(
-				"insert into asset_requests(company_id,employee_id,category_id,asset_id,approved_by,request_type,reason,status) values(?,?,?,?,?,?,?,?)",
-				companyId, body.get("employeeId"), body.get("categoryId"), body.get("assetId"), body.get("approvedBy"),
-				body.get("requestType"), body.get("reason"), body.getOrDefault("status", "PENDING"));
-		default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported resource");
-		}
-		return body;
-	}
+  @Transactional public Map<String,Object> create(String type,Long company,Long actor,Map<String,Object> b) {
+    validate(type,company,b);
+    switch(type) {
+      case "asset" -> db.update("insert into assets(company_id,category_id,vendor_id,location_id,purchase_order_id,asset_name,asset_tag,serial_number,manufacturer,model,purchase_date,purchase_cost,warranty_expiry,status,remarks) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",company,b.get("categoryId"),b.get("vendorId"),b.get("locationId"),b.get("purchaseOrderId"),b.get("assetName"),b.get("assetTag"),b.get("serialNumber"),b.get("manufacturer"),b.get("model"),b.get("purchaseDate"),b.get("purchaseCost"),b.get("warrantyExpiry"),b.getOrDefault("status","AVAILABLE"),b.get("remarks"));
+      case "category" -> db.update("insert into asset_categories(company_id,category_name,description) values(?,?,?)",company,b.get("categoryName"),b.get("description"));
+      case "vendor" -> db.update("insert into vendors(company_id,vendor_name,contact_person,email,phone,address) values(?,?,?,?,?,?)",company,b.get("vendorName"),b.get("contactPerson"),b.get("email"),b.get("phone"),b.get("address"));
+      case "purchase-order" -> db.update("insert into purchase_orders(company_id,vendor_id,order_number,order_date,expected_delivery_date,total_amount,status,remarks) values(?,?,?,?,?,?,?,?)",company,b.get("vendorId"),b.get("orderNumber"),b.get("orderDate"),b.get("expectedDeliveryDate"),b.get("totalAmount"),b.getOrDefault("status","DRAFT"),b.get("remarks"));
+      case "maintenance" -> db.update("insert into maintenance(company_id,asset_id,employee_id,issue_description,priority,status) values(?,?,?,?,?,?)",company,b.get("assetId"),b.get("employeeId"),b.get("issueDescription"),b.getOrDefault("priority","MEDIUM"),b.getOrDefault("status","OPEN"));
+      case "asset-allocation" -> db.update("insert into asset_allocations(company_id,asset_id,employee_id,allocated_by,allocated_date,expected_return_date,allocation_status,remarks) values(?,?,?,?,?,?,?,?)",company,b.get("assetId"),b.get("employeeId"),b.get("allocatedBy"),b.get("allocatedDate"),b.get("expectedReturnDate"),b.getOrDefault("allocationStatus","ACTIVE"),b.get("remarks"));
+      case "asset-request" -> db.update("insert into asset_requests(company_id,employee_id,category_id,asset_id,approved_by,request_type,reason,status) values(?,?,?,?,?,?,?,?)",company,b.get("employeeId"),b.get("categoryId"),b.get("assetId"),b.get("approvedBy"),b.getOrDefault("requestType","NEW_ASSET"),b.get("reason"),b.getOrDefault("status","PENDING"));
+      case "asset-transfer" -> db.update("insert into asset_transfers(company_id,asset_id,from_employee_id,to_employee_id,from_location_id,to_location_id,requested_by,status,reason) values(?,?,?,?,?,?,?,?,?)",company,b.get("assetId"),b.get("fromEmployeeId"),b.get("toEmployeeId"),b.get("fromLocationId"),b.get("toLocationId"),b.get("requestedBy"),b.getOrDefault("status","PENDING"),b.get("reason"));
+      case "asset-return" -> db.update("insert into asset_returns(company_id,asset_id,employee_id,requested_by,condition_status,remarks,status) values(?,?,?,?,?,?,?)",company,b.get("assetId"),b.get("employeeId"),b.get("requestedBy"),b.get("conditionStatus"),b.get("remarks"),b.getOrDefault("status","PENDING"));
+      case "repair-history" -> db.update("insert into repair_history(company_id,asset_id,technician_id,issue_description,repair_action,cost,started_at,completed_at,status) values(?,?,?,?,?,?,?,?,?)",company,b.get("assetId"),b.get("technicianId"),b.get("issueDescription"),b.get("repairAction"),b.get("cost"),b.get("startedAt"),b.get("completedAt"),b.getOrDefault("status","OPEN"));
+      default -> throw bad();
+    }
+    lifecycle(type,company,actor,b); audit(company,actor,type,"CREATE","Created "+type); notify(type,company,b);
+    return db.queryForMap("select * from "+table(type)+" where company_id=? order by "+key(type)+" desc limit 1",company);
+  }
 
-	@Transactional
-	public Map<String, Object> update(String type, Long companyId, Long id, Map<String, Object> body) {
-		ensureOwned(type, companyId, id);
-		switch (type) {
-		case "asset" -> db.update(
-				"update assets set category_id=?,vendor_id=?,asset_name=?,asset_tag=?,serial_number=?,manufacturer=?,model=?,purchase_date=?,purchase_cost=?,warranty_expiry=?,status=?,remarks=? where asset_id=?",
-				body.get("categoryId"), body.get("vendorId"), body.get("assetName"), body.get("assetTag"),
-				body.get("serialNumber"), body.get("manufacturer"), body.get("model"), body.get("purchaseDate"),
-				body.get("purchaseCost"), body.get("warrantyExpiry"), body.getOrDefault("status", "AVAILABLE"),
-				body.get("remarks"), id);
-		case "category" -> db.update("update asset_categories set category_name=?,description=?,is_active=? where category_id=?",
-				body.get("categoryName"), body.get("description"), body.getOrDefault("isActive", true), id);
-		case "vendor" -> db.update("update vendors set vendor_name=?,contact_person=?,email=?,phone=?,address=?,is_active=? where vendor_id=?",
-				body.get("vendorName"), body.get("contactPerson"), body.get("email"), body.get("phone"),
-				body.get("address"), body.getOrDefault("isActive", true), id);
-		case "purchase-order" -> db.update("update purchase_orders set vendor_id=?,order_number=?,order_date=?,expected_delivery_date=?,total_amount=?,status=?,remarks=? where purchase_order_id=?",
-				body.get("vendorId"), body.get("orderNumber"), body.get("orderDate"), body.get("expectedDeliveryDate"),
-				body.get("totalAmount"), body.getOrDefault("status", "DRAFT"), body.get("remarks"), id);
-		case "maintenance" -> db.update("update service_tickets set asset_id=?,employee_id=?,issue_description=?,priority=?,status=?,resolved_at=? where ticket_id=?",
-				body.get("assetId"), body.get("employeeId"), body.get("issueDescription"), body.getOrDefault("priority", "MEDIUM"),
-				body.getOrDefault("status", "OPEN"), body.get("resolvedAt"), id);
-		case "asset-allocation" -> db.update("update asset_allocations set asset_id=?,employee_id=?,allocated_by=?,allocated_date=?,expected_return_date=?,returned_date=?,allocation_status=?,remarks=? where allocation_id=?",
-				body.get("assetId"), body.get("employeeId"), body.get("allocatedBy"), body.get("allocatedDate"),
-				body.get("expectedReturnDate"), body.get("returnedDate"), body.getOrDefault("allocationStatus", "ACTIVE"),
-				body.get("remarks"), id);
-		case "asset-request" -> db.update("update asset_requests set employee_id=?,category_id=?,asset_id=?,approved_by=?,request_type=?,reason=?,status=? where request_id=?",
-				body.get("employeeId"), body.get("categoryId"), body.get("assetId"), body.get("approvedBy"),
-				body.get("requestType"), body.get("reason"), body.getOrDefault("status", "PENDING"), id);
-		default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported resource");
-		}
-		return body;
-	}
+  @Transactional public Map<String,Object> update(String type,Long company,Long actor,Long id,Map<String,Object>b) {
+    ensureOwned(type,company,id); validate(type,company,b);
+    switch(type) {
+      case "asset" -> db.update("update assets set category_id=?,vendor_id=?,location_id=?,purchase_order_id=?,asset_name=?,asset_tag=?,serial_number=?,manufacturer=?,model=?,purchase_date=?,purchase_cost=?,warranty_expiry=?,status=?,remarks=? where asset_id=? and company_id=?",b.get("categoryId"),b.get("vendorId"),b.get("locationId"),b.get("purchaseOrderId"),b.get("assetName"),b.get("assetTag"),b.get("serialNumber"),b.get("manufacturer"),b.get("model"),b.get("purchaseDate"),b.get("purchaseCost"),b.get("warrantyExpiry"),b.getOrDefault("status","AVAILABLE"),b.get("remarks"),id,company);
+      case "category" -> db.update("update asset_categories set category_name=?,description=?,is_active=? where category_id=? and company_id=?",b.get("categoryName"),b.get("description"),b.getOrDefault("isActive",true),id,company);
+      case "vendor" -> db.update("update vendors set vendor_name=?,contact_person=?,email=?,phone=?,address=?,is_active=? where vendor_id=? and company_id=?",b.get("vendorName"),b.get("contactPerson"),b.get("email"),b.get("phone"),b.get("address"),b.getOrDefault("isActive",true),id,company);
+      case "purchase-order" -> db.update("update purchase_orders set vendor_id=?,order_number=?,order_date=?,expected_delivery_date=?,total_amount=?,status=?,remarks=? where purchase_order_id=? and company_id=?",b.get("vendorId"),b.get("orderNumber"),b.get("orderDate"),b.get("expectedDeliveryDate"),b.get("totalAmount"),b.getOrDefault("status","DRAFT"),b.get("remarks"),id,company);
+      case "maintenance" -> db.update("update maintenance set asset_id=?,employee_id=?,issue_description=?,priority=?,status=?,resolved_at=? where maintenance_id=? and company_id=?",b.get("assetId"),b.get("employeeId"),b.get("issueDescription"),b.getOrDefault("priority","MEDIUM"),b.getOrDefault("status","OPEN"),b.get("resolvedAt"),id,company);
+      case "asset-allocation" -> db.update("update asset_allocations set asset_id=?,employee_id=?,allocated_by=?,allocated_date=?,expected_return_date=?,returned_date=?,allocation_status=?,remarks=? where allocation_id=? and company_id=?",b.get("assetId"),b.get("employeeId"),b.get("allocatedBy"),b.get("allocatedDate"),b.get("expectedReturnDate"),b.get("returnedDate"),b.getOrDefault("allocationStatus","ACTIVE"),b.get("remarks"),id,company);
+      case "asset-request" -> db.update("update asset_requests set employee_id=?,category_id=?,asset_id=?,approved_by=?,request_type=?,reason=?,status=? where request_id=? and company_id=?",b.get("employeeId"),b.get("categoryId"),b.get("assetId"),b.get("approvedBy"),b.get("requestType"),b.get("reason"),b.getOrDefault("status","PENDING"),id,company);
+      case "asset-transfer" -> db.update("update asset_transfers set asset_id=?,from_employee_id=?,to_employee_id=?,from_location_id=?,to_location_id=?,approved_by=?,status=?,reason=? where transfer_id=? and company_id=?",b.get("assetId"),b.get("fromEmployeeId"),b.get("toEmployeeId"),b.get("fromLocationId"),b.get("toLocationId"),b.get("approvedBy"),b.getOrDefault("status","PENDING"),b.get("reason"),id,company);
+      case "asset-return" -> db.update("update asset_returns set asset_id=?,employee_id=?,approved_by=?,condition_status=?,remarks=?,status=?,returned_at=? where return_id=? and company_id=?",b.get("assetId"),b.get("employeeId"),b.get("approvedBy"),b.get("conditionStatus"),b.get("remarks"),b.getOrDefault("status","PENDING"),b.get("returnedAt"),id,company);
+      case "repair-history" -> db.update("update repair_history set asset_id=?,technician_id=?,issue_description=?,repair_action=?,cost=?,started_at=?,completed_at=?,status=? where repair_id=? and company_id=?",b.get("assetId"),b.get("technicianId"),b.get("issueDescription"),b.get("repairAction"),b.get("cost"),b.get("startedAt"),b.get("completedAt"),b.getOrDefault("status","OPEN"),id,company);
+      default -> throw bad();
+    }
+    lifecycle(type,company,actor,b); audit(company,actor,type,"UPDATE","Updated "+type+" #"+id); notify(type,company,b); return one(type,company,actor,"COMPANY_ADMIN",id);
+  }
 
-	@Transactional
-	public void delete(String type, Long companyId, Long id) {
-		ensureOwned(type, companyId, id);
-		if ("purchase-order".equals(type)) {
-			db.update("delete from purchase_orders where purchase_order_id=?", id);
-			return;
-		}
-		String table = table(type), key = key(type);
-		db.update("delete from " + table + " where " + key + "=?", id);
-	}
+  @Transactional public void delete(String type,Long company,Long actor,Long id){ensureOwned(type,company,id);db.update("delete from "+table(type)+" where "+key(type)+"=? and company_id=?",id,company);audit(company,actor,type,"DELETE","Deleted "+type+" #"+id);}
+  @Transactional public Map<String,Object> importAssets(Long company,Long actor,List<Map<String,Object>> rows){int ok=0;List<Map<String,Object>> bad=new ArrayList<>();for(int i=0;i<(rows==null?0:rows.size());i++){try{create("asset",company,actor,rows.get(i));ok++;}catch(Exception e){bad.add(Map.of("row",i+1,"reason",String.valueOf(e.getMessage())));}}return Map.of("accepted",ok,"rejected",bad,"total",rows==null?0:rows.size());}
 
-	private void ensureOwned(String type, Long companyId, Long id) {
-		String table = table(type), key = key(type);
-		Integer count = db.queryForObject("select count(*) from " + table + " where " + key + "=? and company_id=?",
-				Integer.class, id, companyId);
-		if (count == null || count == 0) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found");
-		}
-	}
-
-	private String table(String type) {
-		return switch (type) {
-		case "asset" -> "assets";
-		case "category" -> "asset_categories";
-		case "vendor" -> "vendors";
-		case "purchase-order" -> "purchase_orders";
-		case "maintenance" -> "service_tickets";
-		case "asset-allocation" -> "asset_allocations";
-		case "asset-request" -> "asset_requests";
-		default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported resource");
-		};
-	}
-
-	private String key(String type) {
-		return switch (type) {
-		case "asset" -> "asset_id";
-		case "category" -> "category_id";
-		case "vendor" -> "vendor_id";
-		case "purchase-order" -> "purchase_order_id";
-		case "maintenance" -> "ticket_id";
-		case "asset-allocation" -> "allocation_id";
-		case "asset-request" -> "request_id";
-		default -> throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported resource");
-		};
-	}
+  private void validate(String type,Long company,Map<String,Object>b){Map<String,String> required=new LinkedHashMap<>();if("asset".equals(type)){required.put("assetName","Asset name");required.put("assetTag","Asset tag");required.put("serialNumber","Serial number");required.put("categoryId","Category");required.put("vendorId","Vendor");}if("category".equals(type))required.put("categoryName","Category name");if("vendor".equals(type))required.put("vendorName","Vendor name");for(var f:required.entrySet())if(b.get(f.getKey())==null||String.valueOf(b.get(f.getKey())).isBlank())throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,f.getValue()+" is required");Map<String,String> refs=new LinkedHashMap<>();switch(type){case"asset"->{refs.put("categoryId","asset_categories:category_id");refs.put("vendorId","vendors:vendor_id");refs.put("locationId","locations:location_id");refs.put("purchaseOrderId","purchase_orders:purchase_order_id");}case"purchase-order"->refs.put("vendorId","vendors:vendor_id");case"maintenance"->{refs.put("assetId","assets:asset_id");refs.put("employeeId","users:user_id");}case"asset-allocation"->{refs.put("assetId","assets:asset_id");refs.put("employeeId","users:user_id");refs.put("allocatedBy","users:user_id");}case"asset-request"->{refs.put("assetId","assets:asset_id");refs.put("categoryId","asset_categories:category_id");refs.put("employeeId","users:user_id");refs.put("approvedBy","users:user_id");}case"asset-transfer"->{refs.put("assetId","assets:asset_id");refs.put("fromEmployeeId","users:user_id");refs.put("toEmployeeId","users:user_id");refs.put("fromLocationId","locations:location_id");refs.put("toLocationId","locations:location_id");}case"asset-return"->{refs.put("assetId","assets:asset_id");refs.put("employeeId","users:user_id");}case"repair-history"->{refs.put("assetId","assets:asset_id");refs.put("technicianId","users:user_id");}default->{}}for(var f:refs.entrySet()){Object id=b.get(f.getKey());if(id==null||String.valueOf(id).isBlank())continue;String[] t=f.getValue().split(":");Integer n=db.queryForObject("select count(*) from "+t[0]+" where "+t[1]+"=? and company_id=?",Integer.class,id,company);if(n==null||n==0)throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"Referenced "+f.getKey()+" does not belong to this company");}}
+  private void lifecycle(String type,Long company,Long actor,Map<String,Object>b){Object a=b.get("assetId");if(a==null)return;String s=String.valueOf(b.getOrDefault("status","")).toUpperCase();if("asset-allocation".equals(type)&&!"CANCELLED".equals(s))db.update("update assets set status='ASSIGNED' where asset_id=? and company_id=?",a,company);else if("asset-return".equals(type)&&Set.of("APPROVED","COMPLETED").contains(s)){db.update("update assets set status='AVAILABLE' where asset_id=? and company_id=?",a,company);db.update("update asset_allocations set allocation_status='RETURNED',returned_date=coalesce(returned_date,current_date) where company_id=? and asset_id=? and employee_id=? and allocation_status='ACTIVE'",company,a,b.get("employeeId"));}else if("asset-transfer".equals(type)&&"APPROVED".equals(s)){db.update("update assets set status='ASSIGNED' where asset_id=? and company_id=?",a,company);db.update("update asset_allocations set allocation_status='TRANSFERRED',returned_date=coalesce(returned_date,current_date) where company_id=? and asset_id=? and allocation_status='ACTIVE'",company,a);Object to=b.get("toEmployeeId");if(to!=null)db.update("insert into asset_allocations(company_id,asset_id,employee_id,allocated_by,allocated_date,allocation_status,remarks) values(?,?,?, ?,current_date,'ACTIVE','Transferred')",company,a,to,actor);}else if("asset-request".equals(type)&&"APPROVED".equals(s)){db.update("update assets set status='ASSIGNED' where asset_id=? and company_id=?",a,company);Integer active=db.queryForObject("select count(*) from asset_allocations where company_id=? and asset_id=? and allocation_status='ACTIVE'",Integer.class,company,a);if(active==null||active==0)db.update("insert into asset_allocations(company_id,asset_id,employee_id,allocated_by,allocated_date,allocation_status,remarks) values(?,?,?, ?,current_date,'ACTIVE','Approved request')",company,a,b.get("employeeId"),b.getOrDefault("approvedBy",actor));}else if("maintenance".equals(type))db.update("update assets set status=? where asset_id=? and company_id=?",Set.of("COMPLETED","CANCELLED").contains(s)?"AVAILABLE":"UNDER_REPAIR",a,company);}
+  private void notify(String type,Long company,Map<String,Object>b){Object u=switch(type){case"asset-allocation","asset-return","asset-request","maintenance"->b.get("employeeId");case"asset-transfer"->b.get("toEmployeeId");default->null;};if(u!=null)try{db.update("insert into notifications(company_id,user_id,title,message) values(?,?,?,?)",company,u,"AssetFlow update","Your "+type.replace('-', ' ')+" has been updated.");}catch(Exception ignored){}}
+  private void audit(Long company,Long actor,String module,String action,String text){try{db.update("insert into audit_logs(company_id,user_id,module,action,description) values(?,?,?,?,?)",company,actor,module,action,text);}catch(Exception ignored){}}
+  private void ensureOwned(String type,Long company,Long id){Integer n=db.queryForObject("select count(*) from "+table(type)+" where "+key(type)+"=? and company_id=?",Integer.class,id,company);if(n==null||n==0)throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource not found");}
+  private String table(String t){return switch(t){case"asset"->"assets";case"category"->"asset_categories";case"vendor"->"vendors";case"purchase-order"->"purchase_orders";case"maintenance"->"maintenance";case"asset-allocation"->"asset_allocations";case"asset-request"->"asset_requests";case"asset-transfer"->"asset_transfers";case"asset-return"->"asset_returns";case"repair-history"->"repair_history";default->throw bad();};}
+  private String key(String t){return switch(t){case"asset"->"asset_id";case"category"->"category_id";case"vendor"->"vendor_id";case"purchase-order"->"purchase_order_id";case"maintenance"->"maintenance_id";case"asset-allocation"->"allocation_id";case"asset-request"->"request_id";case"asset-transfer"->"transfer_id";case"asset-return"->"return_id";case"repair-history"->"repair_id";default->throw bad();};}
+  private ResponseStatusException bad(){return new ResponseStatusException(HttpStatus.BAD_REQUEST,"Unsupported resource");}
+  private ResponseStatusException forbidden(){return new ResponseStatusException(HttpStatus.FORBIDDEN,"You are not allowed to access this resource");}
 }

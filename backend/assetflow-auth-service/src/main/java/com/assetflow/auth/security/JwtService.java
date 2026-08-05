@@ -3,6 +3,7 @@ package com.assetflow.auth.security;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.Key;
 import java.time.Instant;
 import java.util.Base64;
@@ -24,7 +25,7 @@ public class JwtService {
 
 	public JwtService(@Value("${app.jwt.secret}") String secret, @Value("${app.jwt.access-minutes}") long access,
 			@Value("${app.jwt.refresh-days}") long refresh) {
-		this.key = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), HMAC_ALG);
+		try { this.key = new SecretKeySpec(MessageDigest.getInstance("SHA-256").digest(secret.getBytes(StandardCharsets.UTF_8)), HMAC_ALG); } catch (Exception e) { throw new IllegalStateException("Unable to initialize JWT key", e); }
 		this.accessMinutes = access;
 		this.refreshDays = refresh;
 	}

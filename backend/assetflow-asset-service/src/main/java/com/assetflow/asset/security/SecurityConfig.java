@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,6 +28,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Configuration
 public class SecurityConfig {
+	/** Asset operations use the shared JWT filter; disable Spring's generated in-memory credentials. */
+	@Bean AuthenticationManager authenticationManager() { return authentication -> { throw new org.springframework.security.authentication.BadCredentialsException("Bearer JWT authentication is required"); }; }
 	@Bean
 	JwtFilter jwtFilter(@Value("${app.jwt.secret}") String secret) {
 		return new JwtFilter(secret);
@@ -35,7 +39,7 @@ public class SecurityConfig {
 	SecurityFilterChain filter(HttpSecurity http, JwtFilter filter) throws Exception {
 		return http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
 				.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(a -> a.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/actuator/health")
+				.authorizeHttpRequests(a -> a.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/actuator/health/**")
 						.permitAll().anyRequest().authenticated())
 				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).build();
 	}
@@ -44,7 +48,7 @@ public class SecurityConfig {
 		private final SecretKey key;
 
 		JwtFilter(String secret) {
-			this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+			try { this.key = Keys.hmacShaKeyFor(MessageDigest.getInstance("SHA-256").digest(secret.getBytes(StandardCharsets.UTF_8))); } catch (Exception e) { throw new IllegalStateException("Unable to initialize JWT key", e); }
 		}
 
 		@Override

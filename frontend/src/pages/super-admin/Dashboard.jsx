@@ -53,8 +53,6 @@ const Dashboard = () => {
         </div>
         <div className="col-md-3">
           <div className="surface p-4">
-            <div className="text-secondary">Subscriptions</div>
-            <div className="display-6 fw-bold">{stats.subscriptions ?? 0}</div>
           </div>
         </div>
       </div>

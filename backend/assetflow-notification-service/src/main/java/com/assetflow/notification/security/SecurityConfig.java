@@ -1,5 +1,33 @@
 package com.assetflow.notification.security;
-import io.jsonwebtoken.*;import io.jsonwebtoken.security.Keys;import jakarta.servlet.*;import jakarta.servlet.http.*;import java.io.*;import java.nio.charset.StandardCharsets;import javax.crypto.SecretKey;import org.springframework.beans.factory.annotation.Value;import org.springframework.context.annotation.*;import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;import org.springframework.security.config.annotation.web.builders.HttpSecurity;import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;import org.springframework.security.config.http.SessionCreationPolicy;import org.springframework.security.core.authority.SimpleGrantedAuthority;import org.springframework.security.core.context.SecurityContextHolder;import org.springframework.security.web.*;import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;import org.springframework.web.filter.OncePerRequestFilter;
-@Configuration public class SecurityConfig { @Bean JwtFilter jwtFilter(@Value("${app.jwt.secret}") String s){return new JwtFilter(s);} @Bean SecurityFilterChain chain(HttpSecurity h,JwtFilter f)throws Exception{return h.csrf(csrf->csrf.disable()).cors(cors->cors.disable()).sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(a->a.requestMatchers("/actuator/health","/swagger-ui/**","/v3/api-docs/**").permitAll().anyRequest().authenticated()).addFilterBefore(f,UsernamePasswordAuthenticationFilter.class).build();}
- static class JwtFilter extends OncePerRequestFilter{final SecretKey key; JwtFilter(String s){key=Keys.hmacShaKeyFor(s.getBytes(StandardCharsets.UTF_8));} protected void doFilterInternal(HttpServletRequest r,HttpServletResponse p,FilterChain c)throws ServletException,IOException{String h=r.getHeader("Authorization");if(h!=null&&h.startsWith("Bearer "))try{Claims x=Jwts.parser().verifyWith(key).build().parseSignedClaims(h.substring(7)).getPayload();if("access".equals(x.get("type")))SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(x,null,java.util.List.of(new SimpleGrantedAuthority("ROLE_"+x.get("role",String.class)))));}catch(Exception ignored){}c.doFilter(r,p);}}
+
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
+import org.springframework.security.web.*;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+@Configuration
+public class SecurityConfig {
+  @Bean JwtFilter jwtFilter(@Value("${app.jwt.secret}") String secret){return new JwtFilter(secret);}
+  @Bean UserDetailsService userDetailsService(){return username->{throw new UsernameNotFoundException("Notification service is JWT-only");};}
+  @Bean SecurityFilterChain chain(HttpSecurity h,JwtFilter f)throws Exception{return h.csrf(csrf->csrf.disable()).cors(cors->cors.disable()).sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(a->a.requestMatchers("/actuator/health/**","/swagger-ui/**","/v3/api-docs/**").permitAll().anyRequest().authenticated()).addFilterBefore(f,UsernamePasswordAuthenticationFilter.class).build();}
+  static class JwtFilter extends OncePerRequestFilter {
+    final SecretKey key;
+    JwtFilter(String secret){try{key=Keys.hmacShaKeyFor(MessageDigest.getInstance("SHA-256").digest(secret.getBytes(StandardCharsets.UTF_8)));}catch(Exception e){throw new IllegalStateException("Unable to initialize JWT key",e);}}
+    protected void doFilterInternal(HttpServletRequest r,HttpServletResponse p,FilterChain c)throws ServletException,IOException{String h=r.getHeader("Authorization");if(h!=null&&h.startsWith("Bearer "))try{Claims x=Jwts.parser().verifyWith(key).build().parseSignedClaims(h.substring(7)).getPayload();if("access".equals(x.get("type")))SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(x,null,java.util.List.of(new SimpleGrantedAuthority("ROLE_"+x.get("role",String.class)))));}catch(Exception ignored){}c.doFilter(r,p);}
+  }
 }

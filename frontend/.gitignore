@@ -1,14 +1,24 @@
-# Frontend modules inherit the repository-wide rules from the root .gitignore.
-# Keep this file for tools that use the frontend directory as their project root.
-
-node_modules/
-dist/
-dist-ssr/
-coverage/
-.env
-.env.*
-!.env.example
-*.local
+# Logs
+logs
 *.log
-.vite/
-.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
