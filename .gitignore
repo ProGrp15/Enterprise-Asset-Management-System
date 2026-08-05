@@ -48,16 +48,21 @@ runtime-logs/
 *.war
 *.ear
 **/.mvn/wrapper/maven-wrapper.jar
+**/.gradle/
 
 # .NET build output
 **/bin/
 **/obj/
+**/packages/
+**/TestResults/
+**/publish/
 
 # JavaScript dependencies and build output
 **/node_modules/
 **/dist/
 **/dist-ssr/
 **/coverage/
+**/.cache/
 playwright-report/
 test-results/
 npm-debug.log*
