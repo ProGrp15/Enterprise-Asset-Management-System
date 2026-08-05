@@ -28,7 +28,7 @@ namespace CompanyService.Controllers
             throw new UnauthorizedAccessException("Missing companyId claim");
         }
 
-        [HttpGet("api/{type:regex(^(department|employee|admin|location)$)}")]
+        [HttpGet("api/{type:regex((department|employee|admin|location))}")]
         public async Task<ActionResult<ApiResponse<object>>> List([FromRoute] string type, [FromQuery] string? search)
         {
             try
@@ -42,7 +42,7 @@ namespace CompanyService.Controllers
             }
         }
 
-        [HttpGet("api/{type:regex(^(department|employee|admin|location)$)}/{id}")]
+        [HttpGet("api/{type:regex((department|employee|admin|location))}/{id}")]
         public async Task<ActionResult<ApiResponse<object>>> One([FromRoute] string type, [FromRoute] long id)
         {
             try
@@ -60,7 +60,7 @@ namespace CompanyService.Controllers
             }
         }
 
-        [HttpPost("api/{type:regex(^(department|employee|admin|location)$)}")]
+        [HttpPost("api/{type:regex((department|employee|admin|location))}")]
         public async Task<ActionResult<ApiResponse<object>>> Create([FromRoute] string type, [FromBody] JsonElement body)
         {
             try
@@ -74,7 +74,7 @@ namespace CompanyService.Controllers
             }
         }
 
-        [HttpPut("api/{type:regex(^(department|employee|admin|location)$)}/{id}")]
+        [HttpPut("api/{type:regex((department|employee|admin|location))}/{id}")]
         public async Task<ActionResult<ApiResponse<object>>> Update([FromRoute] string type, [FromRoute] long id, [FromBody] JsonElement body)
         {
             try
@@ -92,7 +92,7 @@ namespace CompanyService.Controllers
             }
         }
 
-        [HttpDelete("api/{type:regex(^(department|employee|admin|location)$)}/{id}")]
+        [HttpDelete("api/{type:regex((department|employee|admin|location))}/{id}")]
         public async Task<ActionResult<ApiResponse<object>>> Remove([FromRoute] string type, [FromRoute] long id)
         {
             try

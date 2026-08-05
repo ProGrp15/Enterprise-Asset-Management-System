@@ -27,7 +27,7 @@ namespace AssetService.Controllers
             throw new UnauthorizedAccessException("Missing companyId claim");
         }
 
-        [HttpGet("{type:regex(^(asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request)$)}")]
+        [HttpGet("{type:regex((asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request))}")]
         public async Task<ActionResult<ApiResponse<object>>> List([FromRoute] string type)
         {
             try
@@ -41,7 +41,7 @@ namespace AssetService.Controllers
             }
         }
 
-        [HttpGet("{type:regex(^(asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request)$)}/{id}")]
+        [HttpGet("{type:regex((asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request))}/{id}")]
         public async Task<ActionResult<ApiResponse<object>>> One([FromRoute] string type, [FromRoute] long id)
         {
             try
@@ -59,7 +59,7 @@ namespace AssetService.Controllers
             }
         }
 
-        [HttpPost("{type:regex(^(asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request)$)}")]
+        [HttpPost("{type:regex((asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request))}")]
         public async Task<ActionResult<ApiResponse<object>>> Create([FromRoute] string type, [FromBody] JsonElement body)
         {
             try
@@ -73,7 +73,7 @@ namespace AssetService.Controllers
             }
         }
 
-        [HttpPut("{type:regex(^(asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request)$)}/{id}")]
+        [HttpPut("{type:regex((asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request))}/{id}")]
         public async Task<ActionResult<ApiResponse<object>>> Update([FromRoute] string type, [FromRoute] long id, [FromBody] JsonElement body)
         {
             try
@@ -91,7 +91,7 @@ namespace AssetService.Controllers
             }
         }
 
-        [HttpDelete("{type:regex(^(asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request)$)}/{id}")]
+        [HttpDelete("{type:regex((asset|category|vendor|purchase-order|maintenance|asset-allocation|asset-request))}/{id}")]
         public async Task<ActionResult<ApiResponse<object>>> Delete([FromRoute] string type, [FromRoute] long id)
         {
             try
