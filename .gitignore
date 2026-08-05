@@ -53,10 +53,6 @@ runtime-logs/
 **/bin/
 **/obj/
 
-# Out-of-scope legacy runtimes
-/dotNet/
-/express-backend/
-
 # JavaScript dependencies and build output
 **/node_modules/
 **/dist/
