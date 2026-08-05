@@ -14,6 +14,7 @@ import Reports from '../pages/company-admin/Reports';
 import SharedProfile from '../pages/shared/Profile';
 import CompanySettings from '../pages/company-admin/Settings';
 import SuperSettings from '../pages/super-admin/Settings';
+import SuperAnalytics from '../pages/super-admin/Analytics';
 import { MyAssets, RequestAsset } from '../pages/employee/EmployeeAssetPages';
 
 function Generic({name}){const location=useLocation(); if(name==='reports')return <Reports/>; if(name==='profile')return <SharedProfile/>; if(name==='settings')return location.pathname.startsWith('/super-admin')?<SuperSettings/>:<CompanySettings/>; return <LiveResourcePage name={name}/>}
@@ -27,4 +28,4 @@ export default function AppRoutes(){return <Routes>
  <Route path="/company-admin" element={<Navigate to="/company-admin/dashboard" replace/>}/><Route path="/company-admin/change-password" element={wrap('company',<ChangePassword/>)}/><Route path="/company-admin/dashboard" element={wrap('company',<CompanyDashboard/>)}/>{company.map(p=><Route key={p} path={'/company-admin/'+p} element={wrap('company', p === 'ai-assistant' ? <AIAssistant /> : <Generic name={p}/>)}/>)}
  <Route path="/super-admin" element={<Navigate to="/super-admin/dashboard" replace/>}/><Route path="/super-admin/dashboard" element={wrap('super',<SuperDashboard/>)}/>{superPages.map(p=><Route key={p} path={'/super-admin/'+p} element={wrap('super', p === 'ai-assistant' ? <AIAssistant /> : <Generic name={p}/>)}/>)}
  <Route path="/employee" element={<Navigate to="/employee/dashboard" replace/>}/><Route path="/employee/dashboard" element={wrap('employee',<EmployeeDashboard/>)}/><Route path="/employee/my-assets" element={wrap('employee',<MyAssets/>)}/><Route path="/employee/request-asset" element={wrap('employee',<RequestAsset/>)}/>{employee.filter(p=>!['my-assets','request-asset'].includes(p)).map(p=><Route key={p} path={'/employee/'+p} element={wrap('employee', p === 'ai-assistant' ? <AIAssistant /> : <Generic name={p}/>)}/>)}
- <Route path="/super-admin/companies" element={wrap('super',<PlatformCompanies/>)}/><Route path="*" element={<MainLayout><NotFound/></MainLayout>}/></Routes>}
+ <Route path="/super-admin/companies" element={wrap('super',<PlatformCompanies/>)}/><Route path="/super-admin/analytics" element={wrap('super',<SuperAnalytics/>)}/><Route path="*" element={<MainLayout><NotFound/></MainLayout>}/></Routes>}
