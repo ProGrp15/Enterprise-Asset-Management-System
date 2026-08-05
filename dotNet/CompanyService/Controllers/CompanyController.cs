@@ -19,21 +19,37 @@ namespace CompanyService.Controllers
 
         private long GetCompanyId()
         {
-            var companyIdClaim = User.Claims.FirstOrDefault(c => c.Type == "companyId");
-            if (companyIdClaim != null && long.TryParse(companyIdClaim.Value, out long companyId))
+            var claim = User.Claims.FirstOrDefault(c => c.Type == "companyId");
+            return claim != null && long.TryParse(claim.Value, out long id) ? id : throw new UnauthorizedAccessException("Missing companyId claim");
+        }
+
+        private long GetUserId()
+        {
+            var claim = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier" || c.Type == "sub");
+            return claim != null && long.TryParse(claim.Value, out long id) ? id : throw new UnauthorizedAccessException("Missing user claim");
+        }
+
+        private string GetRole()
+        {
+            var claim = User.Claims.FirstOrDefault(c => c.Type == "role" || c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
+            return claim?.Value ?? string.Empty;
+        }
+
+        private void AssertAdmin()
+        {
+            var role = GetRole();
+            if (role != "SUPER_ADMIN" && role != "COMPANY_ADMIN")
             {
-                return companyId;
+                throw new UnauthorizedAccessException("Administrator access is required");
             }
-            // Fallback for missing claim (could also throw UnauthorizedAccessException)
-            throw new UnauthorizedAccessException("Missing companyId claim");
         }
 
         [HttpGet("api/{type:regex((department|employee|admin|location))}")]
-        public async Task<ActionResult<ApiResponse<object>>> List([FromRoute] string type, [FromQuery] string? search)
+        public async Task<ActionResult<ApiResponse<object>>> List([FromRoute] string type, [FromQuery] string? search, [FromQuery] int page = 0, [FromQuery] int size = 25)
         {
             try
             {
-                var result = await _service.ListAsync(type, GetCompanyId(), search);
+                var result = await _service.ListAsync(type, GetCompanyId(), GetUserId(), GetRole(), search, page, size);
                 return Ok(ApiResponse<object>.Ok(result));
             }
             catch (Exception ex)
@@ -47,7 +63,7 @@ namespace CompanyService.Controllers
         {
             try
             {
-                var result = await _service.OneAsync(type, GetCompanyId(), id);
+                var result = await _service.OneAsync(type, GetCompanyId(), GetUserId(), GetRole(), id);
                 return Ok(ApiResponse<object>.Ok(result));
             }
             catch (KeyNotFoundException)
@@ -65,7 +81,23 @@ namespace CompanyService.Controllers
         {
             try
             {
-                var result = await _service.CreateAsync(type, GetCompanyId(), body);
+                AssertAdmin();
+                var result = await _service.CreateAsync(type, GetCompanyId(), GetUserId(), body);
+                return Ok(ApiResponse<object>.Ok(result));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<object>.Error(ex.Message));
+            }
+        }
+
+        [HttpPost("api/employee/import")]
+        public async Task<ActionResult<ApiResponse<object>>> ImportEmployees([FromBody] List<JsonElement> rows)
+        {
+            try
+            {
+                AssertAdmin();
+                var result = await _service.ImportEmployeesAsync(GetCompanyId(), GetUserId(), rows);
                 return Ok(ApiResponse<object>.Ok(result));
             }
             catch (Exception ex)
@@ -79,7 +111,8 @@ namespace CompanyService.Controllers
         {
             try
             {
-                var result = await _service.UpdateAsync(type, GetCompanyId(), id, body);
+                AssertAdmin();
+                var result = await _service.UpdateAsync(type, GetCompanyId(), GetUserId(), id, body);
                 return Ok(ApiResponse<object>.Ok(result));
             }
             catch (KeyNotFoundException)
@@ -97,7 +130,8 @@ namespace CompanyService.Controllers
         {
             try
             {
-                await _service.DeleteAsync(type, GetCompanyId(), id);
+                AssertAdmin();
+                await _service.DeleteAsync(type, GetCompanyId(), GetUserId(), id);
                 return Ok(ApiResponse<object>.Ok(null!));
             }
             catch (KeyNotFoundException)

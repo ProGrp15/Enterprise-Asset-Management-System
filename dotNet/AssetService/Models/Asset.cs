@@ -22,6 +22,12 @@ namespace AssetService.Models
         [Column("vendor_id")]
         public long VendorId { get; set; }
 
+        [Column("location_id")]
+        public long? LocationId { get; set; }
+
+        [Column("purchase_order_id")]
+        public long? PurchaseOrderId { get; set; }
+
         [Required]
         [Column("asset_name")]
         [StringLength(100)]

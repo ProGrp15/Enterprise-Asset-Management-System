@@ -16,6 +16,11 @@ namespace AssetService.Data
         public DbSet<ServiceTicket> ServiceTickets { get; set; }
         public DbSet<AssetAllocation> AssetAllocations { get; set; }
         public DbSet<AssetRequest> AssetRequests { get; set; }
+        public DbSet<AssetTransfer> AssetTransfers { get; set; }
+        public DbSet<AssetReturn> AssetReturns { get; set; }
+        public DbSet<RepairHistory> RepairHistories { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
