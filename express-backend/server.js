@@ -627,7 +627,7 @@ app.listen(PORT, () => {
 //       officialEmail,
 //       mobileNumber,
 //       adminName,
-      
+
 //       password,
 //     } = req.body;
 
