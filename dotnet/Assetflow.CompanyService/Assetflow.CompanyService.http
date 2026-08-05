@@ -1,0 +1,6 @@
+@Assetflow.CompanyService_HostAddress = http://localhost:5187
+
+GET {{Assetflow.CompanyService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
