@@ -1,5 +1,0 @@
-GET {{Assetflow.DiscoveryServer_HostAddress}}/actuator/health
-
-###
-
-GET {{Assetflow.DiscoveryServer_HostAddress}}/eureka/apps
