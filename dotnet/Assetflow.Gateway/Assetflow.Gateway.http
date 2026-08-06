@@ -1,6 +1,0 @@
-@Assetflow.Gateway_HostAddress = http://localhost:5139
-
-GET {{Assetflow.Gateway_HostAddress}}/actuator/health
-Accept: application/json
-
-###

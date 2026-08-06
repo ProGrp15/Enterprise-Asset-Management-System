@@ -1,6 +1,0 @@
-@Assetflow.NotificationService_HostAddress = http://localhost:5212
-
-GET {{Assetflow.NotificationService_HostAddress}}/actuator/health
-Accept: application/json
-
-###
