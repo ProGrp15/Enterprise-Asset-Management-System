@@ -82,8 +82,10 @@ public class AuthService {
 		}
 		User u = users.findByEmail(r.email())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password"));
-		if (!Boolean.TRUE.equals(u.getActive()) || (u.getCompany() != null && !Boolean.TRUE.equals(u.getCompany().getActive())))
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
+		if (!Boolean.TRUE.equals(u.getActive()))
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Your account has been deactivated. Please contact your administrator.");
+		if (u.getCompany() != null && !Boolean.TRUE.equals(u.getCompany().getActive()))
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Your company account has been suspended. Please contact the platform administrator.");
 		return view(u);
 	}
 

@@ -13,7 +13,9 @@ public class CorsConfig {
   @Bean
   CorsWebFilter corsWebFilter() {
     CorsConfiguration config = new CorsConfiguration();
-    config.setAllowedOrigins(List.of("http://localhost:5173"));
+    // Vite is commonly opened through either hostname during local development.
+    // Keep both explicit origins so browser authentication works consistently.
+    config.setAllowedOrigins(List.of("http://localhost:5173", "http://127.0.0.1:5173"));
     config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
     config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin"));
     config.setExposedHeaders(List.of("Authorization"));
