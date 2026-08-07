@@ -186,7 +186,7 @@ public class AssetDataService {
     }
     lifecycle(type, company, actor, b);
     audit(company, actor, type, "CREATE", "Created " + type);
-    notify(type, company, b);
+    notifyCreation(type, company, actor, b);
     Long newId = db.queryForObject("select " + key(type) + " from " + table(type) + " where company_id=? order by " + key(type) + " desc limit 1", Long.class, company);
     return one(type, company, actor, "COMPANY_ADMIN", newId);
   }
@@ -320,7 +320,7 @@ public class AssetDataService {
     merged.putIfAbsent("employeeId", cur.get("employee_id"));
     lifecycle(type, company, actor, merged);
     audit(company, actor, type, "UPDATE", "Updated " + type + " #" + id);
-    notify(type, company, merged);
+    notifyUpdate(type, company, actor, cur, merged);
     return one(type, company, actor, "COMPANY_ADMIN", id);
   }
 
@@ -490,15 +490,74 @@ public class AssetDataService {
     }
   }
 
-  private void notify(String type, Long company, Map<String,Object> b) {
+  /** Called when a record is first created. For asset-request, notifies all company admins. */
+  private void notifyCreation(String type, Long company, Long actor, Map<String,Object> b) {
+    if (!"asset-request".equals(type)) {
+      // Generic employee notification for other creation types
+      Object u = switch (type) {
+        case "asset-allocation", "maintenance" -> b.get("employeeId");
+        case "asset-transfer" -> b.get("toEmployeeId");
+        default -> null;
+      };
+      if (u != null) {
+        try {
+          db.update("insert into notifications(company_id,user_id,title,message) values(?,?,?,?)",
+              company, u, "AssetFlow update", "You have been assigned to a " + type.replace('-', ' ') + ".");
+        } catch (Exception ignored) {}
+      }
+      return;
+    }
+    // Asset request created: notify all COMPANY_ADMIN users in this company
+    try {
+      String employeeName = "An employee";
+      try {
+        Map<String,Object> empRow = db.queryForMap(
+            "select concat(first_name,' ',last_name) as n from users where user_id=? and company_id=?", actor, company);
+        if (empRow.get("n") != null) employeeName = String.valueOf(empRow.get("n"));
+      } catch (Exception ignored) {}
+      String reqType = String.valueOf(b.getOrDefault("requestType", b.getOrDefault("request_type", "NEW ASSET")));
+      String reason  = String.valueOf(b.getOrDefault("reason", "No reason provided"));
+      String msg = employeeName + " submitted an asset request — Type: " + reqType.replace('_', ' ')
+                 + ". Reason: " + (reason.length() > 120 ? reason.substring(0, 120) + "…" : reason);
+      List<Map<String,Object>> admins = db.queryForList(
+          "select u.user_id from users u join roles r on r.role_id=u.role_id "
+          + "where u.company_id=? and r.role_name='COMPANY_ADMIN' and u.is_active=true", company);
+      for (Map<String,Object> admin : admins) {
+        db.update("insert into notifications(company_id,user_id,title,message) values(?,?,?,?)",
+            company, admin.get("user_id"), "New Asset Request", msg);
+      }
+    } catch (Exception ignored) {}
+  }
+
+  /** Called when a record is updated. For asset-request status changes, notifies the employee. */
+  private void notifyUpdate(String type, Long company, Long actor, Map<String,Object> cur, Map<String,Object> merged) {
+    if ("asset-request".equals(type)) {
+      String prevStatus = String.valueOf(cur.getOrDefault("status", "PENDING")).toUpperCase();
+      String newStatus  = String.valueOf(merged.getOrDefault("status", "PENDING")).toUpperCase();
+      Object empId      = merged.getOrDefault("employeeId", cur.get("employee_id"));
+      if (empId != null && !prevStatus.equals(newStatus)
+          && ("APPROVED".equals(newStatus) || "REJECTED".equals(newStatus) || "FULFILLED".equals(newStatus))) {
+        String title = "Asset Request " + newStatus.charAt(0) + newStatus.substring(1).toLowerCase();
+        String body  = "Your asset request has been " + newStatus.toLowerCase() + " by your administrator.";
+        if ("APPROVED".equals(newStatus))  body = "Great news! Your asset request has been approved by your administrator.";
+        if ("FULFILLED".equals(newStatus)) body = "Your asset request has been fulfilled and the asset has been allocated to you.";
+        try {
+          db.update("insert into notifications(company_id,user_id,title,message) values(?,?,?,?)",
+              company, empId, title, body);
+        } catch (Exception ignored) {}
+      }
+      return;
+    }
+    // Generic update notification for other types
     Object u = switch (type) {
-      case "asset-allocation", "asset-return", "asset-request", "maintenance" -> b.get("employeeId");
-      case "asset-transfer" -> b.get("toEmployeeId");
+      case "asset-allocation", "asset-return", "maintenance" -> merged.get("employeeId");
+      case "asset-transfer" -> merged.get("toEmployeeId");
       default -> null;
     };
     if (u != null) {
       try {
-        db.update("insert into notifications(company_id,user_id,title,message) values(?,?,?,?)", company, u, "AssetFlow update", "Your " + type.replace('-', ' ') + " has been updated.");
+        db.update("insert into notifications(company_id,user_id,title,message) values(?,?,?,?)",
+            company, u, "AssetFlow update", "Your " + type.replace('-', ' ') + " status has been updated.");
       } catch (Exception ignored) {}
     }
   }

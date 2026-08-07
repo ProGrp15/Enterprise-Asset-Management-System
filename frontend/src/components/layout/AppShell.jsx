@@ -18,7 +18,19 @@ export default function AppShell({role,children}) {
   const links=role==='super'?['Dashboard','Analytics','Companies','Notifications','Audit Logs','Settings','Profile']:role==='employee'?['Dashboard','My Assets','Request Asset','Notifications','Profile','AI Assistant']:['Dashboard','Employees','Departments','Asset Categories','Assets','Locations','Vendors','Purchase Orders','Maintenance','Asset Requests','Asset Allocation','Asset Transfers','Asset Returns','Repair History','Notifications','Reports','Audit Logs','Settings','Profile','AI Assistant'];
   const path=l=>`${prefix}/${l.toLowerCase().replaceAll(' ','-')}`; const name=user?.name||user?.fullName||'Workspace member'; const initials=name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
   const signOut=()=>{dispatch(logout());navigate('/login')};
-  useEffect(()=>{let active=true;notifications.list().then(items=>{if(active)setUnreadCount((Array.isArray(items)?items:[]).filter(item=>!item.is_read).length)}).catch(()=>{if(active)setUnreadCount(0)});return()=>{active=false}},[]);
+  useEffect(()=>{
+    let active=true;
+    const fetch=()=>{
+      notifications.list()
+        .then(items=>{if(active)setUnreadCount((Array.isArray(items)?items:[]).filter(item=>!item.is_read).length)})
+        .catch(()=>{if(active)setUnreadCount(0)});
+    };
+    fetch();
+    const interval=setInterval(fetch,30000);
+    const onFocus=()=>fetch();
+    window.addEventListener('focus',onFocus);
+    return()=>{active=false;clearInterval(interval);window.removeEventListener('focus',onFocus)};
+  },[]);
   return <div className="app-layout">
     {open&&<button className="sidebar-scrim d-lg-none" aria-label="Close navigation" onClick={()=>setOpen(false)}/>}<aside className={`app-sidebar ${open?'is-open':''}`}>
       <div className="sidebar-top"><NavLink to={prefix+'/dashboard'} className="sidebar-brand" onClick={()=>setOpen(false)}><span className="brand-mark"><FaBuilding/></span><span><span className="brand-name">assetflow</span><small>operations OS</small></span></NavLink><span className="workspace-chip">{role==='super'?'PLATFORM':role==='employee'?'MEMBER':'WORKSPACE'}</span></div>

@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FaDatabase, FaDownload, FaEdit, FaPlus, FaPrint, FaSearch, FaSyncAlt, FaTrash, FaUpload } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { FaCheck, FaDatabase, FaDownload, FaEdit, FaPlus, FaPrint, FaSearch, FaSyncAlt, FaTimes, FaTrash, FaUpload } from 'react-icons/fa';
 import {
   assets,
   categories,
@@ -337,6 +338,7 @@ export default function LiveResourcePage({ name }) {
   const [params] = useSearchParams();
   const config = resources[name];
   const fileRef = useRef(null);
+  const currentUser = useSelector(s => s.auth.user);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -504,6 +506,22 @@ export default function LiveResourcePage({ name }) {
       load();
     } catch (e) {
       setError(e.response?.data?.message || 'Unable to delete record.');
+    }
+  };
+
+  const changeRequestStatus = async (row, newStatus) => {
+    const id = rowId(row);
+    if (!id) return;
+    const label = newStatus === 'APPROVED' ? 'approve' : 'deny';
+    if (!window.confirm(`Are you sure you want to ${label} this asset request?`)) return;
+    try {
+      await requests.update(id, {
+        status: newStatus,
+        approvedBy: currentUser?.id || currentUser?.userId || null,
+      });
+      load();
+    } catch (e) {
+      setError(e.response?.data?.message || `Unable to ${label} request.`);
     }
   };
 
@@ -863,6 +881,25 @@ export default function LiveResourcePage({ name }) {
                       );
                     })}
                     <td className="text-end">
+                      {/* Approve / Deny quick actions for pending asset requests */}
+                      {name === 'asset-requests' && String(row.status || '').toUpperCase() === 'PENDING' && (
+                        <>
+                          <button
+                            className="btn btn-sm btn-success me-1"
+                            title="Approve this request"
+                            onClick={() => changeRequestStatus(row, 'APPROVED')}
+                          >
+                            <FaCheck className="me-1" />Approve
+                          </button>
+                          <button
+                            className="btn btn-sm btn-danger me-2"
+                            title="Deny this request"
+                            onClick={() => changeRequestStatus(row, 'REJECTED')}
+                          >
+                            <FaTimes className="me-1" />Deny
+                          </button>
+                        </>
+                      )}
                       <button
                         className="icon-button me-2"
                         aria-label="Edit"

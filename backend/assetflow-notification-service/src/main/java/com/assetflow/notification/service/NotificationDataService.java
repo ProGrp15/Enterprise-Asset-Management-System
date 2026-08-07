@@ -122,16 +122,23 @@ public class NotificationDataService {
   public Map<String,Object> chat(Map<String,Object> body) {
     String prompt = String.valueOf(body.getOrDefault("message", body.getOrDefault("prompt", body.getOrDefault("query", ""))));
     if (geminiKey == null || geminiKey.isBlank()) {
-      return Map.of("reply", "Gemini is not configured yet. Set GEMINI_API_KEY in the notification service environment to enable company-aware answers.", "configured", false);
+      return Map.of("reply", "Gemini is not configured yet. Set GEMINI_API_KEY in the notification service environment to enable AI-powered answers.", "configured", false);
     }
     Map<String,Object> payload = Map.of("contents", List.of(Map.of("parts", List.of(Map.of("text", prompt)))));
-    try {
-      Map<?,?> result = RestClient.create().post().uri("https://generativelanguage.googleapis.com/v1beta/models/" + geminiModel + ":generateContent?key=" + geminiKey).body(payload).retrieve().body(Map.class);
-      String text = extractText(result);
-      return Map.of("reply", text, "configured", true);
-    } catch (Exception ex) {
-      return Map.of("reply", "Gemini is configured but unavailable. Verify the key, model access, and network connection.", "configured", true, "providerError", true);
+    // Try primary model, fall back to gemini-1.5-flash if needed
+    List<String> modelFallbacks = List.of(geminiModel, "gemini-1.5-flash", "gemini-1.0-pro");
+    for (String model : modelFallbacks) {
+      try {
+        Map<?,?> result = RestClient.create().post()
+            .uri("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + geminiKey)
+            .body(payload).retrieve().body(Map.class);
+        String text = extractText(result);
+        return Map.of("reply", text, "configured", true, "model", model);
+      } catch (Exception ex) {
+        // Try next model
+      }
     }
+    return Map.of("reply", "Gemini is configured but all models are currently unavailable. Please verify your API key and network connectivity.", "configured", true, "providerError", true);
   }
 
   private String extractText(Map<?,?> response) {
@@ -150,26 +157,88 @@ public class NotificationDataService {
 
   public Map<String,Object> chat(Map<String,Object> body, Map<String,Object> claims) {
     String question = String.valueOf(body.getOrDefault("message", body.getOrDefault("prompt", body.getOrDefault("query", ""))));
-    if (geminiKey == null || geminiKey.isBlank()) {
-      Map<String,Object> fallback = Map.of("reply", "Gemini is not configured yet. Set GEMINI_API_KEY in the notification service environment to enable company-aware answers.", "configured", false);
-      try {
-        db.update("insert into ai_chat_history(company_id,user_id,question,answer,message,sender_type) values(?,?,?,?,?,?)", company(claims), user(claims), question, fallback.get("reply"), question, "USER");
-      } catch (Exception ignored) {}
-      return fallback;
-    }
+    if (question.isBlank()) return Map.of("reply", "Please enter a question.", "configured", true);
+
     long tenant = company(claims);
+    // Always gather context from the database
     Map<String,Object> context = new LinkedHashMap<>();
-    context.put("assets", safeCount("select count(*) from assets where company_id=? and is_active=true", tenant));
-    context.put("employees", safeCount("select count(*) from users where company_id=? and is_active=true", tenant));
+    context.put("totalAssets", safeCount("select count(*) from assets where company_id=? and is_active=true", tenant));
+    context.put("availableAssets", safeCount("select count(*) from assets where company_id=? and is_active=true and status='AVAILABLE'", tenant));
+    context.put("assignedAssets", safeCount("select count(*) from assets where company_id=? and is_active=true and status='ASSIGNED'", tenant));
+    context.put("underMaintenanceAssets", safeCount("select count(*) from assets where company_id=? and is_active=true and status='UNDER_MAINTENANCE'", tenant));
+    context.put("employees", safeCount("select count(*) from users u join roles r on r.role_id=u.role_id where u.company_id=? and u.is_active=true and r.role_name='EMPLOYEE'", tenant));
+    context.put("companyAdmins", safeCount("select count(*) from users u join roles r on r.role_id=u.role_id where u.company_id=? and u.is_active=true and r.role_name='COMPANY_ADMIN'", tenant));
     context.put("departments", safeCount("select count(*) from departments where company_id=? and is_active=true", tenant));
     context.put("openRequests", safeCount("select count(*) from asset_requests where company_id=? and is_active=true and status in ('PENDING','OPEN')", tenant));
     context.put("openMaintenance", safeCount("select count(*) from maintenance where company_id=? and is_active=true and status not in ('COMPLETED','CANCELLED')", tenant));
-    String grounded = "You are AssetFlow's internal assistant. Answer only from the tenant context below and general asset-management guidance. Never invent tenant records, IDs, users, or cross-company data. If the context is insufficient, say so. Tenant context: " + context + ". User question: " + question;
-    Map<String,Object> result = chat(Map.of("message", grounded));
+    context.put("vendors", safeCount("select count(*) from vendors where company_id=? and is_active=true", tenant));
+
+    Map<String,Object> result;
+    if (geminiKey == null || geminiKey.isBlank()) {
+      // Intelligent fallback: answer directly from context
+      result = Map.of("reply", buildContextualAnswer(question, context), "configured", false, "fallback", true);
+    } else {
+      String grounded = "You are AssetFlow's internal enterprise assistant. Answer only from the tenant data context below and general asset-management guidance. "
+          + "Never invent user IDs, names, or cross-company data. Format your response with clear headings and bullet points when listing information. "
+          + "Tenant data context: " + context + ". User question: " + question;
+      result = chat(Map.of("message", grounded));
+    }
+
     try {
-      db.update("insert into ai_chat_history(company_id,user_id,question,answer,message,sender_type) values(?,?,?,?,?,?)", tenant, user(claims), question, result.get("reply"), question, "USER");
+      db.update("insert into ai_chat_history(company_id,user_id,question,answer,message,sender_type) values(?,?,?,?,?,?)",
+          tenant, user(claims), question, result.get("reply"), question, "USER");
     } catch (Exception ignored) {}
     return result;
+  }
+
+  /** Provides an intelligent context-aware answer without requiring Gemini API. */
+  private String buildContextualAnswer(String question, Map<String,Object> ctx) {
+    String q = question.toLowerCase();
+    StringBuilder sb = new StringBuilder();
+
+    if (q.contains("asset") && (q.contains("how many") || q.contains("count") || q.contains("total"))) {
+      sb.append("**Asset Summary**\n");
+      sb.append("* Total assets: ").append(ctx.get("totalAssets")).append("\n");
+      sb.append("* Available: ").append(ctx.get("availableAssets")).append("\n");
+      sb.append("* Assigned: ").append(ctx.get("assignedAssets")).append("\n");
+      sb.append("* Under maintenance: ").append(ctx.get("underMaintenanceAssets")).append("\n");
+    } else if (q.contains("employee") || q.contains("staff") || q.contains("user")) {
+      sb.append("**Workforce Summary**\n");
+      sb.append("* Employees: ").append(ctx.get("employees")).append("\n");
+      sb.append("* Company admins: ").append(ctx.get("companyAdmins")).append("\n");
+      sb.append("* Departments: ").append(ctx.get("departments")).append("\n");
+    } else if (q.contains("maintenance") || q.contains("repair")) {
+      sb.append("**Maintenance Summary**\n");
+      sb.append("* Open maintenance tickets: ").append(ctx.get("openMaintenance")).append("\n");
+      sb.append("\nAll maintenance records are tracked in the Maintenance module with priority and status details.");
+    } else if (q.contains("request")) {
+      sb.append("**Asset Requests**\n");
+      sb.append("* Pending/open requests: ").append(ctx.get("openRequests")).append("\n");
+      sb.append("\nReview and approve requests from the Asset Requests module.");
+    } else if (q.contains("utilization") || q.contains("utilised") || q.contains("utilized") || q.contains("report")) {
+      long total = (long) ctx.getOrDefault("totalAssets", 0L);
+      long assigned = (long) ctx.getOrDefault("assignedAssets", 0L);
+      long pct = total > 0 ? (assigned * 100 / total) : 0;
+      sb.append("**Asset Utilization Report**\n");
+      sb.append("* Total assets: ").append(total).append("\n");
+      sb.append("* Assigned/in-use: ").append(assigned).append("\n");
+      sb.append("* Utilization rate: ").append(pct).append("%\n");
+      sb.append("* Available for allocation: ").append(ctx.get("availableAssets")).append("\n");
+    } else if (q.contains("department")) {
+      sb.append("**Department Summary**\n");
+      sb.append("* Active departments: ").append(ctx.get("departments")).append("\n");
+    } else if (q.contains("vendor")) {
+      sb.append("**Vendor Summary**\n");
+      sb.append("* Active vendors: ").append(ctx.get("vendors")).append("\n");
+    } else {
+      sb.append("**Company Overview**\n");
+      sb.append("* Total assets: ").append(ctx.get("totalAssets")).append("\n");
+      sb.append("* Employees: ").append(ctx.get("employees")).append("\n");
+      sb.append("* Open requests: ").append(ctx.get("openRequests")).append("\n");
+      sb.append("* Open maintenance tickets: ").append(ctx.get("openMaintenance")).append("\n");
+      sb.append("\n_For detailed queries on specific assets, users, or reports, configure a Gemini API key._");
+    }
+    return sb.toString().trim();
   }
 
   private long safeCount(String sql, long tenant) {
