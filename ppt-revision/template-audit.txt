@@ -1,0 +1,6 @@
+Source deck: AssetFlow_Presentation_Simple.pptx (12 slides).
+Visual system: dark navy opening/closing slides; white content slides; purple, teal, and soft peach accents; bold navy headings; small section marker and footer on content slides.
+Reusable patterns: title slide, two-column overview, three role cards, architecture node diagram, horizontal workflow, four-step process, bullet list, three-phase methodology, four testing cards, closing slide.
+Diagram reference: architecture diagram.pptx shows the preferred tiered architecture pattern — frontend, microservices middle tier, and database tier — plus clear directional flow.
+Edit contract: duplicate every source slide; preserve the source master, layout, footer, page marker, typography, color system, and original editable shapes. Rewrite only mapped text elements. Reuse existing diagram nodes and connectors; adjust their labels/line styling only.
+Inherited placeholders: no empty slide placeholders observed in the source render/inspection. Visible footer/page elements are intentional deck chrome and will remain.

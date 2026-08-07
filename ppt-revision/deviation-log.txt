@@ -1,0 +1,4 @@
+Slide 4: clarify service layers and data flow using the reference architecture deck; retain the existing node diagram.
+Slide 5: replace vague business steps with a precise asset lifecycle sequence; retain the existing horizontal workflow.
+Slide 6: correct the frontend flow so it distinguishes browser validation, gateway routing, business service, database, and UI response; retain the existing process-card layout.
+Slides 2, 3, 7–12: shorten wording for a simple, professional presentation tone.

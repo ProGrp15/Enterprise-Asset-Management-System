@@ -84,3 +84,6 @@ reports/generated/
 *.swp
 *.swo
 *~
+
+[Bb]in/
+[Oo]bj/
