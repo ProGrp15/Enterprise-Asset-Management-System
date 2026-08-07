@@ -1,0 +1,4 @@
+Sources used for this revision:
+- D:\Downloads\AssetFlow_Presentation_Simple.pptx — source deck and visual template.
+- D:\Downloads\architecture diagram.pptx — architecture and workflow reference.
+- F:\CDAC-Know-IT prac\Enterprise-Asset-Management-System — AssetFlow implementation reference.

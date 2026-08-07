@@ -1,0 +1,1001 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/nbf2qs",
+    "id": "nbf2qs",
+    "slide": 3,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Calibri Light",
+        "eastAsianTypeface": "Calibri Light",
+        "complexScriptTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri",
+        "eastAsianTypeface": "Calibri",
+        "complexScriptTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Calibri",
+      "Calibri Light"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5cnmpo72",
+      "id": "19",
+      "bbox": [
+        72,
+        40,
+        400,
+        22
+      ],
+      "geometry": "rect",
+      "text": "2. USERS AND USE CASES",
+      "textPreview": "2. USERS AND USE CASES",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2. USERS AND USE CASES"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2. USERS AND USE CASES",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#6D63FF",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2. USERS AND USE CASES",
+              "fontSize": 14,
+              "color": "#6D63FF",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/98ra1w72",
+      "id": "2",
+      "bbox": [
+        72,
+        72,
+        1080,
+        58
+      ],
+      "geometry": "rect",
+      "text": "Each user gets the right level of access",
+      "textPreview": "Each user gets the right level of access",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Each user gets the right level of access"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Each user gets the right level of access",
+          "resolvedTextStyle": {
+            "fontSize": 36,
+            "color": "#14213D",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Each user gets the right level of access",
+              "fontSize": 36,
+              "color": "#14213D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/87it8rqh",
+      "id": "3",
+      "bbox": [
+        1160,
+        44,
+        48,
+        22
+      ],
+      "geometry": "rect",
+      "text": "03",
+      "textPreview": "03",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "03"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "03",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#66748D",
+            "bold": true,
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "03",
+              "fontSize": 15,
+              "color": "#66748D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vats36p8",
+      "id": "4",
+      "bbox": [
+        72,
+        142,
+        1136,
+        2
+      ],
+      "geometry": "rect",
+      "fillColor": "#6D63FF",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a9kba18n",
+      "id": "5",
+      "bbox": [
+        80,
+        210,
+        330,
+        270
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EEF0FF",
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hcba5g7e",
+      "id": "6",
+      "bbox": [
+        108,
+        238,
+        274,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Super Admin",
+      "textPreview": "Super Admin",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Super Admin"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Super Admin",
+          "resolvedTextStyle": {
+            "fontSize": 25,
+            "color": "#14213D",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Super Admin",
+              "fontSize": 25,
+              "color": "#14213D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wb2tcbqt",
+      "id": "7",
+      "bbox": [
+        108,
+        292,
+        274,
+        162
+      ],
+      "geometry": "rect",
+      "text": "Creates companies.\nManages the platform.\nCannot manage company assets.",
+      "textPreview": "Creates companies. | Manages the platform. | Cannot manage company assets.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Creates companies."
+          },
+          {
+            "index": 2,
+            "text": "Manages the platform."
+          },
+          {
+            "index": 3,
+            "text": "Cannot manage company"
+          },
+          {
+            "index": 4,
+            "text": "assets."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Creates companies.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Creates companies.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "Manages the platform.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Manages the platform.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "Cannot manage company assets.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cannot manage company assets.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/jets76p4",
+      "id": "8",
+      "bbox": [
+        108,
+        284,
+        54,
+        4
+      ],
+      "geometry": "rect",
+      "fillColor": "#6D63FF",
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/idkbe18z",
+      "id": "9",
+      "bbox": [
+        475,
+        210,
+        330,
+        270
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#E7F8FA",
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/83a5oz69",
+      "id": "10",
+      "bbox": [
+        503,
+        238,
+        274,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Company Admin",
+      "textPreview": "Company Admin",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Company Admin"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Company Admin",
+          "resolvedTextStyle": {
+            "fontSize": 25,
+            "color": "#14213D",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Company Admin",
+              "fontSize": 25,
+              "color": "#14213D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/t4jmh47u",
+      "id": "11",
+      "bbox": [
+        503,
+        292,
+        274,
+        162
+      ],
+      "geometry": "rect",
+      "text": "Manages one company.\nCreates employees and assets.\nApproves lifecycle actions.",
+      "textPreview": "Manages one company. | Creates employees and assets. | Approves lifecycle actions.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Manages one company."
+          },
+          {
+            "index": 2,
+            "text": "Creates employees and assets."
+          },
+          {
+            "index": 3,
+            "text": "Approves lifecycle actions."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Manages one company.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Manages one company.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "Creates employees and assets.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Creates employees and assets.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "Approves lifecycle actions.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Approves lifecycle actions.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6hsnmpoj",
+      "id": "12",
+      "bbox": [
+        503,
+        284,
+        54,
+        4
+      ],
+      "geometry": "rect",
+      "fillColor": "#16A6B6",
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7214fup4",
+      "id": "13",
+      "bbox": [
+        870,
+        210,
+        330,
+        270
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFF0E4",
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/g7u5sj6l",
+      "id": "14",
+      "bbox": [
+        898,
+        238,
+        274,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Employee",
+      "textPreview": "Employee",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Employee"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Employee",
+          "resolvedTextStyle": {
+            "fontSize": 25,
+            "color": "#14213D",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Employee",
+              "fontSize": 25,
+              "color": "#14213D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h83ml476",
+      "id": "15",
+      "bbox": [
+        898,
+        292,
+        274,
+        162
+      ],
+      "geometry": "rect",
+      "text": "Sees own assets.\nRequests or returns assets.\nReports maintenance issues.",
+      "textPreview": "Sees own assets. | Requests or returns assets. | Reports maintenance issues.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Sees own assets."
+          },
+          {
+            "index": 2,
+            "text": "Requests or returns assets."
+          },
+          {
+            "index": 3,
+            "text": "Reports maintenance issues."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Sees own assets.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Sees own assets.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "Requests or returns assets.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Requests or returns assets.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "Reports maintenance issues.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reports maintenance issues.",
+              "fontSize": 20,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u5cnq9of",
+      "id": "16",
+      "bbox": [
+        898,
+        284,
+        54,
+        4
+      ],
+      "geometry": "rect",
+      "fillColor": "#D27821",
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/v6l4jep0",
+      "id": "17",
+      "bbox": [
+        72,
+        680,
+        300,
+        18
+      ],
+      "geometry": "rect",
+      "text": "AssetFlow | Project Presentation",
+      "textPreview": "AssetFlow | Project Presentation",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "AssetFlow | Project Presentation"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "AssetFlow | Project Presentation",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#66748D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "AssetFlow | Project Presentation",
+              "fontSize": 12,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4bu5wj6h",
+      "id": "18",
+      "bbox": [
+        900,
+        680,
+        308,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Enterprise Asset Management SaaS",
+      "textPreview": "Enterprise Asset Management SaaS",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Enterprise Asset Management SaaS"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Enterprise Asset Management SaaS",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#66748D",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Enterprise Asset Management SaaS",
+              "fontSize": 12,
+              "color": "#66748D"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

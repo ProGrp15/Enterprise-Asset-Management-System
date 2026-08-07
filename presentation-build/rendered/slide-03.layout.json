@@ -1,0 +1,1202 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/li4ypl",
+    "id": "li4ypl",
+    "slide": 3,
+    "layoutId": "895ffed0-2dac-4798-8e8d-067e3345e58c",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "dc430e33-cb89-4394-8a40-47c360d31e8b",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F7F8FA",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Aptos"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "895ffed0-2dac-4798-8e8d-067e3345e58c",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "dc430e33-cb89-4394-8a40-47c360d31e8b",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "dc430e33-cb89-4394-8a40-47c360d31e8b",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ap4fepkz",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        420,
+        24
+      ],
+      "geometry": "rect",
+      "text": "02 · USERS AND USE CASES",
+      "textPreview": "02 · USERS AND USE CASES",
+      "resolvedFontSize": 13,
+      "resolvedTextStyle": {
+        "fontSize": 13,
+        "typeface": "Aptos",
+        "color": "#C7A35C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02 · USERS AND USE CASES"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02 · USERS AND USE CASES",
+          "resolvedTextStyle": {
+            "fontSize": 13,
+            "typeface": "Aptos",
+            "color": "#C7A35C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "02 · USERS AND USE CASES",
+              "fontSize": 13,
+              "typeface": "Aptos",
+              "color": "#C7A35C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xsvyp43a",
+      "id": "2",
+      "bbox": [
+        72,
+        68,
+        1070,
+        54
+      ],
+      "geometry": "rect",
+      "text": "Each role gets the control and context it needs",
+      "textPreview": "Each role gets the control and context it needs",
+      "resolvedFontSize": 35,
+      "resolvedTextStyle": {
+        "fontSize": 35,
+        "typeface": "Aptos",
+        "color": "#16324F",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Each role gets the control and context it needs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Each role gets the control and context it needs",
+          "resolvedTextStyle": {
+            "fontSize": 35,
+            "typeface": "Aptos",
+            "color": "#16324F",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Each role gets the control and context it needs",
+              "fontSize": 35,
+              "typeface": "Aptos",
+              "color": "#16324F",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/crmxgz2p",
+      "id": "3",
+      "bbox": [
+        72,
+        128,
+        1050,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Role-based dashboards keep the platform simple for employees and powerful for operations.",
+      "textPreview": "Role-based dashboards keep the platform simple for employees and powerful for operations.",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "Aptos",
+        "color": "#5C6C78",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Role-based dashboards keep the platform simple for employees and powerful for operations."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Role-based dashboards keep the platform simple for employees and powerful for operations.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Aptos",
+            "color": "#5C6C78"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Role-based dashboards keep the platform simple for employees and powerful for operations.",
+              "fontSize": 18,
+              "typeface": "Aptos",
+              "color": "#5C6C78"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n2dwjul8",
+      "id": "4",
+      "bbox": [
+        72,
+        204,
+        344,
+        364
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5EEDC",
+      "lineColor": "#D7E0E7",
+      "lineWidth": 1.2
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/214fapkn",
+      "id": "5",
+      "bbox": [
+        94,
+        224,
+        300,
+        30
+      ],
+      "geometry": "rect",
+      "text": "Super Admin",
+      "textPreview": "Super Admin",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#C7A35C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Super Admin"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Super Admin",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#C7A35C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Super Admin",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#C7A35C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/povel43e",
+      "id": "6",
+      "bbox": [
+        94,
+        259,
+        300,
+        36
+      ],
+      "geometry": "rect",
+      "text": "Platform control",
+      "textPreview": "Platform control",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": "#5C6C78",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Platform control"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Platform control",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "typeface": "Aptos",
+            "color": "#5C6C78"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Platform control",
+              "fontSize": 16,
+              "typeface": "Aptos",
+              "color": "#5C6C78"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/onmxcz2t",
+      "id": "7",
+      "bbox": [
+        94,
+        310,
+        300,
+        242
+      ],
+      "geometry": "rect",
+      "text": "• Register and manage companies\n• Activate / deactivate tenants\n• Monitor platform metrics\n• Review audit, AI, and notifications",
+      "textPreview": "• Register and manage companies | • Activate / deactivate tenants | • Monitor platform metrics | • Review audit, AI, and notifications",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Aptos",
+        "color": "#16324F",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "• Register and manage companies"
+          },
+          {
+            "index": 2,
+            "text": "• Activate / deactivate tenants"
+          },
+          {
+            "index": 3,
+            "text": "• Monitor platform metrics"
+          },
+          {
+            "index": 4,
+            "text": "• Review audit, AI, and notifications"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "• Register and manage companies",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Register and manage companies",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "• Activate / deactivate tenants",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Activate / deactivate tenants",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "• Monitor platform metrics",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Monitor platform metrics",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "• Review audit, AI, and notifications",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Review audit, AI, and notifications",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fytwfalc",
+      "id": "8",
+      "bbox": [
+        468,
+        204,
+        344,
+        364
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#E8F3F4",
+      "lineColor": "#D7E0E7",
+      "lineWidth": 1.2
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/exkf65kr",
+      "id": "9",
+      "bbox": [
+        490,
+        224,
+        300,
+        30
+      ],
+      "geometry": "rect",
+      "text": "Company Admin",
+      "textPreview": "Company Admin",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#1E7A8A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Company Admin"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Company Admin",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#1E7A8A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Company Admin",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#1E7A8A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/83ep4ze1",
+      "id": "10",
+      "bbox": [
+        490,
+        259,
+        300,
+        36
+      ],
+      "geometry": "rect",
+      "text": "Workspace operations",
+      "textPreview": "Workspace operations",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": "#5C6C78",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Workspace operations"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Workspace operations",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "typeface": "Aptos",
+            "color": "#5C6C78"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Workspace operations",
+              "fontSize": 16,
+              "typeface": "Aptos",
+              "color": "#5C6C78"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/t4nqd4vm",
+      "id": "11",
+      "bbox": [
+        490,
+        310,
+        300,
+        242
+      ],
+      "geometry": "rect",
+      "text": "• Manage people and departments\n• Procure, create, and allocate assets\n• Review requests and maintenance\n• Run reports and assist the team",
+      "textPreview": "• Manage people and departments | • Procure, create, and allocate assets | • Review requests and maintenance | • Run reports and assist t...",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Aptos",
+        "color": "#16324F",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "• Manage people and departments"
+          },
+          {
+            "index": 2,
+            "text": "• Procure, create, and allocate assets"
+          },
+          {
+            "index": 3,
+            "text": "• Review requests and maintenance"
+          },
+          {
+            "index": 4,
+            "text": "• Run reports and assist the team"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "• Manage people and departments",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Manage people and departments",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "• Procure, create, and allocate assets",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Procure, create, and allocate assets",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "• Review requests and maintenance",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Review requests and maintenance",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "• Run reports and assist the team",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Run reports and assist the team",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/61w72pwv",
+      "id": "12",
+      "bbox": [
+        864,
+        204,
+        344,
+        364
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FBECE7",
+      "lineColor": "#D7E0E7",
+      "lineWidth": 1.2
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7258budg",
+      "id": "13",
+      "bbox": [
+        886,
+        224,
+        300,
+        30
+      ],
+      "geometry": "rect",
+      "text": "Employee",
+      "textPreview": "Employee",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#D87C64",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Employee"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Employee",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#D87C64",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Employee",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#D87C64",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kzup0fe5",
+      "id": "14",
+      "bbox": [
+        886,
+        259,
+        300,
+        36
+      ],
+      "geometry": "rect",
+      "text": "Personal workspace",
+      "textPreview": "Personal workspace",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": "#5C6C78",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Personal workspace"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Personal workspace",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "typeface": "Aptos",
+            "color": "#5C6C78"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Personal workspace",
+              "fontSize": 16,
+              "typeface": "Aptos",
+              "color": "#5C6C78"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l0nq9kva",
+      "id": "15",
+      "bbox": [
+        886,
+        310,
+        300,
+        242
+      ],
+      "geometry": "rect",
+      "text": "• View assigned assets\n• Request additional equipment\n• Report maintenance issues\n• Track notifications and history",
+      "textPreview": "• View assigned assets | • Request additional equipment | • Report maintenance issues | • Track notifications and history",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Aptos",
+        "color": "#16324F",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "• View assigned assets"
+          },
+          {
+            "index": 2,
+            "text": "• Request additional equipment"
+          },
+          {
+            "index": 3,
+            "text": "• Report maintenance issues"
+          },
+          {
+            "index": 4,
+            "text": "• Track notifications and history"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "• View assigned assets",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• View assigned assets",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "• Request additional equipment",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Request additional equipment",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "• Report maintenance issues",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Report maintenance issues",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "• Track notifications and history",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#16324F"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Track notifications and history",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#16324F"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yxc7ypwz",
+      "id": "16",
+      "bbox": [
+        72,
+        682,
+        1136,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#D7E0E7",
+      "lineWidth": 1
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/jyl87udk",
+      "id": "17",
+      "bbox": [
+        72,
+        690,
+        440,
+        18
+      ],
+      "geometry": "rect",
+      "text": "ASSETFLOW · PROJECT REVIEW",
+      "textPreview": "ASSETFLOW · PROJECT REVIEW",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Aptos",
+        "color": "#5C6C78",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "ASSETFLOW · PROJECT REVIEW"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "ASSETFLOW · PROJECT REVIEW",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "typeface": "Aptos",
+            "color": "#5C6C78",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "ASSETFLOW · PROJECT REVIEW",
+              "fontSize": 10,
+              "typeface": "Aptos",
+              "color": "#5C6C78",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4vy9cje9",
+      "id": "18",
+      "bbox": [
+        1166,
+        688,
+        42,
+        20
+      ],
+      "geometry": "rect",
+      "text": "03",
+      "textPreview": "03",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "Aptos",
+        "color": "#C7A35C",
+        "bold": true,
+        "alignment": "right",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "03"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "03",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "typeface": "Aptos",
+            "color": "#C7A35C",
+            "bold": true,
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "03",
+              "fontSize": 12,
+              "typeface": "Aptos",
+              "color": "#C7A35C",
+              "bold": true,
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

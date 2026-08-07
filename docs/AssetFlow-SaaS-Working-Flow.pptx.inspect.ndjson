@@ -1,0 +1,291 @@
+{"kind":"deck","id":"pr/jswlwh","name":"Deck"}
+{"kind":"layout","layoutId":"dc430e33-cb89-4394-8a40-47c360d31e8b","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"895ffed0-2dac-4798-8e8d-067e3345e58c","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/cjb60a","slide":1,"title":"KNOW-IT","textShapes":9}
+{"kind":"textbox","id":"sh/wnyhsrux","slide":1,"text":"KNOW-IT","textPreview":"KNOW-IT","textChars":7,"textLines":1,"bbox":[1010,42,170,24]}
+{"kind":"textbox","id":"sh/vmp0zmdc","slide":1,"text":"ASSETFLOW","textPreview":"ASSETFLOW","textChars":9,"textLines":1,"bbox":[72,88,520,32]}
+{"kind":"textbox","id":"sh/ulwzqhc7","slide":1,"text":"Enterprise asset\nmanagement, in motion.","textPreview":"Enterprise asset | management, in motion.","textChars":39,"textLines":2,"bbox":[72,148,710,150]}
+{"kind":"textbox","id":"sh/90nixcvm","slide":1,"text":"A SaaS working flow from company onboarding to asset lifecycle intelligence","textPreview":"A SaaS working flow from company onboarding to asset lifecycle intelligence","textChars":75,"textLines":1,"bbox":[76,330,690,48]}
+{"kind":"shape","id":"sh/8zeho7u1","slide":1,"bbox":[78,430,610,116]}
+{"kind":"textbox","id":"sh/7y50v2dg","slide":1,"text":"Project review deck","textPreview":"Project review deck","textChars":19,"textLines":1,"bbox":[108,458,250,24]}
+{"kind":"textbox","id":"sh/mxwzmxcv","slide":1,"text":"Working flow · architecture · roles · delivery approach","textPreview":"Working flow · architecture · roles · delivery approach","textChars":55,"textLines":1,"bbox":[108,489,500,30]}
+{"kind":"shape","id":"sh/lwnitcva","slide":1,"bbox":[888,214,176,176]}
+{"kind":"shape","id":"sh/kvehk7ep","slide":1,"bbox":[942,268,68,68]}
+{"kind":"textbox","id":"sh/2143ah07","slide":1,"text":"AF","textPreview":"AF","textChars":2,"textLines":1,"bbox":[954,285,44,30]}
+{"kind":"textbox","id":"sh/32d43m1s","slide":1,"text":"ONE PLATFORM\nMANY WORKSPACES","textPreview":"ONE PLATFORM | MANY WORKSPACES","textChars":28,"textLines":2,"bbox":[836,424,280,54]}
+{"kind":"textbox","id":"sh/o3mlcrid","slide":1,"text":"08 / 2026","textPreview":"08 / 2026","textChars":9,"textLines":1,"bbox":[72,650,160,20]}
+{"kind":"notes","id":"nt/cjb60a","slide":1,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\nOpening: AssetFlow connects the people, assets, and decisions that keep an enterprise moving."}
+{"kind":"slide","id":"sl/2kus94","slide":2,"title":"01 · PROJECT OVERVIEW","textShapes":20}
+{"kind":"textbox","id":"sh/8rql0feh","slide":2,"text":"01 · PROJECT OVERVIEW","textPreview":"01 · PROJECT OVERVIEW","textChars":21,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/7qh4raxw","slide":2,"text":"AssetFlow turns asset tracking into an accountable operating system","textPreview":"AssetFlow turns asset tracking into an accountable operating system","textChars":67,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/6p83y5gr","slide":2,"text":"The platform connects procurement, people, assets, maintenance, and insight in one tenant-aware workflow.","textPreview":"The platform connects procurement, people, assets, maintenance, and insight in one tenant-aware workflow.","textChars":105,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"shape","id":"sh/lozmp0f6","slide":2,"bbox":[72,194,470,386]}
+{"kind":"textbox","id":"sh/k3qlwvyl","slide":2,"text":"The business need","textPreview":"The business need","textChars":17,"textLines":1,"bbox":[104,224,370,28]}
+{"kind":"textbox","id":"sh/j2h4nqx0","slide":2,"text":"Enterprise assets are easy to lose in spreadsheets, inboxes, and disconnected approvals.","textPreview":"Enterprise assets are easy to lose in spreadsheets, inboxes, and disconnected approvals.","textChars":88,"textLines":1,"bbox":[104,266,380,70]}
+{"kind":"textbox","id":"sh/y1o3ulgf","slide":2,"text":"AssetFlow creates a shared system of record with role-based access, auditability, and lifecycle history.","textPreview":"AssetFlow creates a shared system of record with role-based access, auditability, and lifecycle history.","textChars":104,"textLines":1,"bbox":[104,372,370,96]}
+{"kind":"textbox","id":"sh/x0fmlgfu","slide":2,"text":"Target users","textPreview":"Target users","textChars":12,"textLines":1,"bbox":[104,500,160,24]}
+{"kind":"textbox","id":"sh/wz6lsvy9","slide":2,"text":"Super Admin  ·  Company Admin  ·  Employee","textPreview":"Super Admin  ·  Company Admin  ·  Employee","textChars":42,"textLines":1,"bbox":[104,526,360,28]}
+{"kind":"textbox","id":"sh/21sfmxgz","slide":2,"text":"The platform promise","textPreview":"The platform promise","textChars":20,"textLines":1,"bbox":[620,204,420,28]}
+{"kind":"shape","id":"sh/321gf2xk","slide":2,"bbox":[620,270,42,42]}
+{"kind":"textbox","id":"sh/43aho7y5","slide":2,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[620,280,42,20]}
+{"kind":"textbox","id":"sh/p4jyhcfq","slide":2,"text":"One workspace","textPreview":"One workspace","textChars":13,"textLines":1,"bbox":[686,264,360,26]}
+{"kind":"textbox","id":"sh/ud8fixg3","slide":2,"text":"A single source of truth for the complete asset journey.","textPreview":"A single source of truth for the complete asset journey.","textChars":56,"textLines":1,"bbox":[686,295,420,44]}
+{"kind":"shape","id":"sh/fyhgb2x8","slide":2,"bbox":[620,374,42,42]}
+{"kind":"textbox","id":"sh/gzqxk7yt","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[620,384,42,20]}
+{"kind":"textbox","id":"sh/h0jydcfe","slide":2,"text":"Clear ownership","textPreview":"Clear ownership","textChars":15,"textLines":1,"bbox":[686,368,360,26]}
+{"kind":"textbox","id":"sh/698fedgr","slide":2,"text":"Every action is scoped to a role, company, and audit trail.","textPreview":"Every action is scoped to a role, company, and audit trail.","textChars":59,"textLines":1,"bbox":[686,399,420,44]}
+{"kind":"shape","id":"sh/7ahg7ixc","slide":2,"bbox":[620,478,42,42]}
+{"kind":"textbox","id":"sh/vedcfed4","slide":2,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[620,488,42,20]}
+{"kind":"textbox","id":"sh/ad4v69wj","slide":2,"text":"Actionable insight","textPreview":"Actionable insight","textChars":18,"textLines":1,"bbox":[686,472,360,26]}
+{"kind":"textbox","id":"sh/xgvehova","slide":2,"text":"Reports and AI answers turn operational data into decisions.","textPreview":"Reports and AI answers turn operational data into decisions.","textChars":60,"textLines":1,"bbox":[686,503,420,44]}
+{"kind":"shape","id":"sh/wfmd8jep","slide":2,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/jixwjyd0","slide":2,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/ihovatwv","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/2kus94","slide":2,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/li4ypl","slide":3,"title":"02 · USERS AND USE CASES","textShapes":14}
+{"kind":"textbox","id":"sh/ap4fepkz","slide":3,"text":"02 · USERS AND USE CASES","textPreview":"02 · USERS AND USE CASES","textChars":24,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/xsvyp43a","slide":3,"text":"Each role gets the control and context it needs","textPreview":"Each role gets the control and context it needs","textChars":47,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/crmxgz2p","slide":3,"text":"Role-based dashboards keep the platform simple for employees and powerful for operations.","textPreview":"Role-based dashboards keep the platform simple for employees and powerful for operations.","textChars":89,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"shape","id":"sh/n2dwjul8","slide":3,"bbox":[72,204,344,364]}
+{"kind":"textbox","id":"sh/214fapkn","slide":3,"text":"Super Admin","textPreview":"Super Admin","textChars":11,"textLines":1,"bbox":[94,224,300,30]}
+{"kind":"textbox","id":"sh/povel43e","slide":3,"text":"Platform control","textPreview":"Platform control","textChars":16,"textLines":1,"bbox":[94,259,300,36]}
+{"kind":"textbox","id":"sh/onmxcz2t","slide":3,"text":"• Register and manage companies\n• Activate / deactivate tenants\n• Monitor platform metrics\n• Review audit, AI, and notifications","textPreview":"• Register and manage companies | • Activate / deactivate tenants | • Monitor platform metrics | • Review audit, AI, and notifications","textChars":128,"textLines":4,"bbox":[94,310,300,242]}
+{"kind":"shape","id":"sh/fytwfalc","slide":3,"bbox":[468,204,344,364]}
+{"kind":"textbox","id":"sh/exkf65kr","slide":3,"text":"Company Admin","textPreview":"Company Admin","textChars":13,"textLines":1,"bbox":[490,224,300,30]}
+{"kind":"textbox","id":"sh/83ep4ze1","slide":3,"text":"Workspace operations","textPreview":"Workspace operations","textChars":20,"textLines":1,"bbox":[490,259,300,36]}
+{"kind":"textbox","id":"sh/t4nqd4vm","slide":3,"text":"• Manage people and departments\n• Procure, create, and allocate assets\n• Review requests and maintenance\n• Run reports and assist the team","textPreview":"• Manage people and departments | • Procure, create, and allocate assets | • Review requests and maintenance | • Run reports and assist t...","textChars":138,"textLines":4,"bbox":[490,310,300,242]}
+{"kind":"shape","id":"sh/61w72pwv","slide":3,"bbox":[864,204,344,364]}
+{"kind":"textbox","id":"sh/7258budg","slide":3,"text":"Employee","textPreview":"Employee","textChars":8,"textLines":1,"bbox":[886,224,300,30]}
+{"kind":"textbox","id":"sh/kzup0fe5","slide":3,"text":"Personal workspace","textPreview":"Personal workspace","textChars":18,"textLines":1,"bbox":[886,259,300,36]}
+{"kind":"textbox","id":"sh/l0nq9kva","slide":3,"text":"• View assigned assets\n• Request additional equipment\n• Report maintenance issues\n• Track notifications and history","textPreview":"• View assigned assets | • Request additional equipment | • Report maintenance issues | • Track notifications and history","textChars":115,"textLines":4,"bbox":[886,310,300,242]}
+{"kind":"shape","id":"sh/yxc7ypwz","slide":3,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/jyl87udk","slide":3,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/4vy9cje9","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/li4ypl","slide":3,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/jjwjae","slide":4,"title":"03 · PROJECT ARCHITECTURE","textShapes":14}
+{"kind":"textbox","id":"sh/jml032hk","slide":4,"text":"03 · PROJECT ARCHITECTURE","textPreview":"03 · PROJECT ARCHITECTURE","textChars":25,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/4nehc7y5","slide":4,"text":"A React front end routes work through a service-oriented middle tier","textPreview":"A React front end routes work through a service-oriented middle tier","textChars":68,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/5oni5czq","slide":4,"text":"The repository contains Spring Boot services, .NET services, an Express backend, a gateway, and shared MySQL persistence.","textPreview":"The repository contains Spring Boot services, .NET services, an Express backend, a gateway, and shared MySQL persistence.","textChars":121,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"shape","id":"sh/69wzehgb","slide":4,"bbox":[84,265,210,92]}
+{"kind":"textbox","id":"sh/ra507mxw","slide":4,"text":"React UI\nBootstrap · Axios","textPreview":"React UI | Bootstrap · Axios","textChars":26,"textLines":2,"bbox":[96,278,186,66]}
+{"kind":"shape","id":"sh/sbehgry1","slide":4,"bbox":[364,265,190,92]}
+{"kind":"textbox","id":"sh/tcni9cfm","slide":4,"text":"API Gateway\nlocalhost:8080","textPreview":"API Gateway | localhost:8080","textChars":26,"textLines":2,"bbox":[376,278,166,66]}
+{"kind":"shape","id":"sh/edwjihg7","slide":4,"bbox":[364,422,190,82]}
+{"kind":"textbox","id":"sh/fep0bmxs","slide":4,"text":"Discovery\nlocalhost:8761","textPreview":"Discovery | localhost:8761","textChars":24,"textLines":2,"bbox":[376,435,166,56]}
+{"kind":"shape","id":"sh/7alg7uds","slide":4,"bbox":[652,194,224,90]}
+{"kind":"textbox","id":"sh/mpcfepc7","slide":4,"text":"Spring Boot\nAuth · Company · Asset","textPreview":"Spring Boot | Auth · Company · Asset","textChars":34,"textLines":2,"bbox":[664,207,200,64]}
+{"kind":"shape","id":"sh/9cny9kvy","slide":4,"bbox":[652,322,224,90]}
+{"kind":"textbox","id":"sh/8buxgzud","slide":4,"text":".NET services\nAsset · Company","textPreview":".NET services | Asset · Company","textChars":29,"textLines":2,"bbox":[664,335,200,64]}
+{"kind":"shape","id":"sh/zmlw3adg","slide":4,"bbox":[652,450,224,90]}
+{"kind":"textbox","id":"sh/ylcfa5cb","slide":4,"text":"Express backend\nREST + MySQL","textPreview":"Express backend | REST + MySQL","textChars":28,"textLines":2,"bbox":[664,463,200,64]}
+{"kind":"shape","id":"sh/lo3e5kvm","slide":4,"bbox":[1000,318,184,98]}
+{"kind":"textbox","id":"sh/knuxcfu1","slide":4,"text":"MySQL\nTenant data","textPreview":"MySQL | Tenant data","textChars":17,"textLines":2,"bbox":[1012,331,160,72]}
+{"kind":"shape","id":"sh/ji5gfed0","slide":4,"bbox":[936,486,248,72]}
+{"kind":"textbox","id":"sh/ihwfm9cf","slide":4,"text":"Gemini AI · Email · Reports","textPreview":"Gemini AI · Email · Reports","textChars":27,"textLines":1,"bbox":[948,499,224,46]}
+{"kind":"shape","id":"sh/ed0jedwn","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/fe907ix8","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/0fi1g3et","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/10ri98fe","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/210jidwj","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/n290bix4","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/o321knep","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/p4bidsfa","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/i5gz6twf","slide":4,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/j6p0fyx0","slide":4,"text":"The architectural choice: keep the user experience unified while allowing independent services to evolve behind the gateway.","textPreview":"The architectural choice: keep the user experience unified while allowing independent services to evolve behind the gateway.","textChars":124,"textLines":1,"bbox":[84,594,1092,38]}
+{"kind":"shape","id":"sh/l0vmlwzi","slide":4,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/kzmlcryx","slide":4,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/zydkjmhc","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/jjwjae","slide":4,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/6x6f0o","slide":5,"title":"04 · WORKING FLOW","textShapes":24}
+{"kind":"textbox","id":"sh/zqdwva9o","slide":5,"text":"04 · WORKING FLOW","textPreview":"04 · WORKING FLOW","textChars":17,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/0rmdofq9","slide":5,"text":"The operating cycle begins with a tenant and ends with insight","textPreview":"The operating cycle begins with a tenant and ends with insight","textChars":62,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/lsvexkru","slide":5,"text":"AssetFlow carries each business event forward so the next action has the right context.","textPreview":"AssetFlow carries each business event forward so the next action has the right context.","textChars":87,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"shape","id":"sh/qlkvi587","slide":5,"bbox":[72,264,166,188]}
+{"kind":"textbox","id":"sh/rmdwra9s","slide":5,"text":"PLATFORM","textPreview":"PLATFORM","textChars":8,"textLines":1,"bbox":[90,286,130,20]}
+{"kind":"textbox","id":"sh/cnmdkfqd","slide":5,"text":"Create company","textPreview":"Create company","textChars":14,"textLines":1,"bbox":[90,324,132,52]}
+{"kind":"textbox","id":"sh/dovet0ry","slide":5,"text":"Tenant, admin, role, welcome event","textPreview":"Tenant, admin, role, welcome event","textChars":34,"textLines":1,"bbox":[90,398,132,40]}
+{"kind":"shape","id":"sh/2xkvel8b","slide":5,"bbox":[265,264,166,188]}
+{"kind":"textbox","id":"sh/3itwnq9g","slide":5,"text":"WORKSPACE","textPreview":"WORKSPACE","textChars":9,"textLines":1,"bbox":[283,286,130,20]}
+{"kind":"textbox","id":"sh/zq9sf2ls","slide":5,"text":"Set up operations","textPreview":"Set up operations","textChars":17,"textLines":1,"bbox":[283,324,132,52]}
+{"kind":"textbox","id":"sh/ep0bmx4n","slide":5,"text":"Departments, people, vendors, locations","textPreview":"Departments, people, vendors, locations","textChars":39,"textLines":1,"bbox":[283,398,132,40]}
+{"kind":"shape","id":"sh/1srahs3y","slide":5,"bbox":[458,264,166,188]}
+{"kind":"textbox","id":"sh/0rito7md","slide":5,"text":"PROCUREMENT","textPreview":"PROCUREMENT","textChars":11,"textLines":1,"bbox":[476,286,130,20]}
+{"kind":"textbox","id":"sh/nutcj2l4","slide":5,"text":"Create asset","textPreview":"Create asset","textChars":12,"textLines":1,"bbox":[476,324,132,52]}
+{"kind":"textbox","id":"sh/mt0bqx4j","slide":5,"text":"PO, category, serial, warranty","textPreview":"PO, category, serial, warranty","textChars":30,"textLines":1,"bbox":[476,398,132,40]}
+{"kind":"shape","id":"sh/9wbulc3a","slide":5,"bbox":[651,264,166,188]}
+{"kind":"textbox","id":"sh/ov2ts7mp","slide":5,"text":"ALLOCATION","textPreview":"ALLOCATION","textChars":10,"textLines":1,"bbox":[669,286,130,20]}
+{"kind":"textbox","id":"sh/3yps7ilk","slide":5,"text":"Assign equipment","textPreview":"Assign equipment","textChars":16,"textLines":1,"bbox":[669,324,132,52]}
+{"kind":"textbox","id":"sh/2xgbed4f","slide":5,"text":"Employee, date, status, audit","textPreview":"Employee, date, status, audit","textChars":29,"textLines":1,"bbox":[669,398,132,40]}
+{"kind":"shape","id":"sh/6dovmlon","slide":5,"bbox":[844,264,166,188]}
+{"kind":"textbox","id":"sh/7exwvq58","slide":5,"text":"OPERATIONS","textPreview":"OPERATIONS","textChars":10,"textLines":1,"bbox":[862,286,130,20]}
+{"kind":"textbox","id":"sh/sf6dob6t","slide":5,"text":"Request or maintain","textPreview":"Request or maintain","textChars":19,"textLines":1,"bbox":[862,324,132,52]}
+{"kind":"textbox","id":"sh/tgfexgne","slide":5,"text":"Approvals, repairs, notifications","textPreview":"Approvals, repairs, notifications","textChars":33,"textLines":1,"bbox":[862,398,132,40]}
+{"kind":"shape","id":"sh/yp4vi1or","slide":5,"bbox":[1037,264,166,188]}
+{"kind":"textbox","id":"sh/jqdwr65c","slide":5,"text":"INSIGHT","textPreview":"INSIGHT","textChars":7,"textLines":1,"bbox":[1055,286,130,20]}
+{"kind":"textbox","id":"sh/krmdkb6x","slide":5,"text":"Report and ask","textPreview":"Report and ask","textChars":14,"textLines":1,"bbox":[1055,324,132,52]}
+{"kind":"textbox","id":"sh/lsvetgni","slide":5,"text":"Dashboards, exports, AI assistant","textPreview":"Dashboards, exports, AI assistant","textChars":33,"textLines":1,"bbox":[1055,398,132,40]}
+{"kind":"textbox","id":"sh/alkve1ov","slide":5,"text":"Every transition can generate a notification and an audit entry — making the workflow visible, not implicit.","textPreview":"Every transition can generate a notification and an audit entry — making the workflow visible, not implicit.","textChars":108,"textLines":1,"bbox":[142,520,996,42]}
+{"kind":"shape","id":"sh/bmdwn650","slide":5,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/dgjyt47i","slide":5,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/cfahkzqd","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/6x6f0o","slide":5,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/cionh8","slide":6,"title":"05 · ASSET LIFECYCLE","textShapes":18}
+{"kind":"textbox","id":"sh/d8vap0rm","slide":6,"text":"05 · ASSET LIFECYCLE","textPreview":"05 · ASSET LIFECYCLE","textChars":20,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/q5kbu58b","slide":6,"text":"The asset record stays useful long after purchase","textPreview":"The asset record stays useful long after purchase","textChars":49,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/r6tsnq9w","slide":6,"text":"A single asset can move through availability, assignment, repair, transfer, and return without losing its history.","textPreview":"A single asset can move through availability, assignment, repair, transfer, and return without losing its history.","textChars":114,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"shape","id":"sh/432tsvq5","slide":6,"bbox":[86,310,176,98]}
+{"kind":"textbox","id":"sh/54bal0rq","slide":6,"text":"Purchase","textPreview":"Purchase","textChars":8,"textLines":1,"bbox":[98,323,152,72]}
+{"kind":"textbox","id":"sh/ihkbql8z","slide":6,"text":"PO + vendor","textPreview":"PO + vendor","textChars":11,"textLines":1,"bbox":[86,426,176,24]}
+{"kind":"shape","id":"sh/32tsjq9k","slide":6,"bbox":[316,310,176,98]}
+{"kind":"textbox","id":"sh/ozmt4fq9","slide":6,"text":"Available","textPreview":"Available","textChars":9,"textLines":1,"bbox":[328,323,152,72]}
+{"kind":"textbox","id":"sh/p0fuxk7u","slide":6,"text":"Location + warranty","textPreview":"Location + warranty","textChars":19,"textLines":1,"bbox":[316,426,176,24]}
+{"kind":"shape","id":"sh/lg3y9w7i","slide":6,"bbox":[546,310,176,98]}
+{"kind":"textbox","id":"sh/kfuhgrqx","slide":6,"text":"Allocated","textPreview":"Allocated","textChars":9,"textLines":1,"bbox":[558,323,152,72]}
+{"kind":"textbox","id":"sh/jelg7mpc","slide":6,"text":"Employee + date","textPreview":"Employee + date","textChars":15,"textLines":1,"bbox":[546,426,176,24]}
+{"kind":"shape","id":"sh/ydcfeh8r","slide":6,"bbox":[776,310,176,98]}
+{"kind":"textbox","id":"sh/xc3y5c7m","slide":6,"text":"Maintenance","textPreview":"Maintenance","textChars":11,"textLines":1,"bbox":[788,323,152,72]}
+{"kind":"textbox","id":"sh/cbuxc7q1","slide":6,"text":"Issue + repair","textPreview":"Issue + repair","textChars":14,"textLines":1,"bbox":[776,426,176,24]}
+{"kind":"shape","id":"sh/bq1g3mpg","slide":6,"bbox":[1006,310,176,98]}
+{"kind":"textbox","id":"sh/apsfah8v","slide":6,"text":"Returned","textPreview":"Returned","textChars":8,"textLines":1,"bbox":[1018,323,152,72]}
+{"kind":"textbox","id":"sh/h8nyhg7q","slide":6,"text":"Ready again","textPreview":"Ready again","textChars":11,"textLines":1,"bbox":[1006,426,176,24]}
+{"kind":"shape","id":"sh/g7ehobq5","slide":6,"bbox":[124,176,1030,72]}
+{"kind":"textbox","id":"sh/grm1kfeh","slide":6,"text":"Example: Dell Latitude 7440","textPreview":"Example: Dell Latitude 7440","textChars":27,"textLines":1,"bbox":[158,196,330,26]}
+{"kind":"textbox","id":"sh/1svidkf2","slide":6,"text":"Laptop · Dell · PO-001 · Pune Office · warranty tracked","textPreview":"Laptop · Dell · PO-001 · Pune Office · warranty tracked","textChars":55,"textLines":1,"bbox":[520,198,560,24]}
+{"kind":"shape","id":"sh/ep4ji5gb","slide":6,"bbox":[166,512,936,70]}
+{"kind":"textbox","id":"sh/fqd0baxw","slide":6,"text":"Status, owner, location, history, and accountability travel together.","textPreview":"Status, owner, location, history, and accountability travel together.","textChars":69,"textLines":1,"bbox":[204,535,860,24]}
+{"kind":"shape","id":"sh/snm1gfy5","slide":6,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/tovi9kfq","slide":6,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/6lkje5gf","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/cionh8","slide":6,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/edvtn0","slide":7,"title":"06 · MULTI-TENANT SECURITY","textShapes":18}
+{"kind":"textbox","id":"sh/94jepkbi","slide":7,"text":"06 · MULTI-TENANT SECURITY","textPreview":"06 · MULTI-TENANT SECURITY","textChars":26,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/21svu5s7","slide":7,"text":"One platform, isolated workspaces","textPreview":"One platform, isolated workspaces","textChars":33,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/n21wnats","slide":7,"text":"The company scope is carried through authentication, service access, and business records so users only see their own organization.","textPreview":"The company scope is carried through authentication, service access, and business records so users only see their own organization.","textChars":131,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"shape","id":"sh/wrux0fa9","slide":7,"bbox":[502,176,276,76]}
+{"kind":"textbox","id":"sh/xs3etkru","slide":7,"text":"SUPER ADMIN\nplatform control","textPreview":"SUPER ADMIN | platform control","textChars":28,"textLines":2,"bbox":[514,189,252,50]}
+{"kind":"shape","id":"sh/apsfyps3","slide":7,"bbox":[122,366,272,82]}
+{"kind":"textbox","id":"sh/bqlwra9o","slide":7,"text":"COMPANY A\nadmin + employees","textPreview":"COMPANY A | admin + employees","textChars":27,"textLines":2,"bbox":[134,379,248,56]}
+{"kind":"shape","id":"sh/svqdovap","slide":7,"bbox":[504,366,272,82]}
+{"kind":"textbox","id":"sh/dwzeh0ba","slide":7,"text":"COMPANY B\nadmin + employees","textPreview":"COMPANY B | admin + employees","textChars":27,"textLines":2,"bbox":[516,379,248,56]}
+{"kind":"shape","id":"sh/lczmdgvy","slide":7,"bbox":[886,366,272,82]}
+{"kind":"textbox","id":"sh/kbql4bed","slide":7,"text":"COMPANY C\nadmin + employees","textPreview":"COMPANY C | admin + employees","textChars":27,"textLines":2,"bbox":[898,379,248,56]}
+{"kind":"shape","id":"sh/jah4b6xs","slide":7,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/y98321w7","slide":7,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/tgzmhgvu","slide":7,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/8fql8be9","slide":7,"text":"Tenant boundary","textPreview":"Tenant boundary","textChars":15,"textLines":1,"bbox":[522,280,236,22]}
+{"kind":"textbox","id":"sh/7eh4fqdo","slide":7,"text":"JWT identity","textPreview":"JWT identity","textChars":12,"textLines":1,"bbox":[124,504,180,24]}
+{"kind":"textbox","id":"sh/6d836lwj","slide":7,"text":"Who is the user?","textPreview":"Who is the user?","textChars":16,"textLines":1,"bbox":[124,532,180,24]}
+{"kind":"textbox","id":"sh/h4jml0v6","slide":7,"text":"Company scope","textPreview":"Company scope","textChars":13,"textLines":1,"bbox":[412,504,180,24]}
+{"kind":"textbox","id":"sh/g3a5cvel","slide":7,"text":"Which workspace?","textPreview":"Which workspace?","textChars":16,"textLines":1,"bbox":[412,532,180,24]}
+{"kind":"textbox","id":"sh/0nipozmh","slide":7,"text":"Audit trail","textPreview":"Audit trail","textChars":11,"textLines":1,"bbox":[700,504,180,24]}
+{"kind":"textbox","id":"sh/1or6h432","slide":7,"text":"What changed?","textPreview":"What changed?","textChars":13,"textLines":1,"bbox":[700,532,180,24]}
+{"kind":"textbox","id":"sh/el0nmp4r","slide":7,"text":"Role routing","textPreview":"Role routing","textChars":12,"textLines":1,"bbox":[988,504,180,24]}
+{"kind":"textbox","id":"sh/fm9ofulc","slide":7,"text":"What can they do?","textPreview":"What can they do?","textChars":17,"textLines":1,"bbox":[988,532,180,24]}
+{"kind":"shape","id":"sh/obipsjmt","slide":7,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/pcb6lo3e","slide":7,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/2907q94n","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/edvtn0","slide":7,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/c7vkmc","slide":8,"title":"07 · CONTRIBUTION AND METHODOLOGY","textShapes":30}
+{"kind":"textbox","id":"sh/pg7y9wjq","slide":8,"text":"07 · CONTRIBUTION AND METHODOLOGY","textPreview":"07 · CONTRIBUTION AND METHODOLOGY","textChars":33,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/2dgzeh0f","slide":8,"text":"The project was built as a coordinated, full-stack delivery","textPreview":"The project was built as a coordinated, full-stack delivery","textChars":59,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/nepg7m1k","slide":8,"text":"The repository shows a working combination of frontend experience, service design, database integration, security, and collaboration practices.","textPreview":"The repository shows a working combination of frontend experience, service design, database integration, security, and collaboration prac...","textChars":143,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"textbox","id":"sh/0byhc7i9","slide":8,"text":"Contribution areas","textPreview":"Contribution areas","textChars":18,"textLines":1,"bbox":[72,208,410,28]}
+{"kind":"shape","id":"sh/1c7y5cju","slide":8,"bbox":[76,263,26,26]}
+{"kind":"textbox","id":"sh/e9wzah03","slide":8,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[76,269,26,16]}
+{"kind":"textbox","id":"sh/fapg321o","slide":8,"text":"Experience","textPreview":"Experience","textChars":10,"textLines":1,"bbox":[120,260,156,24]}
+{"kind":"textbox","id":"sh/k7ihobid","slide":8,"text":"React pages, role-based navigation, dashboards, reports","textPreview":"React pages, role-based navigation, dashboards, reports","textChars":55,"textLines":1,"bbox":[290,260,330,40]}
+{"kind":"shape","id":"sh/l8rihgjy","slide":8,"bbox":[76,338,26,26]}
+{"kind":"textbox","id":"sh/tkra1cve","slide":8,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[76,344,26,16]}
+{"kind":"textbox","id":"sh/8ji9s7ut","slide":8,"text":"Services","textPreview":"Services","textChars":8,"textLines":1,"bbox":[120,335,156,24]}
+{"kind":"textbox","id":"sh/7i9sz2d8","slide":8,"text":"Spring Boot microservices, .NET services, Express APIs","textPreview":"Spring Boot microservices, .NET services, Express APIs","textChars":54,"textLines":1,"bbox":[290,335,330,40]}
+{"kind":"shape","id":"sh/6x0rqxcn","slide":8,"bbox":[76,413,26,26]}
+{"kind":"textbox","id":"sh/lwraxsv2","slide":8,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[76,419,26,16]}
+{"kind":"textbox","id":"sh/kvi9onux","slide":8,"text":"Controls","textPreview":"Controls","textChars":8,"textLines":1,"bbox":[120,410,156,24]}
+{"kind":"textbox","id":"sh/ju98v2dc","slide":8,"text":"JWT authentication, tenant scope, audit and notification flows","textPreview":"JWT authentication, tenant scope, audit and notification flows","textChars":62,"textLines":1,"bbox":[290,410,330,40]}
+{"kind":"shape","id":"sh/ytgrmxwr","slide":8,"bbox":[76,488,26,26]}
+{"kind":"textbox","id":"sh/psba9wvm","slide":8,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[76,494,26,16]}
+{"kind":"textbox","id":"sh/4r290ru1","slide":8,"text":"Intelligence","textPreview":"Intelligence","textChars":12,"textLines":1,"bbox":[120,485,156,24]}
+{"kind":"textbox","id":"sh/o7ulsz69","slide":8,"text":"Gemini assistant, search, exports, operational summaries","textPreview":"Gemini assistant, search, exports, operational summaries","textChars":56,"textLines":1,"bbox":[290,485,330,40]}
+{"kind":"shape","id":"sh/9832l47u","slide":8,"bbox":[700,204,478,330]}
+{"kind":"textbox","id":"sh/m5c3qpoj","slide":8,"text":"Delivery loop","textPreview":"Delivery loop","textChars":13,"textLines":1,"bbox":[736,236,390,30]}
+{"kind":"shape","id":"sh/n6lkjupo","slide":8,"bbox":[738,296,22,22]}
+{"kind":"textbox","id":"sh/03ulof6d","slide":8,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[738,301,22,14]}
+{"kind":"textbox","id":"sh/1432hk7y","slide":8,"text":"Discover the business flow","textPreview":"Discover the business flow","textChars":26,"textLines":1,"bbox":[778,294,350,24]}
+{"kind":"shape","id":"sh/e1s3mpo7","slide":8,"bbox":[738,338,22,22]}
+{"kind":"textbox","id":"sh/z21kfaps","slide":8,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[738,343,22,14]}
+{"kind":"textbox","id":"sh/cfalkf61","slide":8,"text":"Divide into services and roles","textPreview":"Divide into services and roles","textChars":30,"textLines":1,"bbox":[778,336,350,24]}
+{"kind":"shape","id":"sh/d0j2dk7m","slide":8,"bbox":[738,380,22,22]}
+{"kind":"textbox","id":"sh/fah4na9o","slide":8,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[738,385,22,14]}
+{"kind":"textbox","id":"sh/u983u5s3","slide":8,"text":"Build in small vertical slices","textPreview":"Build in small vertical slices","textChars":30,"textLines":1,"bbox":[778,378,350,24]}
+{"kind":"shape","id":"sh/hcjmp0ru","slide":8,"bbox":[738,422,22,22]}
+{"kind":"textbox","id":"sh/gbqlwfa9","slide":8,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[738,427,22,14]}
+{"kind":"textbox","id":"sh/3y14ra9k","slide":8,"text":"Verify APIs, data, and UI","textPreview":"Verify APIs, data, and UI","textChars":25,"textLines":1,"bbox":[778,420,350,24]}
+{"kind":"shape","id":"sh/2ds3y5sz","slide":8,"bbox":[738,464,22,22]}
+{"kind":"textbox","id":"sh/p0jmtkrq","slide":8,"text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[738,469,22,14]}
+{"kind":"textbox","id":"sh/4zal0fq5","slide":8,"text":"Commit, review, and integrate","textPreview":"Commit, review, and integrate","textChars":29,"textLines":1,"bbox":[778,462,350,24]}
+{"kind":"textbox","id":"sh/r214vu9w","slide":8,"text":"A phased, Git-backed workflow keeps a complex platform understandable.","textPreview":"A phased, Git-backed workflow keeps a complex platform understandable.","textChars":70,"textLines":1,"bbox":[738,494,390,32]}
+{"kind":"shape","id":"sh/q1s32p8b","slide":8,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/a50nytg7","slide":8,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/b69o7yhs","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/c7vkmc","slide":8,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/eup8zb","slide":9,"title":"08 · TESTING APPROACH","textShapes":18}
+{"kind":"textbox","id":"sh/0z2xkre5","slide":9,"text":"08 · TESTING APPROACH","textPreview":"08 · TESTING APPROACH","textChars":21,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/zytwrmdk","slide":9,"text":"Quality is checked at the boundaries where risk enters","textPreview":"Quality is checked at the boundaries where risk enters","textChars":54,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/yxkfihwf","slide":9,"text":"The testing approach follows the architecture: verify data, APIs, service startup, and the user journey separately, then together.","textPreview":"The testing approach follows the architecture: verify data, APIs, service startup, and the user journey separately, then together.","textChars":130,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"shape","id":"sh/dwbepcvu","slide":9,"bbox":[72,246,250,238]}
+{"kind":"textbox","id":"sh/cv2xg7e9","slide":9,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[94,270,46,24]}
+{"kind":"textbox","id":"sh/bu9wn2do","slide":9,"text":"Data layer","textPreview":"Data layer","textChars":10,"textLines":1,"bbox":[94,314,198,52]}
+{"kind":"textbox","id":"sh/qt0fexw3","slide":9,"text":"Schema scripts, constraints, tenant-scoped queries","textPreview":"Schema scripts, constraints, tenant-scoped queries","textChars":50,"textLines":1,"bbox":[94,390,202,60]}
+{"kind":"shape","id":"sh/psrelcvi","slide":9,"bbox":[358,246,250,238]}
+{"kind":"textbox","id":"sh/orixc7ex","slide":9,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[380,270,46,24]}
+{"kind":"textbox","id":"sh/ulk3a1c7","slide":9,"text":"Service layer","textPreview":"Service layer","textChars":13,"textLines":1,"bbox":[380,314,198,52]}
+{"kind":"textbox","id":"sh/fmd4j6ts","slide":9,"text":"Spring Boot context tests and backend startup checks","textPreview":"Spring Boot context tests and backend startup checks","textChars":52,"textLines":1,"bbox":[380,390,202,60]}
+{"kind":"shape","id":"sh/gnmlcbud","slide":9,"bbox":[644,246,250,238]}
+{"kind":"textbox","id":"sh/hovmlgby","slide":9,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[666,270,46,24]}
+{"kind":"textbox","id":"sh/6xk361cb","slide":9,"text":"API layer","textPreview":"API layer","textChars":9,"textLines":1,"bbox":[666,314,198,52]}
+{"kind":"textbox","id":"sh/7yt4fmtw","slide":9,"text":"REST endpoint checks with valid and invalid role scopes","textPreview":"REST endpoint checks with valid and invalid role scopes","textChars":55,"textLines":1,"bbox":[666,390,202,60]}
+{"kind":"shape","id":"sh/sz2l8ruh","slide":9,"bbox":[930,246,250,238]}
+{"kind":"textbox","id":"sh/tkbmhwbm","slide":9,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[952,270,46,24]}
+{"kind":"textbox","id":"sh/it032hcz","slide":9,"text":"UI layer","textPreview":"UI layer","textChars":8,"textLines":1,"bbox":[952,314,198,52]}
+{"kind":"textbox","id":"sh/jut4bmtk","slide":9,"text":"Manual and end-to-end checks for role flows and exports","textPreview":"Manual and end-to-end checks for role flows and exports","textChars":55,"textLines":1,"bbox":[952,390,202,60]}
+{"kind":"textbox","id":"sh/nyp03i9c","slide":9,"text":"Test the happy path — then test the boundary: wrong role, wrong tenant, missing dependency, and unavailable integration.","textPreview":"Test the happy path — then test the boundary: wrong role, wrong tenant, missing dependency, and unavailable integration.","textChars":120,"textLines":1,"bbox":[126,554,1028,42]}
+{"kind":"shape","id":"sh/mxgjadsr","slide":9,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/907i5sri","slide":9,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/8zy1cnax","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/eup8zb","slide":9,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/docd2t","slide":10,"title":"09 · FUTURE EXTENSIONS AND LESSONS","textShapes":14}
+{"kind":"textbox","id":"sh/utcrmlwb","slide":10,"text":"09 · FUTURE EXTENSIONS AND LESSONS","textPreview":"09 · FUTURE EXTENSIONS AND LESSONS","textChars":34,"textLines":1,"bbox":[72,38,420,24]}
+{"kind":"textbox","id":"sh/hgnqx0f2","slide":10,"text":"The foundation is ready for deeper automation","textPreview":"The foundation is ready for deeper automation","textChars":45,"textLines":1,"bbox":[72,68,1070,54]}
+{"kind":"textbox","id":"sh/wfe9oveh","slide":10,"text":"AssetFlow already closes the core lifecycle; the next step is to make the platform more predictive, observable, and self-service.","textPreview":"AssetFlow already closes the core lifecycle; the next step is to make the platform more predictive, observable, and self-service.","textChars":129,"textLines":1,"bbox":[72,128,1050,34]}
+{"kind":"textbox","id":"sh/ji58zqxs","slide":10,"text":"Future extensions","textPreview":"Future extensions","textChars":17,"textLines":1,"bbox":[72,204,420,28]}
+{"kind":"shape","id":"sh/ihwrqlwn","slide":10,"bbox":[72,258,514,64]}
+{"kind":"textbox","id":"sh/5knq10fy","slide":10,"text":"Predictive maintenance","textPreview":"Predictive maintenance","textChars":22,"textLines":1,"bbox":[94,270,205,22]}
+{"kind":"textbox","id":"sh/4je9sved","slide":10,"text":"Use repair history and usage signals to surface risk earlier.","textPreview":"Use repair history and usage signals to surface risk earlier.","textChars":61,"textLines":1,"bbox":[310,268,250,42]}
+{"kind":"shape","id":"sh/zm18n6xo","slide":10,"bbox":[72,344,514,64]}
+{"kind":"textbox","id":"sh/yls7e1w3","slide":10,"text":"Inventory intelligence","textPreview":"Inventory intelligence","textChars":22,"textLines":1,"bbox":[94,356,205,22]}
+{"kind":"textbox","id":"sh/o7idkre1","slide":10,"text":"Forecast demand and optimize procurement across tenants.","textPreview":"Forecast demand and optimize procurement across tenants.","textChars":56,"textLines":1,"bbox":[310,354,250,42]}
+{"kind":"shape","id":"sh/p8retwvm","slide":10,"bbox":[72,430,514,64]}
+{"kind":"textbox","id":"sh/250vihwv","slide":10,"text":"Operational integrations","textPreview":"Operational integrations","textChars":24,"textLines":1,"bbox":[94,442,205,22]}
+{"kind":"textbox","id":"sh/369wrmdg","slide":10,"text":"Connect email, identity, finance, and device management.","textPreview":"Connect email, identity, finance, and device management.","textChars":56,"textLines":1,"bbox":[310,440,250,42]}
+{"kind":"shape","id":"sh/cb2xorex","slide":10,"bbox":[672,204,506,304]}
+{"kind":"textbox","id":"sh/dcbexwvi","slide":10,"text":"Lessons learned","textPreview":"Lessons learned","textChars":15,"textLines":1,"bbox":[710,236,420,30]}
+{"kind":"textbox","id":"sh/q90vm1w7","slide":10,"text":"• Complexity becomes manageable when the business flow is explicit.\n• Technology boundaries matter less when contracts are clear.\n• Tenant isolation must be designed into every read and write.\n• Auditability and failure handling are product features, not afterthoughts.","textPreview":"• Complexity becomes manageable when the business flow is explicit. | • Technology boundaries matter less when contracts are clear. | • T...","textChars":269,"textLines":4,"bbox":[710,288,420,166]}
+{"kind":"shape","id":"sh/ba9wvmdc","slide":10,"bbox":[72,682,1136,0]}
+{"kind":"textbox","id":"sh/sfydc7et","slide":10,"text":"ASSETFLOW · PROJECT REVIEW","textPreview":"ASSETFLOW · PROJECT REVIEW","textChars":26,"textLines":1,"bbox":[72,690,440,18]}
+{"kind":"textbox","id":"sh/tg7elcve","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1166,688,42,20]}
+{"kind":"notes","id":"nt/docd2t","slide":10,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\n"}
+{"kind":"slide","id":"sl/zgd4zq","slide":11,"title":"ASSETFLOW","textShapes":9}
+{"kind":"textbox","id":"sh/wfy1knel","slide":11,"text":"ASSETFLOW","textPreview":"ASSETFLOW","textChars":9,"textLines":1,"bbox":[72,72,420,28]}
+{"kind":"textbox","id":"sh/vepkridg","slide":11,"text":"From purchase\nto proof of control.","textPreview":"From purchase | to proof of control.","textChars":34,"textLines":2,"bbox":[72,152,690,122]}
+{"kind":"textbox","id":"sh/udwjidwv","slide":11,"text":"A secure, multi-tenant asset lifecycle platform that makes every item, action, and decision accountable.","textPreview":"A secure, multi-tenant asset lifecycle platform that makes every item, action, and decision accountable.","textChars":104,"textLines":1,"bbox":[76,320,670,78]}
+{"kind":"shape","id":"sh/5472xcvi","slide":11,"bbox":[800,186,150,72]}
+{"kind":"textbox","id":"sh/4jy1o7ex","slide":11,"text":"People","textPreview":"People","textChars":6,"textLines":1,"bbox":[800,210,150,24]}
+{"kind":"shape","id":"sh/jipkv2dc","slide":11,"bbox":[978,186,150,72]}
+{"kind":"textbox","id":"sh/ihgjmxwr","slide":11,"text":"Assets","textPreview":"Assets","textChars":6,"textLines":1,"bbox":[978,210,150,24]}
+{"kind":"shape","id":"sh/t8r2lcve","slide":11,"bbox":[800,298,150,72]}
+{"kind":"textbox","id":"sh/s7i1s7et","slide":11,"text":"History","textPreview":"History","textChars":7,"textLines":1,"bbox":[800,322,150,24]}
+{"kind":"shape","id":"sh/29gzmxcb","slide":11,"bbox":[978,298,150,72]}
+{"kind":"textbox","id":"sh/nap0f2dw","slide":11,"text":"Insight","textPreview":"Insight","textChars":7,"textLines":1,"bbox":[978,322,150,24]}
+{"kind":"textbox","id":"sh/obyho7uh","slide":11,"text":"Thank you","textPreview":"Thank you","textChars":9,"textLines":1,"bbox":[76,612,200,24]}
+{"kind":"textbox","id":"sh/pw7ihcv2","slide":11,"text":"Questions · discussion · next step","textPreview":"Questions · discussion · next step","textChars":34,"textLines":1,"bbox":[76,642,360,22]}
+{"kind":"notes","id":"nt/zgd4zq","slide":11,"text":"[Sources]\n- AssetFlow repository: local project README, source code, configuration, and package manifests.\n- User-provided reference images: D:/Downloads/project ppt/*.jpeg (used as visual direction only).\nClose: the workflow is the product — AssetFlow makes it visible, secure, and repeatable."}
