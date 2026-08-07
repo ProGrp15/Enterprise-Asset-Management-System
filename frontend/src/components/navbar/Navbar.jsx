@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaBuilding, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 import { useThemeContext } from "../../context/ThemeContext";
@@ -13,10 +13,18 @@ const navItems = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useThemeContext();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <nav className="navbar navbar-expand-lg sticky-top marketing-nav">
+    <nav className={`navbar navbar-expand-lg sticky-top marketing-nav ${scrolled ? 'navbar-scrolled' : ''}`}>
       <div className="container">
         <NavLink className="navbar-brand d-flex align-items-center gap-2" to="/">
           <span className="brand-mark">

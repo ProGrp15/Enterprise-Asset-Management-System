@@ -1,0 +1,19 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.4.6">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Assetflow.Gateway\Assetflow.Gateway.csproj" />
+    <ProjectReference Include="..\Assetflow.AuthService\Assetflow.AuthService.csproj" />
+    <ProjectReference Include="..\Assetflow.AssetService\Assetflow.AssetService.csproj" />
+    <ProjectReference Include="..\Assetflow.CompanyService\Assetflow.CompanyService.csproj" />
+    <ProjectReference Include="..\Assetflow.NotificationService\Assetflow.NotificationService.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>98851e0c-49f4-4a05-ae54-21523f89f683</UserSecretsId>
+  </PropertyGroup>
+
+</Project>
