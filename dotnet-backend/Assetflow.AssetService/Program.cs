@@ -1,5 +1,6 @@
 using System.Text;
 using Assetflow.AssetService.Services;
+using Assetflow.Common.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MySqlConnector;
@@ -15,6 +16,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connectionString));
 
 builder.Services.AddScoped<AssetDataService>();
+
+// Register HttpClient and Discovery Registration Service
+builder.Services.AddHttpClient("DiscoveryClient");
+builder.Services.AddHostedService<DiscoveryRegistrationService>();
 
 DefaultTypeMap.MatchNamesWithUnderscores = true;
 
@@ -57,4 +62,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// Health check endpoint for discovery server
+app.MapGet("/health", () => Results.Ok(new { status = "UP", service = "Assetflow.AssetService", timestamp = DateTime.UtcNow }));
+
 app.Run();
