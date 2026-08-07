@@ -1,5 +1,6 @@
 using System.Text;
 using Assetflow.CompanyService.Services;
+using Assetflow.Common.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MySqlConnector;
@@ -18,6 +19,10 @@ builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connecti
 
 // Add CompanyDataService
 builder.Services.AddScoped<CompanyDataService>();
+
+// Register HttpClient and Discovery Registration Service
+builder.Services.AddHttpClient("DiscoveryClient");
+builder.Services.AddHostedService<DiscoveryRegistrationService>();
 
 // Configure Dapper to map snake_case to CamelCase (or handle it dynamically)
 DefaultTypeMap.MatchNamesWithUnderscores = true;
@@ -66,5 +71,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Health check endpoint for discovery server
+app.MapGet("/health", () => Results.Ok(new { status = "UP", service = "Assetflow.CompanyService", timestamp = DateTime.UtcNow }));
 
 app.Run();

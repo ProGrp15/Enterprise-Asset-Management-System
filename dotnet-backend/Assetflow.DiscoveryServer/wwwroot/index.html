@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow .NET Service Discovery Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #38bdf8;
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--accent-color) !important;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .stat-card {
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .table-custom {
+            color: var(--text-primary);
+        }
+
+        .table-custom th {
+            background-color: #0f172a;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--card-border);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .table-custom td {
+            border-color: var(--card-border);
+            vertical-align: middle;
+        }
+
+        .badge-up {
+            background-color: rgba(34, 197, 94, 0.2);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .badge-down {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .pulse-icon {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+            background-color: var(--success-color);
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            animation: pulse 1.6s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="fa-solid fa-network-wired"></i>
+                <span>AssetFlow Discovery Server</span>
+            </a>
+            <span class="badge bg-primary px-3 py-2">.NET 8 Microservice Architecture</span>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <!-- Overview Stats -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="glass-card p-4 stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-secondary small fw-bold">TOTAL SERVICES</div>
+                            <div class="fs-2 fw-bold text-light" id="totalServicesCount">0</div>
+                        </div>
+                        <div class="fs-1 text-info"><i class="fa-solid fa-cubes"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-4 stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-secondary small fw-bold">HEALTHY INSTANCES</div>
+                            <div class="fs-2 fw-bold text-success" id="healthyInstancesCount">0</div>
+                        </div>
+                        <div class="fs-1 text-success"><i class="fa-solid fa-circle-check"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-4 stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-secondary small fw-bold">SYSTEM STATUS</div>
+                            <div class="fs-4 fw-bold text-light mt-1">
+                                <span class="pulse-icon"></span> OPERATIONAL
+                            </div>
+                        </div>
+                        <div class="fs-1 text-primary"><i class="fa-solid fa-heart-pulse"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Instances Table -->
+        <div class="glass-card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0 text-light"><i class="fa-solid fa-server me-2"></i> Registered Microservices</h4>
+                <div class="d-flex gap-2">
+                    <input type="text" id="searchInput" class="form-control form-control-sm bg-dark text-light border-secondary" placeholder="Search service...">
+                    <button class="btn btn-sm btn-outline-info text-nowrap" onclick="fetchServices()">
+                        <i class="fa-solid fa-rotate me-1"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-custom mb-0">
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Instance ID</th>
+                            <th>Service URL</th>
+                            <th>Health Endpoint</th>
+                            <th>Status</th>
+                            <th>Last Heartbeat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="servicesTableBody">
+                        <tr>
+                            <td colspan="6" class="text-center text-secondary py-4">Loading service registry...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchServices() {
+            try {
+                const response = await fetch('/api/discovery/services');
+                const data = await response.json();
+                
+                const services = data.services || {};
+                const tableBody = document.getElementById('servicesTableBody');
+                tableBody.innerHTML = '';
+
+                let totalServices = 0;
+                let healthyInstances = 0;
+                let allInstances = [];
+
+                for (const [serviceName, instanceList] of Object.entries(services)) {
+                    totalServices++;
+                    instanceList.forEach(inst => {
+                        allInstances.push(inst);
+                        if (inst.status === 'UP') healthyInstances++;
+                    });
+                }
+
+                document.getElementById('totalServicesCount').textContent = totalServices;
+                document.getElementById('healthyInstancesCount').textContent = healthyInstances;
+
+                if (allInstances.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-secondary py-4">No microservices currently registered. Send heartbeats to register automatically.</td></tr>`;
+                    return;
+                }
+
+                allInstances.forEach(inst => {
+                    const heartbeatAgo = Math.round((new Date() - new Date(inst.lastHeartbeat)) / 1000);
+                    const statusBadge = inst.status === 'UP' 
+                        ? `<span class="badge-up"><i class="fa-solid fa-check me-1"></i> UP</span>`
+                        : `<span class="badge-down"><i class="fa-solid fa-triangle-exclamation me-1"></i> DOWN</span>`;
+
+                    const row = `
+                        <tr>
+                            <td><strong class="text-info">${inst.serviceName.toUpperCase()}</strong></td>
+                            <td><code>${inst.instanceId}</code></td>
+                            <td><a href="${inst.serviceUrl}" target="_blank" class="text-light">${inst.serviceUrl}</a></td>
+                            <td><a href="${inst.healthUrl}" target="_blank" class="text-secondary small">${inst.healthUrl}</a></td>
+                            <td>${statusBadge}</td>
+                            <td><span class="text-secondary small">${heartbeatAgo}s ago</span></td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            } catch (err) {
+                console.error("Failed to fetch discovery registry:", err);
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#servicesTableBody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+
+        // Initial load & auto refresh every 5 seconds
+        fetchServices();
+        setInterval(fetchServices, 5000);
+    </script>
+</body>
+</html>
